@@ -4,6 +4,7 @@
 #  @date January 21st, 2021
 
 import math
+from enum import Enum
 
 ## @brief An ADT for triangles
 #  @details A triangle composed of three sides; x, y, and z
@@ -30,7 +31,7 @@ class TriangleT:
     #  @details They are considered to be equal if all side lengths are equal.
     #           It assumes the input is of type TriangleT.
     #  @param e TriangleT to compare to current object
-    #  @return True if the argument and the current object are equal
+    #  @return True if the argument and the current object are equal, else False
     def equal(self, e):
     	list1 = [e.x, e.y, e.z]
         list2 = [self.x, self.y, self.z]
@@ -57,8 +58,10 @@ class TriangleT:
         return math.sqrt(s*(s-self.x)*(s-self.y)*(s-self.z))
 
     ## @brief Checks whether or not the triangle is valid
-    #  @details Uses equation from this source: 
+    #  @details Considered valid if the sum of two sides is smaller than third side.
+    #           Uses equation from this source: 
     #           https://www.wikihow.com/Determine-if-Three-Side-Lengths-Are-a-Triangle
+    #  @return True if valid triangle, else False
     def is_valid(self):
         x = self.x
         y = self.y
@@ -67,3 +70,15 @@ class TriangleT:
             return True
         else:
             return False
+
+class TriType(Enum):
+    ## @brief Constructor for TriType
+    #  @details Creates an element of set {equilat, isosceles, scalene, right}
+    #  @param x Integer representing side x
+    #  @param y Integer representing side y
+    #  @param z Integer representing side z
+    def __init__ (self, equilat, isosceles, scalene, right):
+        self.e = equilat
+        self.i = isosceles
+        self.s = scalene
+        self.r = right
