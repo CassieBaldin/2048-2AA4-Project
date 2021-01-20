@@ -11,7 +11,8 @@ import math
 class TriangleT:
 
     ## @brief Constructor for TriangleT
-    #  @details Creates a triangle composed of three sides; x, y, and z
+    #  @details Creates a triangle composed of three sides; x, y, and z. 
+    #           It is assumed that the input sides will be integer values.
     #  @param x Integer representing side x
     #  @param y Integer representing side y
     #  @param z Integer representing side z
@@ -26,9 +27,16 @@ class TriangleT:
         return (self.x, self.y, self.z)
     
     ## @brief Checks if argument and current object are equal
+    #  @details They are considered to be equal if all side lengths are equal.
+    #           It assumes the input is of type TriangleT.
+    #  @param e TriangleT to compare to current object
     #  @return True if the argument and the current object are equal
     def equal(self, e):
-        if (e.x == self.x) and (e.y == self.y) and (e.z == self.z):
+    	list1 = [e.x, e.y, e.z]
+        list2 = [self.x, self.y, self.z]
+        list1.sort()
+        list2.sort()
+        if (list1[0] == list2[0]) and (list1[1] == list2[1]) and (list1[2] == list2[2]):
             return True
         else:
             return False
@@ -39,16 +47,18 @@ class TriangleT:
         return self.x + self.y + self.z
 
     ## @brief Gets the area of the current triangle
+    #  @details Uses equation from this source: 
+    #           https://www.mathsisfun.com/geometry/herons-formula.html
     #  @return Float representing the area of the triangle
     def area(self):
         if (self.is_valid() == False):
             return "This is not a valid triangle"
-        else:
-            s = self.perim()/2
-            return math.sqrt(s*(s-self.x)*(s-self.y)*(s-self.z))
+        s = self.perim()/2
+        return math.sqrt(s*(s-self.x)*(s-self.y)*(s-self.z))
 
     ## @brief Checks whether or not the triangle is valid
-    #  @return True if valid triangle
+    #  @details Uses equation from this source: 
+    #           https://www.wikihow.com/Determine-if-Three-Side-Lengths-Are-a-Triangle
     def is_valid(self):
         x = self.x
         y = self.y
