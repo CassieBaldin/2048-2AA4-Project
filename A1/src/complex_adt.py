@@ -65,65 +65,71 @@ class ComplexT:
             return False
 
     ## @brief Gets the complex conjugate of the current object
-    #  @details It assumes that it mutates the current object to its conjugate
+    #  @details It assumes that it makes a new ComplexT that is the conjugate
+    #           of the current object
+    #  @return The complex conjugate of the current object as a ComplexT
     def conj(self):
-        self.y = self.y*(-1)
+        new_y = self.y*(-1)
+        return ComplexT(self.x, new_y)
     
     ## @brief Adds argument object to current object
-    #  @details It assumes the input is of type ComplexT and mutates current
-    #           argument to be the addition of the argument and current object
+    #  @details It assumes the input is of type ComplexT and makes a new 
+    #           ComplexT that is the addition of the argument and current object
     #  @param a ComplexT to add to current object
+    #  @return The addition of the current object and argument as a ComplexT
     def add(self, a):
-        self.x = self.x + a.x
-        self.y = self.y + a.y
+        new_x = self.x + a.x
+        new_y = self.y + a.y
+        return ComplexT(new_x, new_y)
 
-    ## @brief Adds argument object to current object
-    #  @details It assumes the input is of type ComplexT and mutates the 
-    #           current argument to be the subtraction of the argument from 
-    #           the current object
-    #  @param s ComplexT to subtract from current object
+    ## @brief Subtracts argument object from current object
+    #  @details It assumes the input is of type ComplexT and makes a new 
+    #           ComplexT that is the subtraction of the argument and current object
+    #  @param a ComplexT to subtract from current object
+    #  @return The subtraction of argument from current object as a ComplexT
     def sub(self, s):
-        self.x = self.x - s.x
-        self.y = self.y - s.y
+        new_x = self.x - s.x
+        new_y = self.y - s.y
+        return ComplexT(new_x, new_y)
 
     ## @brief Multiplies argument object to current object
-    #  @details It assumes the input is of type ComplexT and mutates the 
-    #           current argument to be the multiplication of the argument
+    #  @details It assumes the input is of type ComplexT and makes a new 
+    #           ComplexT that is the multiplication of argument and current object
     #           and the current object
     #  @param m ComplexT to multiply to current object
+    #  @return The multiplication of argument and current object as a ComplexT
     def mult(self, m):
-        x_val = self.x*m.x - self.y*m.y
-        y_val = self.x*m.y + self.y*m.x
-        self.x = x_val
-        self.y = y_val
+        new_x = self.x*m.x - self.y*m.y
+        new_y = self.x*m.y + self.y*m.x
+        return ComplexT(new_x, new_y)
 
     ## @brief Gets the reciprocal of the current object
-    #  @details It assumes that it mutates the current argument to be the 
-    #           reciprocal of the current object
+    #  @details It assumes that it makes a new ComplexT that is the reciprocal
+    #           of the current object
     #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and
     #          the reciprocal is "undefined" as per the equation you cannot
     #          divide by zero
+    #  @return The division of current object by argument as a ComplexT
     def recip(self):
         if ((self.x == 0) and (self.y == 0)):
             raise ZeroDivisionError("Cannot divide by zero: undefined")
-        x_val = self.x/(self.x**2 + self.y**2)
-        y_val = (-1)*self.y/(self.x**2 + self.y**2)
-        self.x = x_val
-        self.y = y_val
+        new_x = self.x/(self.x**2 + self.y**2)
+        new_y = (-1)*self.y/(self.x**2 + self.y**2)
+        return ComplexT(new_x, new_y)
 
     ## @brief Divides current object by argument object
-    #  @details It assumes the input is of type ComplexT and mutates the 
-    #           current argument to be the division of the current object
+    #  @details It assumes the input is of type ComplexT and makes a new 
+    #           ComplexT that is the division of the current object
     #           by the argument
     #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and
     #          the division is "undefined" as per the equation you cannot
     #          divide by zero
     #  @param d ComplexT to divide current object
+    #  @return The division of current object by argument as a ComplexT
     def div(self, d):
         if ((self.x == 0) and (self.y == 0)):
             raise ZeroDivisionError("Cannot divide by zero: undefined")
         frac = 1/(self.x**2 + self.y**2)
-        x_val = frac*((self.x*d.x) + (self.y*d.y))
-        y_val = frac*((self.y*d.x) - (self.x*d.y)) 
-        self.x = x_val
-        self.y = y_val
+        new_x = frac*((self.x*d.x) + (self.y*d.y))
+        new_y = frac*((self.y*d.x) - (self.x*d.y)) 
+        return ComplexT(new_x, new_y)
