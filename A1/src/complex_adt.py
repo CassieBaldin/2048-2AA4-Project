@@ -45,7 +45,7 @@ class ComplexT:
     #  @return Float representing the phase of the complex number in radians
     def get_phi(self):
         if ((self.x == 0) and (self.y == 0)):
-            raise ZeroDivisionError("undefined")
+            raise ZeroDivisionError("Cannot divide by zero: undefined")
         if (self.x < 0 and self.y == 0):
             return math.pi
         else:
@@ -56,6 +56,7 @@ class ComplexT:
     #  @details They are considered equal if both the real and imaginary
     #           values are equal to the current real and imaginary
     #           values respectively. It assumes the input is of type ComplexT
+    #  @param e ComplexT to compare to current object
     #  @return True if the argument and the current object are equal
     def equal(self, e):
         if (e.x == self.x) and (e.y == self.y):
@@ -64,15 +65,14 @@ class ComplexT:
             return False
 
     ## @brief Gets the complex conjugate of the current object
-    #  @details It assumes that it changes the current object to its conjugate
-    #           and it mutates the current object which is the complex 
-    #           conjugate of the current object
+    #  @details It assumes that it mutates the current object to its conjugate
     def conj(self):
         self.y = self.y*(-1)
     
     ## @brief Adds argument object to current object
     #  @details It assumes the input is of type ComplexT and mutates current
     #           argument to be the addition of the argument and current object
+    #  @param a ComplexT to add to current object
     def add(self, a):
         self.x = self.x + a.x
         self.y = self.y + a.y
@@ -81,6 +81,49 @@ class ComplexT:
     #  @details It assumes the input is of type ComplexT and mutates the 
     #           current argument to be the subtraction of the argument from 
     #           the current object
+    #  @param s ComplexT to subtract from current object
     def sub(self, s):
-        self.x = self.x - a.x
-        self.y = self.y - a.y
+        self.x = self.x - s.x
+        self.y = self.y - s.y
+
+    ## @brief Multiplies argument object to current object
+    #  @details It assumes the input is of type ComplexT and mutates the 
+    #           current argument to be the multiplication of the argument
+    #           and the current object
+    #  @param m ComplexT to multiply to current object
+    def mult(self, m):
+        x_val = self.x*m.x - self.y*m.y
+        y_val = self.x*m.y + self.y*m.x
+        self.x = x_val
+        self.y = y_val
+
+    ## @brief Gets the reciprocal of the current object
+    #  @details It assumes that it mutates the current argument to be the 
+    #           reciprocal of the current object
+    #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and
+    #          the reciprocal is "undefined" as per the equation you cannot
+    #          divide by zero
+    def recip(self):
+        if ((self.x == 0) and (self.y == 0)):
+            raise ZeroDivisionError("Cannot divide by zero: undefined")
+        x_val = self.x/(self.x**2 + self.y**2)
+        y_val = (-1)*self.y/(self.x**2 + self.y**2)
+        self.x = x_val
+        self.y = y_val
+
+    ## @brief Divides current object by argument object
+    #  @details It assumes the input is of type ComplexT and mutates the 
+    #           current argument to be the division of the current object
+    #           by the argument
+    #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and
+    #          the division is "undefined" as per the equation you cannot
+    #          divide by zero
+    #  @param d ComplexT to divide current object
+    def div(self, d):
+        if ((self.x == 0) and (self.y == 0)):
+            raise ZeroDivisionError("Cannot divide by zero: undefined")
+        frac = 1/(self.x**2 + self.y**2)
+        x_val = frac*((self.x*d.x) + (self.y*d.y))
+        y_val = frac*((self.y*d.x) - (self.x*d.y)) 
+        self.x = x_val
+        self.y = y_val
