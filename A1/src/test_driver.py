@@ -83,6 +83,57 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 2
 
+#conj
+a_conj = a.conj() 
+b_conj = b.conj()
+if (a_conj.equal(ComplexT(3, -4))):
+    print("conj test passes")
+    complex_test_pass_count += 1
+else:
+    print("conj test FAILS")
+    complex_test_fail_count += 1
+if (b_conj.equal(ComplexT(1.5, 2))):
+    print("conj test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("conj test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
+#add
+add_ab = a.add(b)
+add_ac = a.add(c)
+if (add_ab.equal(ComplexT(4.5, 2.0))):
+    print("add test passes")
+    complex_test_pass_count += 1
+else:
+    print("add test FAILS")
+    complex_test_fail_count += 1
+if (add_ac.equal(ComplexT(1.0, 7.0))):
+    print("add test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("add test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
+#sub
+sub_ab = a.sub(b)
+sub_ac = a.sub(c)
+if (sub_ab.equal(ComplexT(1.5, 6.0))):
+    print("sub test passes")
+    complex_test_pass_count += 1
+else:
+    print("sub test FAILS")
+    complex_test_fail_count += 1
+if (sub_ac.equal(ComplexT(5.0, 1.0))):
+    print("sub test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("sub test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
 ###TEST CASES FOR TRIANGLE_ADT.PY
 triangle_test_pass_count = 0
 triangle_test_fail_count = 0
