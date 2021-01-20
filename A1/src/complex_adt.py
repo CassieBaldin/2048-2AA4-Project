@@ -23,7 +23,7 @@ class ComplexT:
 
     ## @brief Gets the real value of the complex number
     #  @return Float value representing real number
-    def real(self)
+    def real(self):
         return self.x
 
     ## @brief Gets the imaginary number of the complex number
@@ -132,4 +132,20 @@ class ComplexT:
         frac = 1/(self.x**2 + self.y**2)
         new_x = frac*((self.x*d.x) + (self.y*d.y))
         new_y = frac*((self.y*d.x) - (self.x*d.y)) 
+        return ComplexT(new_x, new_y)
+
+    ## @brief Gets the positive square root current object
+    #  @details It assumes it makes a new ComplexT that is the positive
+    #           square root of the current object
+    #  @return If imaginary part is 0, it returns the square root of the real 
+    #          part. If not, returns 
+    def sqrt(self):
+        if (self.y == 0):
+            return ComplexT(math.sqrt(self.x), self.y)
+        sq_ab = math.sqrt(self.x**2 + self.y**2)
+        new_x = math.sqrt((self.x + sq_ab)/2)
+        sgn = 1
+        if self.y < 0:
+            sgn = -1
+        new_y = sgn*math.sqrt((((-1)*self.x) + sq_ab)/2)
         return ComplexT(new_x, new_y)
