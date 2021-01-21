@@ -6,7 +6,7 @@
 #some code taken from test_expt.py
 
 from complex_adt import ComplexT
-from triangle_adt import TriangleT#, TriType
+from triangle_adt import TriangleT, TriType
 
 ###TEST CASES FOR COMPLEX_ADT.PY
 complex_test_pass_count = 0
@@ -242,6 +242,19 @@ if (t3.is_valid() == False):
 else:
     print("valid test2 FAILS")
     triangle_test_fail_count += 1
+triangle_test_total += 2
+
+#tri_type()
+if (t1.tri_type() == TriType.right):
+    triangle_test_pass_count += 1
+else:
+   print("tri_type test FAILS")
+   triangle_test_fail_count += 1
+if (t3.tri_type() == TriType.scalene):
+    triangle_test_pass_count += 1
+else:
+   print("tri_type test FAILS")
+   triangle_test_fail_count += 1
 triangle_test_total += 2
 
 #####END Of TESTS#####
