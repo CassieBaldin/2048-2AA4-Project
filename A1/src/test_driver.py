@@ -134,6 +134,57 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 2
 
+#mult
+mult_ab = a.mult(b)
+mult_ac = a.mult(c)
+if (mult_ab.equal(ComplexT(12.5, 0))):
+    print("mult test passes")
+    complex_test_pass_count += 1
+else:
+    print("mult test FAILS")
+    complex_test_fail_count += 1
+if (mult_ac.equal(ComplexT(-18.0, 1.0))):
+    print("mult test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("mult test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
+#recip
+recip_a = a.recip()
+recip_b = b.recip()
+if (recip_a.equal(ComplexT(0.12, -0.16))):
+    print("recip test passes")
+    complex_test_pass_count += 1
+else:
+    print("recip test FAILS")
+    complex_test_fail_count += 1
+if (recip_b.equal(ComplexT(0.24, 0.32))):
+    print("recip test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("recip test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
+#div
+div_ab = a.div(b)
+div_ac = a.div(c)
+if (div_ab.equal(ComplexT(-0.56, 1.92))):
+    print("div test passes")
+    complex_test_pass_count += 1
+else:
+    print("div test FAILS")
+    complex_test_fail_count += 1
+if (div_ac.equal(ComplexT(0.46153846153846156, -1.3076923076923077))):
+    print("div test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("div test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
 ###TEST CASES FOR TRIANGLE_ADT.PY
 triangle_test_pass_count = 0
 triangle_test_fail_count = 0
