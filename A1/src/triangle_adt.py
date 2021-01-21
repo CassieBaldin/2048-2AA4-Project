@@ -8,12 +8,12 @@ from enum import Enum
 
 ## @brief An ADT for triangles
 #  @details A triangle composed of three sides; x, y, and z
-#  @details ASSUMPTIONS
 class TriangleT:
 
     ## @brief Constructor for TriangleT
     #  @details Creates a triangle composed of three sides; x, y, and z. 
-    #           It is assumed that the input sides will be integer values.
+    #           It is assumed that the input sides will be positive,
+    #           non-zero integer values.
     #  @param x Integer representing side x
     #  @param y Integer representing side y
     #  @param z Integer representing side z
@@ -33,14 +33,13 @@ class TriangleT:
     #  @param e TriangleT to compare to current object
     #  @return True if the argument and the current object are equal, else False
     def equal(self, e):
-    	list1 = [e.x, e.y, e.z]
+        list1 = [e.x, e.y, e.z]
         list2 = [self.x, self.y, self.z]
         list1.sort()
         list2.sort()
         if (list1[0] == list2[0]) and (list1[1] == list2[1]) and (list1[2] == list2[2]):
             return True
-        else:
-            return False
+        return False
 
     ## @brief Gets the perimeter of the current triangle
     #  @return Integer representing the perimeter of the triangle
@@ -68,17 +67,31 @@ class TriangleT:
         z = self.z
         if (x + y > z) and (x + z > y) and (y + z > x):
             return True
-        else:
-            return False
+        return False
 
+    ## @brief Returns a TriType corresponding to the type of triangle that was input
+    #  @details Creates an element of set {equilat, isosceles, scalene, right}.
+    #           The assumed priority label is that if the triangle is a 
+    #           right triangle, it will take on this identity first.
+    #  @return TriType element that corresponds to the type of triangle it is
+    def tri_type(self):
+        r = (self.x**2 + self.y**2 == self.z**2) or (self.x**2 + self.z**2 == self.y**2) or (self.z**2 + self.y**2 == self.x**2)
+        eq = (self.x == self.y == self.z)
+        iso = (self.x == self.y) or (self.x == self.z) or (self.y == self.z)
+        scal = (self.x != self.y != self.z)
+
+        if (r):
+            return TriType(1)
+        elif(eq):
+            return TriType(2)
+        elif(iso):
+            return TriType(3)
+        return TriType(4)
+
+## @brief A Enum class for triangle types
+#  @details Priority order is right, equilat, isosceles, scalene
 class TriType(Enum):
-    ## @brief Constructor for TriType
-    #  @details Creates an element of set {equilat, isosceles, scalene, right}
-    #  @param x Integer representing side x
-    #  @param y Integer representing side y
-    #  @param z Integer representing side z
-    def __init__ (self, equilat, isosceles, scalene, right):
-        self.e = equilat
-        self.i = isosceles
-        self.s = scalene
-        self.r = right
+            right = 1
+            equilat = 2
+            isosceles = 3
+            scalene = 4
