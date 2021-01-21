@@ -38,7 +38,7 @@ class ComplexT:
 
     ## @brief Gets the argument (or phase) of the complex number in radians
     #  @details It is also assumed here that the range of values is 
-    #           between (-pi, pi] (uses the principal value)
+    #           between (-pi, pi]
     #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and 
     #          the phase of the complex number is "undefined" as per the
     #          equation you cannot divide by zero
@@ -114,7 +114,7 @@ class ComplexT:
         if ((self.x == 0) and (self.y == 0)):
             raise ZeroDivisionError("Cannot divide by zero: undefined")
         new_x = self.x/(self.x**2 + self.y**2)
-        new_y = (-1)*self.y/(self.x**2 + self.y**2)
+        new_y = (-1)*(self.y/(self.x**2 + self.y**2))
         return ComplexT(new_x, new_y)
 
     ## @brief Divides current object by argument object
@@ -129,7 +129,7 @@ class ComplexT:
     def div(self, d):
         if ((self.x == 0) and (self.y == 0)):
             raise ZeroDivisionError("Cannot divide by zero: undefined")
-        frac = 1/(self.x**2 + self.y**2)
+        frac = 1/(d.x**2 + d.y**2)
         new_x = frac*((self.x*d.x) + (self.y*d.y))
         new_y = frac*((self.y*d.x) - (self.x*d.y)) 
         return ComplexT(new_x, new_y)
