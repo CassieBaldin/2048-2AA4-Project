@@ -3,6 +3,8 @@
 #  @brief Tests for complex_adt.py and triangle_adt.py
 #  @date January 21st, 2021
 
+#some code taken from test_expt.py
+
 from complex_adt import ComplexT
 from triangle_adt import TriangleT#, TriType
 
@@ -14,7 +16,7 @@ a = ComplexT(3.0, 4.0)
 b = ComplexT(1.5, -2.0)
 c = ComplexT(-2.0, 3.0)
 
-#get_real
+#real
 if (a.real() == 3.0):
     print("real test passes")
     complex_test_pass_count += 1
@@ -23,7 +25,7 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 1
 
-#get_imag
+#imag
 if (a.imag() == 4.0):
     print("imag test passes")
     complex_test_pass_count += 1
@@ -69,17 +71,17 @@ else:
 complex_test_total += 3
 
 #equal
-if ((a.equal(ComplexT(3.0,4.0))) == True):
-    print("equal test passes")
+if ((a.equal(ComplexT(3.0,4.0)))):
+    print("complex equal test passes")
     complex_test_pass_count += 1
 else:
-    print("equal test FAILS")
+    print("complex equal test FAILS")
     complex_test_fail_count += 1
 if ((a.equal(ComplexT(1, 1))) == False):
-    print("equal test2 passes")
+    print("complex equal test2 passes")
     complex_test_pass_count += 1
 else:
-    print("equal test2 FAILS")
+    print("complex equal test2 FAILS")
     complex_test_fail_count += 1
 complex_test_total += 2
 
@@ -185,10 +187,54 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 2
 
+#sqrt
+sq_a = a.sqrt()
+sq_b = b.sqrt()
+if (sq_a.equal(ComplexT(2.0, 1.0))):
+    print("sqrt test passes")
+    complex_test_pass_count += 1
+else:
+    print("sqrt test FAILS")
+    complex_test_fail_count += 1
+if (sq_b.equal(ComplexT(1.4142135623730951, -0.7071067811865476))):
+    print("sqrt test2 passes")
+    complex_test_pass_count += 1
+else:
+    print("dsqrt test2 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 2
+
 ###TEST CASES FOR TRIANGLE_ADT.PY
 triangle_test_pass_count = 0
 triangle_test_fail_count = 0
 triangle_test_total = 0
+t1 = TriangleT(3, 4, 5)
+t2 = TriangleT(4, 3, 5)
+t3 = TriangleT(1, 4, 3)
+
+#get_sides
+if (t1.get_sides() == (3, 4, 5)):
+    print("side test passes")
+    triangle_test_pass_count += 1
+else:
+    print("side test FAILS")
+    triangle_test_fail_count += 1
+triangle_test_total += 1
+
+#equal
+if (t1.equal(t2)):
+   print("triangle equal test passes")
+   triangle_test_pass_count += 1
+else:
+   print("triangle equal test FAILS")
+   triangle_test_fail_count += 1
+if (t1.equal(t3) == False):
+   print("triangle equal test2 passes")
+   triangle_test_pass_count += 1
+else:
+   print("triangle equal test2 FAILS")
+   triangle_test_fail_count += 1
+triangle_test_total += 2
 
 #####END Of TESTS#####
 print()
