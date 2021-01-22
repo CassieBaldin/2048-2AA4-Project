@@ -251,6 +251,7 @@ triangle_test_total = 0
 t1 = TriangleT(3, 4, 5)
 t2 = TriangleT(4, 3, 5)
 t3 = TriangleT(1, 4, 3)
+t4 = TriangleT(3, 4, 3)
 
 # get_sides
 if (t1.get_sides() == (3, 4, 5)):
@@ -271,7 +272,12 @@ if (t1.equal(t3) == False):
 else:
    print("triangle equal test2 FAILS")
    triangle_test_fail_count += 1
-triangle_test_total += 2
+if (t1.equal(t4) == False):
+   triangle_test_pass_count += 1
+else:
+   print("triangle equal test3 FAILS")
+   triangle_test_fail_count += 1
+triangle_test_total += 3
 
 # perim
 if (t1.perim() == 12):
@@ -305,7 +311,12 @@ if (t3.is_valid() == False):
 else:
     print("valid test2 FAILS")
     triangle_test_fail_count += 1
-triangle_test_total += 2
+if (t4.is_valid()):
+    triangle_test_pass_count += 1
+else:
+    print("valid test3 FAILS")
+    triangle_test_fail_count += 1
+triangle_test_total += 3
 
 # tri_type
 if (t1.tri_type() == TriType.right):
@@ -313,12 +324,17 @@ if (t1.tri_type() == TriType.right):
 else:
    print("tri_type test FAILS")
    triangle_test_fail_count += 1
-if (t3.tri_type() == TriType.scalene):
+if (t1.tri_type() != TriType.isosceles):
     triangle_test_pass_count += 1
 else:
    print("tri_type test2 FAILS")
    triangle_test_fail_count += 1
-triangle_test_total += 2
+if (t4.tri_type() == TriType.isosceles):
+    triangle_test_pass_count += 1
+else:
+   print("tri_type test3 FAILS")
+   triangle_test_fail_count += 1
+triangle_test_total += 3
 
 #####END Of TESTS#####
 print()
