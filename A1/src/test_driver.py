@@ -208,7 +208,7 @@ if (div_ab.equal(ComplexT(-0.56, 1.92))):
 else:
     print("div test FAILS")
     complex_test_fail_count += 1
-if (div_ac.equal(ComplexT(0.46153846153846156, -1.3076923076923077))):
+if (div_ac.equal(ComplexT(0.4615384615, -1.307692307))):
     complex_test_pass_count += 1
 else:
     print("div test2 FAILS")
@@ -271,20 +271,20 @@ triangle_test_total += 1
 
 # equal
 if (t1.equal(t2)):
-   triangle_test_pass_count += 1
+    triangle_test_pass_count += 1
 else:
-   print("triangle equal test FAILS")
-   triangle_test_fail_count += 1
+    print("triangle equal test FAILS")
+    triangle_test_fail_count += 1
 if (t1.equal(t3) == False):
-   triangle_test_pass_count += 1
+    triangle_test_pass_count += 1
 else:
-   print("triangle equal test2 FAILS")
-   triangle_test_fail_count += 1
+    print("triangle equal test2 FAILS")
+    triangle_test_fail_count += 1
 if (t1.equal(t4) == False):
    triangle_test_pass_count += 1
 else:
-   print("triangle equal test3 FAILS")
-   triangle_test_fail_count += 1
+    print("triangle equal test3 FAILS")
+    triangle_test_fail_count += 1
 triangle_test_total += 3
 
 # perim
@@ -301,7 +301,7 @@ if (t1.area() == 6.0):
 else:
     print("area test FAILS")
     triangle_test_fail_count += 1
-if (t3.area() == "This is not a valid triangle"):
+if (math.isclose(t4.area(), 4.472135954)):
     triangle_test_pass_count += 1
 else:
     print("area test2 FAILS")
@@ -330,18 +330,18 @@ triangle_test_total += 3
 if (t1.tri_type() == TriType.right):
     triangle_test_pass_count += 1
 else:
-   print("tri_type test FAILS")
-   triangle_test_fail_count += 1
+    print("tri_type test FAILS")
+    triangle_test_fail_count += 1
 if (t1.tri_type() != TriType.isosceles):
     triangle_test_pass_count += 1
 else:
-   print("tri_type test2 FAILS")
-   triangle_test_fail_count += 1
+    print("tri_type test2 FAILS")
+    triangle_test_fail_count += 1
 if (t4.tri_type() == TriType.isosceles):
     triangle_test_pass_count += 1
 else:
-   print("tri_type test3 FAILS")
-   triangle_test_fail_count += 1
+    print("tri_type test3 FAILS")
+    triangle_test_fail_count += 1
 triangle_test_total += 3
 
 #####END Of TESTS#####
