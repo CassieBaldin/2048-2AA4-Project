@@ -7,6 +7,7 @@
 
 from complex_adt import ComplexT
 from triangle_adt import TriangleT, TriType
+import math
 
 ###TEST CASES FOR COMPLEX_ADT.PY###
 complex_test_pass_count = 0
@@ -48,17 +49,17 @@ else:
 complex_test_total += 2 
 
 # get_phi
-if (a.get_phi() == 0.9272952180016122):
+if (math.isclose(a.get_phi(), 0.927295218, abs_tol = 0.00000001)):
     complex_test_pass_count += 1
 else:
     print("phi test FAILS")
     complex_test_fail_count += 1
-if (b.get_phi() == -0.9272952180016122):
+if (math.isclose(b.get_phi(), -0.927295218, abs_tol = 0.00000001)):
     complex_test_pass_count += 1
 else:
     print("phi test2 FAILS")
     complex_test_fail_count += 1
-if (c.get_phi() == 2.1587989303424644):
+if (math.isclose(c.get_phi(), 2.158798931, abs_tol = 0.00000001)):
     complex_test_pass_count += 1
 else:
     print("phi test3 FAILS")
@@ -66,30 +67,37 @@ else:
 complex_test_total += 3
 
 # equal
-if ((a.equal(ComplexT(3.0,4.0)))):
+eq_float = ComplexT(3.00000000012345, 4.0)
+eq_pre = ComplexT(0.3+0.3+0.3, 0)
+if ((a.equal(ComplexT(3.0, 4.0)))):
     complex_test_pass_count += 1
 else:
     print("complex equal test FAILS")
     complex_test_fail_count += 1
-# int versus float comparison should be equal
-if (a.equal(ComplexT(3, 4))):
+if (a.equal(ComplexT(3.0, -4.0)) == False):
     complex_test_pass_count += 1
 else:
     print("complex equal test2 FAILS")
     complex_test_fail_count += 1
-if (a.equal(ComplexT(3.0, -4.0)) == False):
+# testing zero and float rounding case (should round to true ans)
+if (zero_x.equal(ComplexT(0, 2.50000000000000012))):
     complex_test_pass_count += 1
 else:
     print("complex equal test3 FAILS")
     complex_test_fail_count += 1
-# boundary case for float rounding 
-# (first 16 digits are equal, result rounds to false)
-if (a.equal(ComplexT(3.0000000000000005, 4.0)) == False):
+# rounded to 9 decimal places, they should be equal, imag is equal from above
+if (math.isclose(a.real(), eq_float.real(), abs_tol = 0.00000001)):
     complex_test_pass_count += 1
 else:
     print("complex equal test4 FAILS")
     complex_test_fail_count += 1
-complex_test_total += 4
+# test for float precision error (eq_pre.real() = 0.89999999...)
+if (eq_pre.equal(ComplexT(0.9, 0.0))):
+    complex_test_pass_count += 1
+else:
+    print("add/equal test FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 5
 
 # conj
 a_conj = a.conj() 
@@ -227,17 +235,17 @@ if (sq_a.equal(ComplexT(2.0, 1.0))):
 else:
     print("sqrt test FAILS")
     complex_test_fail_count += 1
-if (sq_b.equal(ComplexT(1.4142135623730951, -0.7071067811865476))):
+if (sq_b.equal(ComplexT(1.414213562, -0.707106781))):
     complex_test_pass_count += 1
 else:
     print("sqrt test2 FAILS")
     complex_test_fail_count += 1
-if (sq_zx.equal(ComplexT(1.118033988749895, 1.118033988749895))):
+if (sq_zx.equal(ComplexT(1.118033988, 1.118033988))):
     complex_test_pass_count += 1
 else:
     print("sqrt test3 FAILS")
     complex_test_fail_count += 1
-if (sq_zy.equal(ComplexT(1.5811388300841898, 0))):
+if (sq_zy.equal(ComplexT(1.581138830, 0))):
     complex_test_pass_count += 1
 else:
     print("sqrt test4 FAILS")
