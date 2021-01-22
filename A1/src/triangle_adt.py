@@ -72,8 +72,9 @@ class TriangleT:
     ## @brief Returns a TriType corresponding to the type of triangle that was input
     #  @details Creates an element of set {equilat, isosceles, scalene, right}.
     #           The assumed priority label is that if the triangle is a 
-    #           right triangle, it will take on this identity first.
-    #  @return TriType element that corresponds to the type of triangle it is
+    #           right triangle, it will take on this identity first. It also
+    #           assumes that the triangle is valid. 
+    #  @return TriType element that corresponds to the type of triangle it is.
     def tri_type(self):
         r = (self.x**2 + self.y**2 == self.z**2) or (self.x**2 + self.z**2 == self.y**2) or (self.z**2 + self.y**2 == self.x**2)
         eq = (self.x == self.y == self.z)
