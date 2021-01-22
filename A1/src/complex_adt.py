@@ -14,7 +14,8 @@ class ComplexT:
     ## @brief Constructor for ComplexT
     #  @details Creates a complex number of form  z = x + yi
     #           given real value x, and an imaginary value y. It assumes
-    #           that input values are float values.
+    #           that input values are float values, and that the input will
+    #           never be z = 0 + 0i.
     #  @param x Float representing real value of complex number
     #  @param y Float representing imaginary value of complex number
     def __init__ (self, x, y):
@@ -105,14 +106,9 @@ class ComplexT:
 
     ## @brief Gets the reciprocal of the current object
     #  @details It assumes that it makes a new ComplexT that is the reciprocal
-    #           of the current object
-    #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and
-    #          the reciprocal is "undefined" as per the equation you cannot
-    #          divide by zero
+    #           of the current object, and input is not z = 0 + 0i
     #  @return The division of current object by argument as a ComplexT
     def recip(self):
-        if ((self.x == 0) and (self.y == 0)):
-            raise ZeroDivisionError("Cannot divide by zero: undefined")
         new_x = self.x/(self.x**2 + self.y**2)
         new_y = (-1)*(self.y/(self.x**2 + self.y**2))
         return ComplexT(new_x, new_y)
@@ -120,15 +116,10 @@ class ComplexT:
     ## @brief Divides current object by argument object
     #  @details It assumes the input is of type ComplexT and makes a new 
     #           ComplexT that is the division of the current object
-    #           by the argument
-    #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and
-    #          the division is "undefined" as per the equation you cannot
-    #          divide by zero
+    #           by the argument, and input is not z = 0 + 0i
     #  @param d ComplexT to divide current object
     #  @return The division of current object by argument as a ComplexT
     def div(self, d):
-        if ((self.x == 0) and (self.y == 0)):
-            raise ZeroDivisionError("Cannot divide by zero: undefined")
         frac = 1/(d.x**2 + d.y**2)
         new_x = frac*((self.x*d.x) + (self.y*d.y))
         new_y = frac*((self.y*d.x) - (self.x*d.y)) 
