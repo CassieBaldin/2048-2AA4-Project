@@ -47,12 +47,10 @@ class TriangleT:
         return self.x + self.y + self.z
 
     ## @brief Gets the area of the current triangle
-    #  @details Uses equation from this source: 
-    #           https://www.mathsisfun.com/geometry/herons-formula.html
+    #  @details It assumes input is valid triangle. Uses equation from this 
+    #           source: https://www.mathsisfun.com/geometry/herons-formula.html
     #  @return Float representing the area of the triangle
     def area(self):
-        if (self.is_valid() == False):
-            return "This is not a valid triangle"
         s = self.perim()/2
         return math.sqrt(s*(s-self.x)*(s-self.y)*(s-self.z))
 
