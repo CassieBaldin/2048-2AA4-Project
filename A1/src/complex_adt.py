@@ -50,15 +50,17 @@ class ComplexT:
 
     ## @brief Checks if argument and current object are equal
     #  @details They are considered equal if both the real and imaginary
-    #           values are equal to the current real and imaginary
-    #           values respectively. It assumes the input is of type ComplexT
+    #           values are equal (within 9 decimal places) to the current real
+    #           and imaginary values respectively. It assumes the input is of 
+    #           the type ComplexT.
     #  @param e ComplexT to compare to current object
     #  @return True if the argument and the current object are equal
     def equal(self, e):
-        if (e.x == self.x) and (e.y == self.y):
-            return True
-        else:
+        if math.isclose(e.x, self.x, abs_tol = 0.0000000001):
+            if (math.isclose(e.y, self.y, abs_tol = 0.0000000001)):
+                return True
             return False
+        return False
 
     ## @brief Gets the complex conjugate of the current object
     #  @details It assumes that it makes a new ComplexT that is the conjugate
