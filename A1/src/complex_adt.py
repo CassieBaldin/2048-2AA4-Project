@@ -40,13 +40,8 @@ class ComplexT:
     ## @brief Gets the argument (or phase) of the complex number in radians
     #  @details It is also assumed here that the range of values is 
     #           between (-pi, pi]
-    #  @throws Throws a ZeroDivisionError if both x and y are equal to 0, and 
-    #          the phase of the complex number is "undefined" as per the
-    #          equation you cannot divide by zero
     #  @return Float representing the phase of the complex number in radians
     def get_phi(self):
-        if ((self.x == 0) and (self.y == 0)):
-            raise ZeroDivisionError("Cannot divide by zero: undefined")
         if (self.x < 0 and self.y == 0):
             return math.pi
         else:
@@ -127,7 +122,7 @@ class ComplexT:
 
     ## @brief Gets the positive square root current object
     #  @details It assumes it makes a new ComplexT that is the positive
-    #           square root of the current object
+    #           square root of the current object, and input is not z = 0 + 0i
     #  @return If imaginary part is 0, it returns the square root of the real 
     #          part. If not, returns 
     def sqrt(self):
