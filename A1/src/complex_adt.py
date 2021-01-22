@@ -56,8 +56,8 @@ class ComplexT:
     #  @param e ComplexT to compare to current object
     #  @return True if the argument and the current object are equal
     def equal(self, e):
-        if math.isclose(e.x, self.x, abs_tol = 0.0000000001):
-            if (math.isclose(e.y, self.y, abs_tol = 0.0000000001)):
+        if math.isclose(e.x, self.x, abs_tol = 0.00000001):
+            if (math.isclose(e.y, self.y, abs_tol = 0.00000001)):
                 return True
             return False
         return False
