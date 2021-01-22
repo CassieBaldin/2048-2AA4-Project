@@ -3,20 +3,22 @@
 #  @brief Tests for complex_adt.py and triangle_adt.py
 #  @date January 21st, 2021
 
-#some code taken from test_expt.py
+#Citation: some code taken from test_expt.py file
 
 from complex_adt import ComplexT
 from triangle_adt import TriangleT, TriType
 
-###TEST CASES FOR COMPLEX_ADT.PY
+###TEST CASES FOR COMPLEX_ADT.PY###
 complex_test_pass_count = 0
 complex_test_fail_count = 0
 complex_test_total = 0
 a = ComplexT(3.0, 4.0)
 b = ComplexT(1.5, -2.0)
 c = ComplexT(-2.0, 3.0)
+zero_x = ComplexT(0.0, 2.5)
+zero_y = ComplexT(2.5, 0.0)
 
-#real
+# real
 if (a.real() == 3.0):
     complex_test_pass_count += 1
 else:
@@ -24,7 +26,7 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 1
 
-#imag
+# imag
 if (a.imag() == 4.0):
     complex_test_pass_count += 1
 else:
@@ -32,7 +34,7 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 1
 
-#get_r
+# get_r
 if (a.get_r() == 5.0):
     complex_test_pass_count += 1
 else:
@@ -45,7 +47,7 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 2 
 
-#get_phi
+# get_phi
 if (a.get_phi() == 0.9272952180016122):
     complex_test_pass_count += 1
 else:
@@ -63,35 +65,48 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 3
 
-#equal
+# equal
 if ((a.equal(ComplexT(3.0,4.0)))):
     complex_test_pass_count += 1
 else:
     print("complex equal test FAILS")
     complex_test_fail_count += 1
-if ((a.equal(ComplexT(1, 1))) == False):
+# int versus float comparison should be equal
+if (a.equal(ComplexT(3, 4))):
     complex_test_pass_count += 1
 else:
     print("complex equal test2 FAILS")
     complex_test_fail_count += 1
-complex_test_total += 2
+if (a.equal(ComplexT(3.0, -4.0)) == False):
+    complex_test_pass_count += 1
+else:
+    print("complex equal test3 FAILS")
+    complex_test_fail_count += 1
+# boundary case for float rounding 
+# (first 16 digits are equal, result rounds to false)
+if (a.equal(ComplexT(3.0000000000000005, 4.0)) == False):
+    complex_test_pass_count += 1
+else:
+    print("complex equal test4 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 4
 
-#conj
+# conj
 a_conj = a.conj() 
 b_conj = b.conj()
-if (a_conj.equal(ComplexT(3, -4))):
+if (a_conj.equal(ComplexT(3.0, -4.0))):
     complex_test_pass_count += 1
 else:
     print("conj test FAILS")
     complex_test_fail_count += 1
-if (b_conj.equal(ComplexT(1.5, 2))):
+if (b_conj.equal(ComplexT(1.5, 2.0))):
     complex_test_pass_count += 1
 else:
     print("conj test2 FAILS")
     complex_test_fail_count += 1
 complex_test_total += 2
 
-#add
+# add
 add_ab = a.add(b)
 add_ac = a.add(c)
 if (add_ab.equal(ComplexT(4.5, 2.0))):
@@ -106,7 +121,7 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 2
 
-#sub
+# sub
 sub_ab = a.sub(b)
 sub_ac = a.sub(c)
 if (sub_ab.equal(ComplexT(1.5, 6.0))):
@@ -121,9 +136,11 @@ else:
     complex_test_fail_count += 1
 complex_test_total += 2
 
-#mult
+# mult
 mult_ab = a.mult(b)
 mult_ac = a.mult(c)
+mult_azx = a.mult(zero_x)
+mult_azy = a.mult(zero_y)
 if (mult_ab.equal(ComplexT(12.5, 0))):
     complex_test_pass_count += 1
 else:
@@ -134,11 +151,23 @@ if (mult_ac.equal(ComplexT(-18.0, 1.0))):
 else:
     print("mult test2 FAILS")
     complex_test_fail_count += 1
-complex_test_total += 2
+if (mult_azx.equal(ComplexT(-10.0, 7.5))):
+    complex_test_pass_count += 1
+else:
+    print("mult test3 FAILS")
+    complex_test_fail_count += 1
+if (mult_azy.equal(ComplexT(7.5, 10))):
+    complex_test_pass_count += 1
+else:
+    print("mult test4 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 4
 
-#recip
+# recip
 recip_a = a.recip()
 recip_b = b.recip()
+recip_zx = zero_x.recip()
+recip_zy = zero_y.recip()
 if (recip_a.equal(ComplexT(0.12, -0.16))):
     complex_test_pass_count += 1
 else:
@@ -149,11 +178,23 @@ if (recip_b.equal(ComplexT(0.24, 0.32))):
 else:
     print("recip test2 FAILS")
     complex_test_fail_count += 1
-complex_test_total += 2
+if (recip_zx.equal(ComplexT(0.0, -0.4))):
+    complex_test_pass_count += 1
+else:
+    print("recip test3 FAILS")
+    complex_test_fail_count += 1
+if (recip_zy.equal(ComplexT(0.4, 0.0))):
+    complex_test_pass_count += 1
+else:
+    print("recip test4 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 4
 
-#div
+# div
 div_ab = a.div(b)
 div_ac = a.div(c)
+div_azx = a.div(zero_x)
+div_azy = a.div(zero_y)
 if (div_ab.equal(ComplexT(-0.56, 1.92))):
     complex_test_pass_count += 1
 else:
@@ -164,11 +205,23 @@ if (div_ac.equal(ComplexT(0.46153846153846156, -1.3076923076923077))):
 else:
     print("div test2 FAILS")
     complex_test_fail_count += 1
-complex_test_total += 2
+if (div_azx.equal(ComplexT(1.6, -1.2))):
+    complex_test_pass_count += 1
+else:
+    print("div test3 FAILS")
+    complex_test_fail_count += 1
+if (div_azy.equal(ComplexT(1.2, 1.6))):
+    complex_test_pass_count += 1
+else:
+    print("div test4 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 4
 
-#sqrt
+# sqrt
 sq_a = a.sqrt()
 sq_b = b.sqrt()
+sq_zx = zero_x.sqrt()
+sq_zy = zero_y.sqrt()
 if (sq_a.equal(ComplexT(2.0, 1.0))):
     complex_test_pass_count += 1
 else:
@@ -177,11 +230,21 @@ else:
 if (sq_b.equal(ComplexT(1.4142135623730951, -0.7071067811865476))):
     complex_test_pass_count += 1
 else:
-    print("dsqrt test2 FAILS")
+    print("sqrt test2 FAILS")
     complex_test_fail_count += 1
-complex_test_total += 2
+if (sq_zx.equal(ComplexT(1.118033988749895, 1.118033988749895))):
+    complex_test_pass_count += 1
+else:
+    print("sqrt test3 FAILS")
+    complex_test_fail_count += 1
+if (sq_zy.equal(ComplexT(1.5811388300841898, 0))):
+    complex_test_pass_count += 1
+else:
+    print("sqrt test4 FAILS")
+    complex_test_fail_count += 1
+complex_test_total += 4
 
-###TEST CASES FOR TRIANGLE_ADT.PY
+###TEST CASES FOR TRIANGLE_ADT.PY###
 triangle_test_pass_count = 0
 triangle_test_fail_count = 0
 triangle_test_total = 0
@@ -189,7 +252,7 @@ t1 = TriangleT(3, 4, 5)
 t2 = TriangleT(4, 3, 5)
 t3 = TriangleT(1, 4, 3)
 
-#get_sides
+# get_sides
 if (t1.get_sides() == (3, 4, 5)):
     triangle_test_pass_count += 1
 else:
@@ -197,7 +260,7 @@ else:
     triangle_test_fail_count += 1
 triangle_test_total += 1
 
-#equal
+# equal
 if (t1.equal(t2)):
    triangle_test_pass_count += 1
 else:
@@ -210,7 +273,7 @@ else:
    triangle_test_fail_count += 1
 triangle_test_total += 2
 
-#perim
+# perim
 if (t1.perim() == 12):
     triangle_test_pass_count += 1
 else:
@@ -218,7 +281,7 @@ else:
     triangle_test_fail_count += 1
 triangle_test_total += 1
 
-#area
+# area
 if (t1.area() == 6.0):
     triangle_test_pass_count += 1
 else:
@@ -231,7 +294,7 @@ else:
     triangle_test_fail_count += 1
 triangle_test_total += 2
 
-#is_valid
+# is_valid
 if (t1.is_valid()):
     triangle_test_pass_count += 1
 else:
@@ -244,7 +307,7 @@ else:
     triangle_test_fail_count += 1
 triangle_test_total += 2
 
-#tri_type()
+# tri_type
 if (t1.tri_type() == TriType.right):
     triangle_test_pass_count += 1
 else:
@@ -253,7 +316,7 @@ else:
 if (t3.tri_type() == TriType.scalene):
     triangle_test_pass_count += 1
 else:
-   print("tri_type test FAILS")
+   print("tri_type test2 FAILS")
    triangle_test_fail_count += 1
 triangle_test_total += 2
 
