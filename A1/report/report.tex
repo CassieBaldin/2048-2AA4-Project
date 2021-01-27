@@ -31,9 +31,9 @@ are critiqued and then various related discussion questions are answered.
 
 \section{Assumptions and Exceptions} \label{AssumptAndExcept}
 
-Some assumptions were made in the process of making these classes written for 
-this assignment. These assumptions are made in the code where applicable, which 
-can also be seen below as:
+No exceptions were thrown in this assignment, but some assumptions were made 
+in the process of making these classes written for this assignment. These 
+assumptions are made in the code where applicable, which can also be seen below as:
 \begin{itemize}
         \item Input values passed to the \verb|ComplexT| constructor, were 
         assumed to be of type \verb|float|, and that both input parameters 
@@ -47,14 +47,14 @@ can also be seen below as:
         \item Return value of \verb|conj|, \verb|add|, \verb|sub|, \verb|mult|, 
         \verb|recip|, \verb|div| and \verb|sqrt| is a new ComplexT that is 
         equal to the result of their respective methods,
-        \item Return value of \verb|sqrt| is only the positve part of the square 
+        \item Return value of \verb|sqrt| is only the positive part of the square 
         root of the current object, 
         \item Input values passed to the \verb|TriangleT| constructor, were 
         assumed to be positive, non-zero integer values (to relate to the real 
         world application of triangle dimensions),
         \item Input values for method \verb|equal| in class \verb|TriangleT| is 
         of type \verb|TriangleT|, and values are considered to be equal all side 
-        lengths are equal )within 9 decimal places),
+        lengths are equal (within 9 decimal places),
         \item Input value for method \verb|area| is a valid triangle so that the 
         area can actually be calculated, 
         \item Priority labels for method \verb|tri_type| (when a given triangle 
@@ -69,7 +69,53 @@ can also be seen below as:
 
 Tests were written such that each method that was implemented into the design
 had an appropriate amount of test cases that I felt covered the edge/boundary 
-cases for each method respectively. 
+cases for each method respectively. The breakdown of all test cases and 
+rationale are below:
+
+~\newline\noindent For class \verb|ComplexT|:
+
+~\newline\noindent To test method \verb|real| and \verb|imag|, I just tested one case for each, 
+as I figured it could either get the required self.variable, or it could not. 
+Since these were basic methods, I did not think that there would be much variance 
+in the results of it. 
+~\newline\noindent To test method \verb|get_r|, I used one test case with a right angled triangle, as the absolute value of the complex number would contain a perfect square number. This was a basic case. The other case I tested was to check if the \verb|get_r| method could handle inputs which were negative and find its absolute value
+
+~\newline\noindent To test method \verb|get_phi|,
+
+~\newline\noindent To test method \verb|equal|,
+
+~\newline\noindent To test method \verb|conj|,
+
+~\newline\noindent To test method \verb|add|,
+
+~\newline\noindent To test method \verb|sub|,
+
+~\newline\noindent To test method \verb|mult|,
+
+~\newline\noindent To test method \verb|recip|,
+
+~\newline\noindent To test method \verb|div|,
+
+~\newline\noindent To test method \verb|sqrt|,
+
+
+~\newline\noindent For class \verb|TriangleT|:
+
+~\newline\noident To test method \verb|get_sides|,
+
+~\newline\noindent To test method \verb|equal|,
+
+~\newline\noindent To test method \verb|perim|, I just tested one case, as it 
+was just basic addition of three positive integer numbers, which I did not think 
+would give much variance in the results of different test cases. 
+
+~\newline\noindent To test method \verb|area|,
+
+~\newline\noindent To test method \verb|is_valid|,
+
+~\newline\noindent To test method \verb|tri_type|,
+
+
 
 \section{Results of Testing Partner's Code}
 
@@ -81,8 +127,50 @@ cases for each method respectively.
 
 \begin{enumerate}[(a)]
 
-\item 
-\item ...
+\item Methods that are mutators are defined as... , while selectors simply access the value that was set either by the constructor, or a mutator method. 
+
+The methods for the class \verb|ComplexT| that are mutators are... and the methods that are selectors are... . This is because...
+
+For the class \verb|TriangleT|, the methods that are mutators are... and the methods that are selectors are... . This is because...
+
+\item (B)
+
+
+\item The class \verb|ComplexT| has an equal method, but I do not think that 
+it would make much sense to have methods for greater than or less than, as in 
+this context, I am not sure how you would end up defining what range of value 
+would be included in those definitions. FOr example, in the \verb|equal| method, 
+the two complex numbers defined by the function are equal if and only if the 
+real and imaginary parts are both equal respectively. If you wanted to define 
+the method for greater than, you could consider the case that only the real or
+ imaginary value is greater than the current object, but since the complex 
+ number represents a value that has two parts to it and acts more like a vector 
+ than an integer or a float (which only has 2D components), I do not think that 
+ this definition would make much sense. Since the complex numbers do act like 
+ vectors, you could define a greater than or less than method to work off of the 
+ value of the absolute value of the number (or the magnitude), as this is a float 
+ value and can easily be compared between two complex numbers, but this may not 
+ reflect if the complex number is greater/less than, only that its absolute 
+ value is greater/less than, which is not the same thing. Overall, if you wanted 
+ to make the greater/less than methods using the same format as the current 
+ implementation where the real and imaginary values of the complex number are 
+ compared, then adding these methods in my opinion do not make much sense. 
+
+ \item Since in this assignment we were asked to make a method called 
+ \verb|is_valid| to check if a triangle was valid, it is very possible that the 
+ three integers input to the constructor for \verb TriangleT will not form a 
+ geometrically valid triangle (and that was exactly what the \verb|is_valid| 
+ method was meant to check). In the case that the input is invalid, I think 
+ that the class should not allow the triangle to be constructed (it should throw 
+ an error as the first check in the constructor method), as it is not able to 
+ actually be a fully formed triangle in the traditional sense. If the triangle 
+ that was input is not valid, most of the methods included in the class do not 
+ make much sense, as if it cannot physically form a triangle, it will have no 
+ perimeter or area as these methods can only apply to a closed shape according 
+ to their mathematical definitions and cannot be classified as a triangle in 
+ the method \verb|tri_type| as it is not any of those types of triangles. For 
+ these reasons, this is what I think should happen in the case that it is given 
+ an invalid triangle.  
 
 \end{enumerate}
 
