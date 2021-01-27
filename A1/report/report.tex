@@ -17,7 +17,7 @@
 \newcounter{stepnum}
 
 \title{Assignment 1 Solution}
-\author{Your Name and macid}
+\author{Cassidy Baldin, baldic1}
 \date{\today}
 
 \begin {document}
@@ -31,9 +31,45 @@ are critiqued and then various related discussion questions are answered.
 
 \section{Assumptions and Exceptions} \label{AssumptAndExcept}
 
+Some assumptions were made in the process of making these classes written for 
+this assignment. These assumptions are made in the code where applicable, which 
+can also be seen below as:
+\begin{itemize}
+        \item Input values passed to the \verb|ComplexT| constructor, were 
+        assumed to be of type \verb|float|, and that both input parameters 
+        would not be equal to 0 simultaneously (input will never be z = 0 + 0i),
+        \item Return values of \verb|get_phi| were assumed to be in the range 
+        of (-pi, pi],
+        \item Input values for method \verb|equal| in class \verb|ComplexT| is 
+        of type \verb|ComplexT|, and values are considered to be equal if both 
+        the real and imaginary values of the argument are equal to the current 
+        real and imaginary values respectively (within 9 decimal places),
+        \item Return value of \verb|conj|, \verb|add|, \verb|sub|, \verb|mult|, 
+        \verb|recip|, \verb|div| and \verb|sqrt| is a new ComplexT that is 
+        equal to the result of their respective methods,
+        \item Return value of \verb|sqrt| is only the positve part of the square 
+        root of the current object, 
+        \item Input values passed to the \verb|TriangleT| constructor, were 
+        assumed to be positive, non-zero integer values (to relate to the real 
+        world application of triangle dimensions),
+        \item Input values for method \verb|equal| in class \verb|TriangleT| is 
+        of type \verb|TriangleT|, and values are considered to be equal all side 
+        lengths are equal )within 9 decimal places),
+        \item Input value for method \verb|area| is a valid triangle so that the 
+        area can actually be calculated, 
+        \item Priority labels for method \verb|tri_type| (when a given triangle 
+        can have more than one label) is in the order right, equilateral, 
+        isosceles, then scalene
+        \item Input value for method \verb|tri_type| is a valid triangle (so 
+        that it can be classified accordingly, as there is no option for it 
+        to be of type \verb|notvalid|).
+\end{itemize}
 
 \section{Test Cases and Rationale} \label{Testing}
 
+Tests were written such that each method that was implemented into the design
+had an appropriate amount of test cases that I felt covered the edge/boundary 
+cases for each method respectively. 
 
 \section{Results of Testing Partner's Code}
 
