@@ -101,7 +101,7 @@ in the results of it.
 
 ~\newline\noindent For class \verb|TriangleT|:
 
-~\newline\noident To test method \verb|get_sides|,
+~\newline\noindent To test method \verb|get_sides|,
 
 ~\newline\noindent To test method \verb|equal|,
 
@@ -120,26 +120,59 @@ would give much variance in the results of different test cases.
 \section{Results of Testing Partner's Code}
 
 
+
+
+
+
 \section{Critique of Given Design Specification}
 
+There were many strengths of the design specification. Firstly, the methods in the class \verb|ComplexT| well defined the aspects of a complex number, and included a variety of methods that allow the user to use the class for many different applications when dealing with complex numbers. Also, the input types for the class being of type \verb|float| is a strength it has, as it allowed a wider range of elements that can be input into the class. In terms of the methods that were implemented, most returned float values as members of a new \verb|ComplexT| object created from certain formulaic calculations, so if the type of this class was not float, and were for example integers instead, then there would need to be rounding to meet the specification, which would cause some inaccuracies in the object. For the \verb|TriangleT| class, it similarly had methods that were meant for dealing with triangles in many ways. The use of the enumerated class \verb|TriType| was also a strength to the design, that allowed the classification of the object triangle for the user from a set of different triangle types to aid the user in creating their triangle object. 
+
+The areas of the design specification that could use improvement were in the class \verb|ComplexT|, as in its current implementation based on assumptions it does not account for the complex number being of the form z = 0 + 0i, which technically should be a part of the complex numbers in a mathematical sense. This would currently be a problem for the \verb|recip| and \verb|div| methods, as it would cause a division by zero error. This could be dealt with by adding exceptions to these methods, where it could output an error message to the user, telling them that this error would occur, and therefore that method for that particular input would be invalid. Another area that could use some improvement could be with the \verb|is_valid| method in the \verb|TriangleT| class. In the current implementation, this is used to see if the values input into the constructor for a valid triangle. Two methods in this class assume that the input forms a valid triangle in its current implementation and therefore assume that the input to the constructor is also valid, removing the need for the \verb|is_valid| method. This could have been specified by throwing an exception in these classes using this method instead, or used in the constructor class to ensure validity of the input, which would make the class function better and have less redundancy. Other improvements that could have been made to these classes is the addition of a \verb|get_quadrant| and a \verb|get_height| method for each respective class, as it would allow for more functionality of the objects, as these are important qualities to know about each class. Finally, the design specifications listed could have been less ambiguous, as it allowed for many assumptions or exceptions to be made in the design process which could have been specified more to get a clearer result. 
 
 \section{Answers to Questions}
 
 \begin{enumerate}[(a)]
 
-\item Methods that are mutators are defined as... , while selectors simply access the value that was set either by the constructor, or a mutator method. 
+\item Methods that are mutators are defined as methods that change the state 
+of the current object, while selectors simply access the value that was set 
+either by the constructor, or a mutator method. 
 
-The methods for the class \verb|ComplexT| that are mutators are... and the methods that are selectors are... . This is because...
+For both classes, there is no instance of the value of self.variable being 
+changed to a new value in any method, therefore in this implementation there 
+are no mutators (setters).
 
-For the class \verb|TriangleT|, the methods that are mutators are... and the methods that are selectors are... . This is because...
+For the class \verb|ComplexT|, the methods that are selectors (getters) are 
+\verb|real|, \verb|imag|, \verb|get_r|, \verb|get_phi|, \verb|conj|, \verb|recip|, 
+and \verb|sqrt|. This is because all of these methods return a value based on the 
+current state of the object they are dealing with. For example, for the 
+\verb|real| method, it returns the real value of the complex object directly, 
+simply reading the value of self.x and returning that. Similarly, for the 
+\verb|get_r| method, it returns the absolute value of the complex number, based 
+on the variables self.x and self.y. Since these directly return a variable or 
+value from the state of the class, it is considered a selector. 
 
-\item (B)
+For the class \verb|TriangleT|, the methods that are selectors (getters) are 
+\verb|get_sides|, \verb|perim| and \verb|area|. This is because it returns the 
+value of the three sides that were input to the constructor (self.x, self.y 
+and self.z) and does not changes the value of these terms. You could also consider
+ \verb|tri_type| to be a selector, as it returns the type of triangle that the 
+ constructor specified, using the variables in the enumerated class \verb|TriType|. 
+ Since it returns a variable of that class, it may also be considered a selector. 
+
+\item Two options for state variables for \verb|ComplexT| could be \verb|quadrant| 
+of the complex number, and \verb|magnitude|. If using both of these as state 
+variables, the user of the class could input the quadrant that the complex number 
+is in, as well as its magnitude and that would create the object along with the current real and imaginary state variables. The method \verb|get_phi| would be in the correct range of values if it was given the quadrant of the complex number, as in its current implementation, it just assumes the range of the angle. The magnitude (or absolute value) would also be beneficial to have for the constructor. 
+
+Two options for state variables for \verb|TriangleT| could be \verb|height| and \verb|hypotenuse|. These would be valid state variables as these along with the other two side lengths would allow the class to receive additional information about the triangle object that would be helpful to identify. For example, knowing which variable was the hypotenuse would greatly improve the testing for the \verb|tri_type| method, as in its current implementation, it must test all combinations of the Pythagorean theorem to test if it was a right triangle, and would improve the isosceles test case as well, as the equal sides cannot be equal to the hypotenuse. It would also be beneficial to know the height of the triangle, as this would be very useful for area calculations. 
+
 
 
 \item The class \verb|ComplexT| has an equal method, but I do not think that 
 it would make much sense to have methods for greater than or less than, as in 
 this context, I am not sure how you would end up defining what range of value 
-would be included in those definitions. FOr example, in the \verb|equal| method, 
+would be included in those definitions. For example, in the \verb|equal| method, 
 the two complex numbers defined by the function are equal if and only if the 
 real and imaginary parts are both equal respectively. If you wanted to define 
 the method for greater than, you could consider the case that only the real or
@@ -168,9 +201,25 @@ the method for greater than, you could consider the case that only the real or
  make much sense, as if it cannot physically form a triangle, it will have no 
  perimeter or area as these methods can only apply to a closed shape according 
  to their mathematical definitions and cannot be classified as a triangle in 
- the method \verb|tri_type| as it is not any of those types of triangles. For 
- these reasons, this is what I think should happen in the case that it is given 
- an invalid triangle.  
+ the method \verb|tri_type| as it is not any of those types of triangles. In 
+ my implementation, I assumed that the input would be a valid triangle for the 
+ \verb|area|, so that the result could not be zero or a negative value, which 
+ would not make sense for a physical triangle. I also assumed this for the 
+ \verb|tri_type| method, as I did not want the result to not return the value 
+ \verb|None|, as some inputs would not classify to one of the four types in the 
+ class \verb|TriType|, and would therefore return that the input was of type 
+ \verb|None|, which also does not make sense. For these reasons, this is what 
+ I think should happen in the case that the given input is an invalid triangle.
+
+ \item If you introduced a state variable for the type of triangle, that would require the user of the class to know what type of triangle it was when inputting values into the class. This might be a good thing, as you could then have an easy way of knowing the height of the triangle if the type was right-angled, which the user of the class might want to know, and it would negate the use of the \verb|TriType| enumerated class, and the \verb|tri_type| method, as this would be user input. However, it might be a bad thing to add, as the user might input some values for the side lengths that may not correspond to the type of triangle it actually is, which might cause some issues in the class and with the data they are using the class with, so there may need to be a check to make sure the type is  correct based on the given side lengths, but then you would need those methods that I said could be removed previously under this implementation, making the addition of this state variable redundant and unnecessary. These are some reasons why the addition of a state variable for the type of triangle might be a good or a bad idea, depending on the uses, needs and implementation of the class. 
+
+ \item (f) relationship between software performance and usability?
+
+ \item (g) are there situations where it is not really necessary to "fake" a rational design process?
+
+ \item (h) how might reusability affect the reliability of products?
+
+ \item (i) what are some examples of how programming languages are abstractions built on top of hardware?
 
 \end{enumerate}
 
