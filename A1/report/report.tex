@@ -74,55 +74,45 @@ rationale are below:
 
 ~\newline\noindent For class \verb|ComplexT|:
 
-~\newline\noindent To test method \verb|real| and \verb|imag|, I just tested one case for each, 
-as I figured it could either get the required self.variable, or it could not. 
+~\newline\noindent To test method \verb|real| and \verb|imag|, I tested one case for each, as I thought it would either get the required self.variable, or it would not. 
 Since these were basic methods, I did not think that there would be much variance 
 in the results of it. 
-~\newline\noindent To test method \verb|get_r|, I used one test case with a right angled triangle, as the absolute value of the complex number would contain a perfect square number. This was a basic case. The other case I tested was to check if the \verb|get_r| method could handle inputs which were negative and find its absolute value
-
-~\newline\noindent To test method \verb|get_phi|,
-
-~\newline\noindent To test method \verb|equal|,
-
-~\newline\noindent To test method \verb|conj|,
-
-~\newline\noindent To test method \verb|add|,
-
-~\newline\noindent To test method \verb|sub|,
-
-~\newline\noindent To test method \verb|mult|,
-
-~\newline\noindent To test method \verb|recip|,
-
-~\newline\noindent To test method \verb|div|,
-
-~\newline\noindent To test method \verb|sqrt|,
-
+~\newline\noindent To test method \verb|get_r|, I tested one case with a right angled triangle, as the absolute value of the complex number would contain a perfect square number. This was a basic case. The other case I tested was to check if the \verb|get_r| method could handle inputs which were negative and find its absolute value. 
+~\newline\noindent To test method \verb|get_phi|, I used three cases, one with both positive inputs, one with a negative imaginary value, and one with a negative real value and imaginary value equal to 0. This was to check if the basic case and when one was a negative value. I used \verb|math.isclose()| to check if the values of the test were within 9 decimal places of the expected answer, as that is the amount of digits the result is on the Casio calculator used by McMaster students that I used to get my expected answers using the formula described in this method. I figured it was a good base for the accuracy of the python program result. In hindsight while writing this summary, I should have added another case for when the input is a negative real value and the imaginary value equal to zero to test both parts of the if statement were working correctly. 
+~\newline\noindent To test method \verb|equal|, I tested five cases, the first two were to check if it was working correctly in the basic cases. The third and fourth case were to test float rounding errors and used \verb|math.isclose()| to check if the numbers were still equal even if they were rounded or approximate. The last test was to check float precision errors to check if the original code accounted for close values to be accepted as equal or not (my implementation did this).
+~\newline\noindent To test method \verb|conj|, I tested two cases, one where the imaginary value was originally positive, and the other where the imaginary value was originally negative. This was a basic function that simply multiplied one term by negative one, so I did not think there would be varied results. 
+~\newline\noindent To test method \verb|add|, I tested two test cases, one where there was a negative imaginary value, and one where there was a negative real value. These were basic cases, as I did not think that addition would cause much variance in the results. 
+~\newline\noindent To test method \verb|sub|, I tested two cases, one where there was a negative imaginary value, and one where there was a negative real value. These were basic cases, as I did not think that subtraction would cause much variance in the results. 
+~\newline\noindent To test method \verb|mult|, I tested four cases, with the first two multiplying the positive complex number by one with a negative real value, and the other with a negative imaginary number. The other two cases were to test the result when the real value was 0, and when the imaginary value was zero. 
+~\newline\noindent To test method \verb|recip|, I tested four cases, with the first two finding the reciprocal when the positive complex number by one with a negative real value, and the other with a negative imaginary number. The other two cases were to test the result when the real value was 0, and when the imaginary value was zero. 
+~\newline\noindent To test method \verb|div|, I tested four cases, with the first two dividing the positive complex number by one with a negative real value, and the other with a negative imaginary number. The other two cases were to test the result when the real value was 0, and when the imaginary value was zero. 
+~\newline\noindent To test method \verb|sqrt|, I tested four cases, with the first one being a basic case. Then I added cases to test both if statements by making one case with the imaginary value equal to zero, and one case where the imaginary value was negative. The last case was testing the square root when the real value was negative. 
 
 ~\newline\noindent For class \verb|TriangleT|:
 
-~\newline\noindent To test method \verb|get_sides|,
-
-~\newline\noindent To test method \verb|equal|,
-
-~\newline\noindent To test method \verb|perim|, I just tested one case, as it 
+~\newline\noindent To test method \verb|get_sides|, I tested one case, as I thought it would either returned the input values as a tuple, or it would not. Since this were basic methods, I did not think that there would be much variance 
+in the results of it. 
+~\newline\noindent To test method \verb|equal|, I tested three cases, first testing if the true case would be returned when the values of the triangle were equal but not in the same order. Then I tested the false cases by checking if it false would be returned when two of the values were the same, but not the third in different orders. Since these numbers were integers, I did not need to test the method against float errors like in the \verb|ComplexT| class. 
+~\newline\noindent To test method \verb|perim|, I tested one case, as it 
 was just basic addition of three positive integer numbers, which I did not think 
 would give much variance in the results of different test cases. 
+~\newline\noindent To test method \verb|area|, I tested two cases, with the first being a basic case with a right angled triangle. For the second since it was expected to return a float value, I used \verb|math.isclose()| to 9 decimal places like in the \verb|ComplexT| class. 
+~\newline\noindent To test method \verb|is_valid|, I tested three cases, with two cases that were true, and one that I knew was false. This was to test the different brackets in the if statement of this method. 
+~\newline\noindent To test method \verb|tri_type|, I tested three cases, with the first one checking the right triangle priority over scalene, and the second to make sure it was not marked as isosceles. The third test was to check if the fourth triangle was isosceles as it should be. 
 
-~\newline\noindent To test method \verb|area|,
-
-~\newline\noindent To test method \verb|is_valid|,
-
-~\newline\noindent To test method \verb|tri_type|,
-
-
+~\newline\noindent I automated my test cases, tallying the amount of passed versus failed cases and printing them to the console when the testing was finished to let the tester know the results, as well as which failed if any. 
 
 \section{Results of Testing Partner's Code}
 
+I ran my partner's files against my own testing document, and my testing document failed to fully run. I realized that they had spelled "isosceles" wrong in their \verb|tri_type| method and \verb|TriType| enumerated class and that was causing the error. Once I fixed this, they got a score of 25/34 for the \verb|ComplexT| class and 9/13 for the \verb|TriangleT| class. They had failed all of the \verb|mult| method tests, so I looked at how they implemented their method compared to mine, and noticed that they had used the term \verb|self.real()| when I used the argument's real component. After looking at the formula again, I think this may have been another mistake on my partner's end so I changed their code to the correct formula by changing that term to \verb|num.mult.real()| to match with their naming conventions. This updated their score to 29/34 for the \verb|ComplexT| class. 
+~\newline\noindent One of the tests they failed was the precision of floating numbers test, where the input had a real component of 0.3 + 0.3 + 0.3. This would equate to a value of 0.899999... as there is an error with floating point numbers when being added. This test was to test if they had accounted for slight floating point errors in their equal method, as I had accounted for this in my own code. 
+~\newline\noindent The next case they had failed was the second division case, where it tested the division of the positive complex number by one with a negative real value. This returned a fail value, even though their result was within 9 decimal places of the expected answer. I then realized this was because of their equals method like I explained earlier, as it did not account for floating point precision errors, while I based by checks off of the equals method working for cases like that. I should have used the \verb|math.isclose)()| function to test the real and the imaginary values respectively so that this error did not occur while testing. This was also the case for the \verb|sqrt| method, however, the second test of this method would return a failed test regardless, as the value of the imaginary was not negative when it should have been according to the expected output. 
 
+~\newline\noindent When checking the \verb|TriangleT| class tests, the first one they failed was for the method \verb|get_sides|. This was because they returned the side lengths in an list instead of a tuple as was specified in the design specifications.
+~\newline\noindent The next case they failed were both the area tests. I thought it would be for the same reason as the equal test, but upon printing out the values, both of their test cases were far off from the expected result. After looking at their formula, I noticed that they did not divide the perimeter by 2 when using this formula which was causing the error in the calculation. 
+~\newline\noindent The last test they failed was the third \verb|tri_type| test, which tested if the object TriangleT(3, 4, 3) returned the type \verb|TriType.isosceles| as two of its sides were the same length. However, it returned a classification of \verb|TriType.right|. This was because to calculate their right triangle requirements, they used the \verb|round| function which rounded the value of sqrt(3*3 + 3*3) to 4, meaning that the result was a triangle that seemed to be right angled when it was not. 
 
-
-
+~\newline\noindent These were the results of the test cases on my partner files. When going through their code, I realized that I did not add many edge cases to my tests, as my code assumed they would never be input values while my partner did have those edge cases in their class. This was something to think about as it would probably make for a more robust program that does not solely rely on the user to not input the wrong type of data into the class. 
 
 \section{Critique of Given Design Specification}
 
@@ -166,8 +156,6 @@ variables, the user of the class could input the quadrant that the complex numbe
 is in, as well as its magnitude and that would create the object along with the current real and imaginary state variables. The method \verb|get_phi| would be in the correct range of values if it was given the quadrant of the complex number, as in its current implementation, it just assumes the range of the angle. The magnitude (or absolute value) would also be beneficial to have for the constructor. 
 
 Two options for state variables for \verb|TriangleT| could be \verb|height| and \verb|hypotenuse|. These would be valid state variables as these along with the other two side lengths would allow the class to receive additional information about the triangle object that would be helpful to identify. For example, knowing which variable was the hypotenuse would greatly improve the testing for the \verb|tri_type| method, as in its current implementation, it must test all combinations of the Pythagorean theorem to test if it was a right triangle, and would improve the isosceles test case as well, as the equal sides cannot be equal to the hypotenuse. It would also be beneficial to know the height of the triangle, as this would be very useful for area calculations. 
-
-
 
 \item The class \verb|ComplexT| has an equal method, but I do not think that 
 it would make much sense to have methods for greater than or less than, as in 
