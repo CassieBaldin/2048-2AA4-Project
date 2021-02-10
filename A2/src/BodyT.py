@@ -4,7 +4,6 @@
 #  @date February 12th, 2021
 
 from Shape import Shape
-import math
 
 
 ##  @brief BodyT is used as a constructor for a body of unknown shape
@@ -17,13 +16,13 @@ class BodyT(Shape):
     #  @param ms value representing mass of the object
     #  @throws ValueError if
     def __init__(self, xs, ys, ms):
+        if not (len(xs) == len(ys) == len(ms)):
+            raise ValueError
+
         self.cmx = self.__cm(xs, ms)
         self.cmy = self.__cm(ys, ms)
         self.m = self.__sum(ms)
         self.moment = self.__mmom(xs, ys, ms) - self.__sum(ms) * (self.__cm(xs, ms)**2 + self.__cm(ys, ms)**2)
-
-        if not (math.abs(xs) == math.abs(ys) == math.abs(ms)):
-            raise ValueError
 
     ## @brief cm_x returns the x value of the center of mass
     #  @return value representing the center of mass of the x value
@@ -44,3 +43,12 @@ class BodyT(Shape):
     #  @return value representing the moment inertia of the object
     def m_inert(self):
         return self.moment
+
+    def __sum(self, seq):
+        #todo
+
+    def __cm(self, seq1, seq2):
+        #todo
+
+    def __mmom(self, seq1, seq2, seq3):
+        #todo
