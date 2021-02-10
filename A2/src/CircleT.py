@@ -16,7 +16,7 @@ class CircleT(Shape):
     #  @param ys value representing the y value of the center of mass
     #  @param rs value representing the radius of the circle
     #  @param ms value representing mass of circle
-    #  @throws ValueError is radius and mass are less than zero
+    #  @throws ValueError if either radius or mass are less than zero
     def __init__(self, xs, ys, rs, ms):
         self.x = xs
         self.y = ys
@@ -41,7 +41,7 @@ class CircleT(Shape):
     def mass(self):
         return self.m
 
-    ## @brief mass returns the inertia of the object
-    #  @return value representing the inertia of the object
+    ## @brief mass returns the moment of inertia of the object
+    #  @return value representing the moment of inertia of the object
     def m_inert(self):
         return (self.m * self.r**2) / 2
