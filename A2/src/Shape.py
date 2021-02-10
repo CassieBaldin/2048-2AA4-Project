@@ -6,15 +6,15 @@
 from abc import ABC, abstractmethod
 
 
-##  @brief Contains an interface for the shape of the object
+##  @brief Shape is used as an interface for the shape of the object
 class Shape(ABC):
     @abstractmethod
-    ## @brief cm_x returns the center of mass of the x value of the object
+    ## @brief cm_x returns the x value of the center of mass
     #  @return value representing the center of mass of the x value
     def cm_x(self):
-        return self.__cmx
+        return self.x
 
-    ## @brief cm_y returns the center of mass of the y value of the object
+    ## @brief cm_y returns the y value of the center of mass
     #  @return value representing the center of mass of the y value
     def cm_y(self):
         return self.__cmy
