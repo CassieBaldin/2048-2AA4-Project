@@ -5,11 +5,10 @@
 
 from abc import ABC, abstractmethod
 
+
 ##  @brief Contains an interface for the shape of the object
 class Shape(ABC):
-
     @abstractmethod
-
     ## @brief cm_x returns the center of mass of the x value of the object
     #  @return value representing the center of mass of the x value
     def cm_x(self):
