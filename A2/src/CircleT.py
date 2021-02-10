@@ -15,11 +15,15 @@ class CircleT(Shape):
     #  @param ys value representing the y value of the center of mass
     #  @param rs value representing the radius of the circle
     #  @param ms value representing mass of circle
+    #  @throws ValueError is radius and mass are less than zero
     def __init__(self, xs, ys, rs, ms):
         self.x = xs
         self.y = ys
         self.r = rs
         self.m = ms
+
+        if not ((rs > 0) and (ms > 0)):
+            raise ValueError
 
     ## @brief cm_x returns the x value of the center of mass
     #  @return value representing the center of mass of the x value
