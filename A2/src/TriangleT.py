@@ -6,16 +6,16 @@
 from Shape import Shape
 
 
-##  @brief Triangle is used as a constructor for a triangle
-class TriangleT(Shape):
-    ## @brief constructor for method TriangleT
+##  @brief TriangleT is used as a constructor for a triangle
+class BodyT(Shape):
+    ## @brief constructor for method BodyT
     #  @details Assumes that arguments provided to the access programs
     #           will be of the correct type
     #  @param xs value representing the x value of the center of mass
     #  @param ys value representing the y value of the center of mass
-    #  @param rs value representing the side length of the triangle
+    #  @param ss value representing the side length of the triangle
     #  @param ms value representing mass of the triangle
-    #  @throws ValueError is side length and mass are less than zero
+    #  @throws ValueError if either side length or mass are less than zero
     def __init__(self, xs, ys, ss, ms):
         self.x = xs
         self.y = ys
@@ -40,7 +40,7 @@ class TriangleT(Shape):
     def mass(self):
         return self.m
 
-    ## @brief mass returns the inertia of the object
-    #  @return value representing the inertia of the object
+    ## @brief mass returns the moment of inertia of the object
+    #  @return value representing the moment of inertia of the object
     def m_inert(self):
         return (self.m * self.s**2) / 12
