@@ -10,7 +10,8 @@ from Shape import Shape
 ##  @brief CircleT is used as a constructor for a circle
 class CircleT(Shape):
     ## @brief constructor for method CircleT
-    #  @details
+    #  @details Assumes that arguments provided to the access programs
+    #           will be of the correct type
     #  @param xs value representing the x value of the center of mass
     #  @param ys value representing the y value of the center of mass
     #  @param rs value representing the radius of the circle
@@ -22,7 +23,7 @@ class CircleT(Shape):
         self.r = rs
         self.m = ms
 
-        if not ((rs > 0) and (ms > 0)):
+        if not ((self.r > 0) and (self.m > 0)):
             raise ValueError
 
     ## @brief cm_x returns the x value of the center of mass
