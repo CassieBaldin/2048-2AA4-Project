@@ -22,7 +22,8 @@ class BodyT(Shape):
         self.cmx = self.__cm(xs, ms)
         self.cmy = self.__cm(ys, ms)
         self.m = self.__sum(ms)
-        self.moment = self.__mmom(xs, ys, ms) - self.__sum(ms) * (self.__cm(xs, ms)**2 + self.__cm(ys, ms)**2)
+        self.moment = self.__mmom(xs, ys, ms) \
+            - self.__sum(ms) * (self.__cm(xs, ms)**2 + self.__cm(ys, ms)**2)
 
     ## @brief cm_x returns the x value of the center of mass
     #  @return value representing the center of mass of the x value
@@ -45,10 +46,10 @@ class BodyT(Shape):
         return self.moment
 
     def __sum(self, seq):
-        #todo
+        return seq
 
     def __cm(self, seq1, seq2):
-        #todo
+        return seq1
 
     def __mmom(self, seq1, seq2, seq3):
-        #todo
+        return seq1
