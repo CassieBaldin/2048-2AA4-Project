@@ -7,8 +7,16 @@ from Shape import Shape
 from SciPy import SciPy
 
 
-##  @brief BodyT is used as a constructor for a body of unknown shape
-class Scene(Shape, SciPy):
+##  @brief Scene is used as ...
+class Scene(Shape):
+    ## @brief constructor for method Scene
+    #  @details Assumes that arguments provided to the access programs
+    #           will be of the correct type
+    #  @param s value representing the shape
+    #  @param Fx value unbalanced force function in x direction
+    #  @param Fy value unbalanced force function in y direction
+    #  @param vx value representing initial velocity in x direction
+    #  @param vy value representing initial velocity in y direction
     def __init__(self, s, Fx, Fy, vx, vy):
         self.s = s_prime
         self.Fx = Fx_prime
@@ -24,3 +32,14 @@ class Scene(Shape, SciPy):
 
     def get_init_velo():
         return self.vx, self.vy
+
+    def set_shape(s_prime):
+        self.s = s_prime
+
+    def set_unbal_forces(Fx_prime, Fy_prime):
+        self.Fx = Fx_prime
+        self.Fy = Fy_prime
+
+    def set_init_velo(vx_prime, vy_prime):
+        self.vx = vx_prime
+        self.vy = vy_prime
