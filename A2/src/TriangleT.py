@@ -40,7 +40,7 @@ class BodyT(Shape):
     def mass(self):
         return self.m
 
-    ## @brief mass returns the moment of inertia of the object
+    ## @brief m_inert returns the moment of inertia of the object
     #  @return value representing the moment of inertia of the object
     def m_inert(self):
         return (self.m * self.s**2) / 12
