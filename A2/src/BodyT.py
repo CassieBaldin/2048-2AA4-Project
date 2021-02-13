@@ -40,16 +40,31 @@ class BodyT(Shape):
     def mass(self):
         return self.m
 
-    ## @brief mass returns the moment of inertia of the object
+    ## @brief m_inert returns the moment of inertia of the object
     #  @return value representing the moment inertia of the object
     def m_inert(self):
         return self.moment
 
-    def __sum(self, seq):
-        return seq
+    ## @brief sum returns the sum of a sequence of numbers
+    #  @return value representing the sum of the input sequence
+    def __sum(self, ms):
+        sum = 0
+        for u in range(len(ms)):
+            sum = sum + ms[u]
+        return sum
 
-    def __cm(self, seq1, seq2):
-        return seq1
+    ## @brief cm returns the center of mass of the object?
+    #  @return value representing the center of mass of the object
+    def __cm(self, z, m):
+        cm = 0
+        for i in range(len(m)):
+            cm = cm + (z[i] * m[i]) / sum(m)
+        return cm
 
-    def __mmom(self, seq1, seq2, seq3):
-        return seq1
+    ## @brief 
+    #  @return 
+    def __mmom(self, x, y, m):
+        mmom = 0
+        for i in range(len(m)):
+            mmom = mmom + m[i] * (x[i]**2 + y[i]**2)
+        return mmom
