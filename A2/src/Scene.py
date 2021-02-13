@@ -24,22 +24,31 @@ class Scene(Shape):
         self,vx = vx_prime
         self.vy = vy_prime
 
+    ## @brief gets the shape of the body
+    #  @return value representing the shape of the body
     def get_shape():
         return self.s
 
+    ## @brief gets the unbalanced forces of the body in the x and y direction
+    #  @return value of the unbalanced forces in the x direction
     def get_unbal_forces():
         return self.Fx, self.Fy
 
+    ## @brief gets the initial velocity of the body in the x and y direction
+    #  @return value of initial velocity in the x direction
     def get_init_velo():
         return self.vx, self.vy
 
+    ## @brief sets the shape of the body
     def set_shape(s_prime):
         self.s = s_prime
 
+    ## @brief sets the unbalanced forces of the body
     def set_unbal_forces(Fx_prime, Fy_prime):
         self.Fx = Fx_prime
         self.Fy = Fy_prime
 
+    ## @breif sets the initial velocity of the body
     def set_init_velo(vx_prime, vy_prime):
         self.vx = vx_prime
         self.vy = vy_prime
