@@ -5,21 +5,26 @@
 
 from matplotlib.pyplot import *
 
-def Plot(w, t):
+
+def plot(w, t):
     ## @brief does something **FIX
     #  @details Assumes that the sequence will be built in order of increasing i values.
-
     if not (len(w) == len(t)):
         raise ValueError
 
-    fig, (ax1, ax2, ax3) = subplots(3, sharex=True)
+    x, y = [], []
+
+    for i in range(0, len(w)):
+        x.append(w[i][0])
+        y.append(w[i][1])
+
+    fig, (ax1, ax2, ax3) = subplots(3)
     fig.suptitle("Motion Simulation")
-    ax1.plot(w[0], t)
-    ax2.plot(w[1], t)
-    ax3.plot(w[1], w[0])
-
-    #     tight_layout()  ##to space the axis labels out more if you need to
-
+    ax1.plot(t, x)
+    ax1.set(ylabel="x(m)")
+    ax2.plot(t, y)
+    ax2.set(ylabel="y(m)")
+    ax3.plot(x, y)
+    ax3.set(ylabel="y(m)")
+    ax3.set(xlabel="x(m)")
     show()
-
-#print(Plot([[0, 2, 3, 4],[2, 4, 6, 8]], [1, 2]))
