@@ -1,14 +1,13 @@
 ## @file Scene.py
 #  @author Cassidy Baldin
-#  @brief Contains a module for the scene of the graph I think
+#  @brief Contains a module to construct motion simulation
 #  @date February 12th, 2021
 
-import scipy
-from scipy.integrate import odeint
+from scipy import integrate
 
 
-##  @brief Scene is used as ...
-class Scene():
+##  @brief Scene is used as a way to construct a motion simulation
+class Scene:
     ## @brief constructor for method Scene
     #  @param s_prime value representing the shape
     #  @param Fx_prime value unbalanced force function in x direction
@@ -56,17 +55,19 @@ class Scene():
         self.__vx = vx_prime
         self.__vy = vy_prime
 
-    ## @brief simulates the  solution to the ode function
-    #  @param t_final value representing the final time 
+    ## @brief simulates the  solution to the ode function to simulate motion
+    #  @param t_final value representing the final time
     #  @param n_steps value representing the number of steps to divide the time interval
     def sim(self, t_final, nsteps):
         ## @brief calculates the resulting ode of the input
         #  @return solution to resulting ode
-        def __ode(self, w, t):
-            return [w[2], w[3], self.__Fx / self.__s.mass(), self.__Fy / self.__s.mass()]
+        def __ode(w, t):
+            return [w[2], w[3],
+                    self.__Fx(t) / self.__s.mass(), self.__Fy(t) / self.__s.mass()]
 
-        t = 0
-        for i in range(0, nsteps - 1):
-            t = (i * t_final) / (nsteps - 1)
-        return t, odeint(ode, [self.__s.cm_x(), self.__s.cm_y(),
-                               self.__vx, self.__vy], t)
+        t = []
+        for i in range(0, nsteps):
+            t.append((i * t_final) / (nsteps - 1))
+
+        return t, integrate.odeint(__ode, [self.__s.cm_x(), self.__s.cm_y(),
+                                           self.__vx, self.__vy], t)
