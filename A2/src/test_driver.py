@@ -27,3 +27,27 @@ class TestCircleT:
     def test_m_inert(self):
         c = CircleT(1.0, 10.0, 0.5, 5.0)
         assert c.m_inert() == 0.625
+
+    def test_neg_mass(self):
+        with raises(ValueError):
+            CircleT(1.0, 10.0, 0.5, -5.0)
+
+    def test_neg_rad(self):
+        with raises(ValueError):
+            CircleT(1.0, 10.0, -0.5, 5.0)
+
+    def test_neg_both(self):
+        with raises(ValueError):
+            CircleT(1.0, 10.0, -0.5, -5.0)
+
+    def test_zero_mass(self):
+        with raises(ValueError):
+            CircleT(1.0, 10.0, 0.5, 0)
+
+    def test_zero_rad(self):
+        with raises(ValueError):
+            CircleT(1.0, 10.0, 0, 5.0)
+
+    def test_zero_both(self):
+        with raises(ValueError):
+            CircleT(1.0, 10.0, 0, 0)
