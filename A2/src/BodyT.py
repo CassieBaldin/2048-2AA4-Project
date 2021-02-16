@@ -19,39 +19,31 @@ class BodyT(Shape):
     def __init__(self, xs, ys, ms):
         if not (len(xs) == len(ys) == len(ms)):
             raise ValueError
-        for i in range (0, len(ms)):
+        for i in range(0, len(ms)):
             if not (ms[i] > 0):
                 raise ValueError
 
-        ## @brief sum returns the sum of a sequence of numbers
-        #  @return value representing the sum of the input sequence
-        def __sum(ms):
-            sum = 0
-            for u in range(0, len(ms)):
-                sum = sum + ms[u]
-            return sum
+        self.__cmx = self.__cm(xs, ms)
+        self.__cmy = self.__cm(ys, ms)
+        self.__m = sum(ms)
+        self.__moment = self.__mmom(xs, ys, ms) \
+            - sum(ms) * (self.__cm(xs, ms)**2 + self.__cm(ys, ms)**2)
 
-        ## @brief cm returns the center of mass of the object?
-        #  @return value representing the center of mass of the object
-        def __cm(z, m):
-            cm = 0
-            for i in range(0, len(m)):
-                cm = cm + (z[i] * m[i]) / __sum(m)
-            return cm
+    ## @brief cm returns the center of mass of the object
+    #  @return value representing the center of mass of the object
+    def __cm(self, z, m):
+        cm = 0
+        for i in range(0, len(m)):
+            cm = cm + (z[i] * m[i])
+        return cm / sum(m)
 
         ## @brief mmom returns the value of the moment of inertia of the body
         #  @return value of the moment of inertia of the body
-        def __mmom(x, y, m):
-            mmom = 0
-            for i in range(0, len(m)):
-                mmom = mmom + m[i] * (x[i]**2 + y[i]**2)
-            return mmom
-
-        self.__cmx = __cm(xs, ms)
-        self.__cmy = __cm(ys, ms)
-        self.__m = __sum(ms)
-        self.__moment = __mmom(xs, ys, ms) \
-            - __sum(ms) * (__cm(xs, ms)**2 + __cm(ys, ms)**2)
+    def __mmom(self, x, y, m):
+        mmom = 0
+        for i in range(0, len(m)):
+            mmom = mmom + m[i] * (x[i]**2 + y[i]**2)
+        return mmom
 
     ## @brief cm_x returns the x value of the center of mass
     #  @return value representing the center of mass of the x value
