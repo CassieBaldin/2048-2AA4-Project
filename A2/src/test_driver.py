@@ -114,9 +114,56 @@ class TestTriangleT:
         with raises(ValueError):
             TriangleT(1.0, 10.0, 0, 0)
 
-# class TestBodyT:
+class TestBodyT:
+    def setup_method(self, method):
+        self.b1 = BodyT([5, -7.5, -9.5, 11], [12, 6.5, -1, -10], [10, 10, 50, 30])
+        self.b2 = BodyT([1, -1, -1, 1], [1, 1, -1, -1], [10, 10, 10, 10])
 
+    def teardown_method(self, method):
+        self.b1 = None
+        self.b2 = None
 
+    def test_cm_x(self):
+        assert self.b1.cm_x() == -1.7
+
+    def test_cm_x_zero(self):
+        assert self.b2.cm_x() == 0
+
+    def test_cm_y(self):
+        assert self.b1.cm_y() == -1.65
+
+    def test_cm_y_zero(self):
+        assert self.b2.cm_y() == 0
+
+    def test_mass(self):
+        assert (self.b1.mass() == 100 and self.b2.mass() == 40.0)
+
+    def test_m_inert(self):
+        assert (self.b1.m_inert() == 13306.25 and self.b2.m_inert() == 80.0)
+
+    def test_len_xs(self):
+        with raises(ValueError):
+            BodyT([1, -1, -1, 1, 1], [1, 1, -1, -1], [10, 10, 10, 10])
+
+    def test_len_ys(self):
+        with raises(ValueError):
+            BodyT([1, -1, -1, 1], [1, 1, -1, -1, 1], [10, 10, 10, 10])
+
+    def test_len_ms(self):
+        with raises(ValueError):
+            BodyT([1, -1, -1, 1], [1, 1, -1, -1], [10, 10, 10, 10, 1])
+
+    def test_neg_mass(self):
+        with raises(ValueError):
+            BodyT([1, -1, -1, 1], [1, 1, -1, -1], [10, 10, -10, 10])
+
+    def test_zero_mass(self):
+        with raises(ValueError):
+            BodyT([1, -1, -1, 1], [1, 1, -1, -1], [10, 10, 10, 0])
+
+    def test_empty(self):
+        with raises(ZeroDivisionError):
+            BodyT([], [], [])
 
 
 # class TestSceneT:
