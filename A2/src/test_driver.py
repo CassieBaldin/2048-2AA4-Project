@@ -12,21 +12,31 @@ from pytest import *
 
 
 class TestCircleT:
+    def setup_method(self, method):
+        self.c1 = CircleT(1.0, 10.0, 0.5, 5.0)
+        self.c2 = CircleT(0, 0, 1.0, 1.0)
+
+    def teardown_method(self, method):
+        self.c1 = None
+        self.c2 = None
+
     def test_cm_x(self):
-        c = CircleT(1.0, 10.0, 0.5, 5.0)
-        assert c.cm_x() == 1.0
+        assert self.c1.cm_x() == 1.0
+
+    def test_cm_x_zero(self):
+        assert self.c2.cm_x() == 0
 
     def test_cm_y(self):
-        c = CircleT(1.0, 10.0, 0.5, 5.0)
-        assert c.cm_y() == 10.0
+        assert self.c1.cm_y() == 10.0
+
+    def test_cm_y_zero(self):
+        assert self.c2.cm_y() == 0
 
     def test_mass(self):
-        c = CircleT(1.0, 10.0, 0.5, 5.0)
-        assert c.mass() == 5.0
+        assert self.c1.mass() == 5.0
 
     def test_m_inert(self):
-        c = CircleT(1.0, 10.0, 0.5, 5.0)
-        assert c.m_inert() == 0.625
+        assert self.c1.m_inert() == 0.625
 
     def test_neg_mass(self):
         with raises(ValueError):
@@ -54,21 +64,31 @@ class TestCircleT:
 
 
 class TestTriangleT:
+    def setup_method(self, method):
+        self.t1 = TriangleT(1.0, 10.0, 0.5, 24.0)
+        self.t2 = TriangleT(0, 0, 1.0, 1.0)
+
+    def teardown_method(self, method):
+        self.t1 = None
+        self.t2 = None
+
     def test_cm_x(self):
-        t = TriangleT(1.0, 10.0, 0.5, 5.0)
-        assert t.cm_x() == 1.0
+        assert self.t1.cm_x() == 1.0
+
+    def test_cm_x_zero(self):
+        assert self.t2.cm_x() == 0
 
     def test_cm_y(self):
-        t = TriangleT(1.0, 10.0, 0.5, 5.0)
-        assert t.cm_y() == 10.0
+        assert self.t1.cm_y() == 10.0
+
+    def test_cm_y_zero(self):
+        assert self.t2.cm_y() == 0
 
     def test_mass(self):
-        t = TriangleT(1.0, 10.0, 0.5, 5.0)
-        assert t.mass() == 5.0
+        assert self.t1.mass() == 24.0
 
     def test_m_inert(self):
-        t = TriangleT(1.0, 10.0, 0.5, 24.0)
-        assert t.m_inert() == 0.5
+        assert self.t1.m_inert() == 0.5
 
     def test_neg_mass(self):
         with raises(ValueError):
@@ -93,3 +113,10 @@ class TestTriangleT:
     def test_zero_both(self):
         with raises(ValueError):
             TriangleT(1.0, 10.0, 0, 0)
+
+# class TestBodyT:
+
+
+
+
+# class TestSceneT:
