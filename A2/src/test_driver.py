@@ -51,3 +51,45 @@ class TestCircleT:
     def test_zero_both(self):
         with raises(ValueError):
             CircleT(1.0, 10.0, 0, 0)
+
+
+class TestTriangleT:
+    def test_cm_x(self):
+        t = TriangleT(1.0, 10.0, 0.5, 5.0)
+        assert t.cm_x() == 1.0
+
+    def test_cm_y(self):
+        t = TriangleT(1.0, 10.0, 0.5, 5.0)
+        assert t.cm_y() == 10.0
+
+    def test_mass(self):
+        t = TriangleT(1.0, 10.0, 0.5, 5.0)
+        assert t.mass() == 5.0
+
+    def test_m_inert(self):
+        t = TriangleT(1.0, 10.0, 0.5, 24.0)
+        assert t.m_inert() == 0.5
+
+    def test_neg_mass(self):
+        with raises(ValueError):
+            TriangleT(1.0, 10.0, 0.5, -5.0)
+
+    def test_neg_side(self):
+        with raises(ValueError):
+            TriangleT(1.0, 10.0, -0.5, 5.0)
+
+    def test_neg_both(self):
+        with raises(ValueError):
+            TriangleT(1.0, 10.0, -0.5, -5.0)
+
+    def test_zero_mass(self):
+        with raises(ValueError):
+            TriangleT(1.0, 10.0, 0.5, 0)
+
+    def test_zero_side(self):
+        with raises(ValueError):
+            TriangleT(1.0, 10.0, 0, 5.0)
+
+    def test_zero_both(self):
+        with raises(ValueError):
+            TriangleT(1.0, 10.0, 0, 0)
