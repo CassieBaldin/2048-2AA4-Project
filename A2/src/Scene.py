@@ -3,14 +3,12 @@
 #  @brief Contains a module for the scene of the graph I think
 #  @date February 12th, 2021
 
-from SciPy import *
-from SciPy.integrate import odeint
-from abc import ABC, abstractmethod
+import scipy
+from scipy.integrate import odeint
 
 
 ##  @brief Scene is used as ...
-class Scene(ABC):
-    @abstractmethod
+class Scene():
     ## @brief constructor for method Scene
     #  @param s_prime value representing the shape
     #  @param Fx_prime value unbalanced force function in x direction
@@ -59,13 +57,13 @@ class Scene(ABC):
         self.__vy = vy_prime
 
     ## @brief simulates the  solution to the ode function
-    #  @param t_final value representing the final time ***FIX
-    #  @param n_steps value representing the number of steps in the integral? ***FIX
+    #  @param t_final value representing the final time 
+    #  @param n_steps value representing the number of steps to divide the time interval
     def sim(self, t_final, nsteps):
         ## @brief calculates the resulting ode of the input
         #  @return solution to resulting ode
-        def __ode__(self, w, t):
-            return [w[1], w[2], self.__Fx / self.__s.mass(), self.__F / self.__s.mass()]
+        def __ode(self, w, t):
+            return [w[2], w[3], self.__Fx / self.__s.mass(), self.__Fy / self.__s.mass()]
 
         t = 0
         for i in range(0, nsteps - 1):
