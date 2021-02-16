@@ -1,13 +1,16 @@
 ## @file Plot.py
 #  @author Cassidy Baldin
-#  @brief Contains a module for plotting
+#  @brief Contains a module for plotting a motion simulation
 #  @date February 12th, 2021
 
 from matplotlib.pyplot import *
 
 
 def plot(w, t):
-    ## @brief does something **FIX
+    ## @brief plots values of x, y, and t based on input, where w, t is the output from
+    #         the sim() method in Scene class that represents the motion of a projectile.
+    #         X represents position of the projectile in x direction, Y represents position
+    #         of the projectile in the y direction. T represents time.
     #  @details Assumes that the sequence will be built in order of increasing i values.
     if not (len(w) == len(t)):
         raise ValueError
