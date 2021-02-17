@@ -61,7 +61,7 @@ class Scene:
     def sim(self, t_final, nsteps):
         ## @brief calculates the resulting ode of the input
         #  @return solution to resulting ode
-        def __ode__(w, t):
+        def __ode(w, t):
             return [w[2], w[3],
                     self.__Fx(t) / self.__s.mass(), self.__Fy(t) / self.__s.mass()]
 
@@ -69,5 +69,5 @@ class Scene:
         for i in range(0, nsteps):
             t.append((i * t_final) / (nsteps - 1))
 
-        return t, integrate.odeint(__ode__, [self.__s.cm_x(), self.__s.cm_y(),
+        return t, integrate.odeint(__ode, [self.__s.cm_x(), self.__s.cm_y(),
                                            self.__vx, self.__vy], t)
