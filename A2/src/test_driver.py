@@ -276,7 +276,7 @@ class TestSceneT:
 
         assert (norm_t / norm_exp) == approx(1, rel=1e-3)
 
-    #I couldn't figure out how to effectively test this method :(
+    # I couldn't figure out how to effectively test this method :(
     # def test_sim_wsol(self):
     #     t, wsol = self.s3.sim(10, 10)
     #     exp_wsol = [[1, 10, 0, 0],
