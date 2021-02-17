@@ -18,20 +18,20 @@ class BodyT(Shape):
     #  @throws ValueError if values in sequence ms are less than zero
     def __init__(self, xs, ys, ms):
         if not (len(xs) == len(ys) == len(ms)):
-            raise ValueError
+            raise ValueError("Sequences must be of the same length")
         for i in range(0, len(ms)):
             if not (ms[i] > 0):
-                raise ValueError
+                raise ValueError("Mass must be greater than zero")
 
-        self.__cmx = self.__cm(xs, ms)
-        self.__cmy = self.__cm(ys, ms)
+        self.__cmx = self.__cm__(xs, ms)
+        self.__cmy = self.__cm__(ys, ms)
         self.__m = sum(ms)
-        self.__moment = self.__mmom(xs, ys, ms) \
-            - sum(ms) * (self.__cm(xs, ms)**2 + self.__cm(ys, ms)**2)
+        self.__moment = self.__mmom__(xs, ys, ms) \
+            - sum(ms) * (self.__cm__(xs, ms)**2 + self.__cm__(ys, ms)**2)
 
     ## @brief cm returns the center of mass of the object
     #  @return value representing the center of mass of the object
-    def __cm(self, z, m):
+    def __cm__(self, z, m):
         cm = 0
         for i in range(0, len(m)):
             cm = cm + (z[i] * m[i])
@@ -39,7 +39,7 @@ class BodyT(Shape):
 
         ## @brief mmom returns the value of the moment of inertia of the body
         #  @return value of the moment of inertia of the body
-    def __mmom(self, x, y, m):
+    def __mmom__(self, x, y, m):
         mmom = 0
         for i in range(0, len(m)):
             mmom = mmom + m[i] * (x[i]**2 + y[i]**2)
