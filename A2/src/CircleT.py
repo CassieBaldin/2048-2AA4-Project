@@ -24,7 +24,7 @@ class CircleT(Shape):
         self.__m = ms
 
         if not ((self.__r > 0) and (self.__m > 0)):
-            raise ValueError
+            raise ValueError("Radius and Mass must be greater than zero")
 
     ## @brief cm_x returns the x value of the center of mass
     #  @return value representing the center of mass of the x value
