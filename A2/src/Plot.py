@@ -13,7 +13,7 @@ def plot(w, t):
     #         of the projectile in the y direction. T represents time.
     #  @details Assumes that the sequence will be built in order of increasing i values.
     if not (len(w) == len(t)):
-        raise ValueError
+        raise ValueError("Sequences must be of the same length")
 
     x, y = [], []
 
