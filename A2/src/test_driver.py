@@ -1,4 +1,4 @@
-## @file test_All.py
+## @file test_driver.py
 #  @author Cassidy Baldin
 #  @brief A module for testing modules CircleT, TriangleT, BodyT, and Scene.py
 #  @date February 12th, 2021
