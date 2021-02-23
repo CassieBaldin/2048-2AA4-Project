@@ -19,18 +19,52 @@
 \newcounter{stepnum}
 
 \title{Assignment 2 Solution}
-\author{Your Name}
+\author{Cassidy Baldin}
 \date{\today}
 
 \begin {document}
 
 \maketitle
 
-This report discusses the testing phase for .... It also discusses the results
-of running the same tests on the partner files. The assignment specifications
+This report discusses the testing phase for the \verb|CircleT|, \verb|TriangleT|, \verb|BodyT|, and 
+\verb|Scene| classes written for Assignment 2. It does not discuss testing for the \verb|Shape| interface or 
+the \verb|Plot| function, as these were to be tested manually in this specification. It also discusses 
+the results of running the same tests on the partner files. The assignment specifications
 are then critiqued and the requested discussion questions are answered.
 
 \section{Testing of the Original Program}
+
+Tests were written such that each method that was implemented into the design
+had an appropriate amount of test cases that I felt covered the edge/boundary 
+cases for each method respectively. These tests were written using pytest as a way to check and tally the results of the testing. 
+The breakdown of all test cases and rationale are below:
+
+~\newline\noindent For class \verb|CircleT|:
+
+~\newline\noindent To test methods \verb|cm_x| and \verb|cm_y|, I tested two cases for each as I thought it would either get the required self.variable or it would not. The first case was when the value of cm was a positive number, and the other was when it was 0. Since these were basic methods, I did not think that there 
+would be much variance in the results of it. 
+~\newline\noindent To test methods \verb|mass| and \verb|m_inert|, I also did two cases that were pretty basic, just to see if it would return the correct values as it should as \verb|mass| was a simple variable return and \verb|m_inert| is a relatively simple calculation. I also used the approximation function to test if the \verb|m_inert| method was correct as it returns float values and there could be precision errors. I decided to check if the value was off by 1e-3, as I thought that was a reasonable margin of error.
+~\newline\noindent To test for the exceptions that might be raised in this class, I created cases where the mass, radius and both simultaneously were negative or zero values to make sure the exception held as both radius and mass should be greater than zero according to the specification. If the mass was found to be less than or equal to zero, a ValueError was thrown and caught and raised in pytest. 
+I also could have used testing cases where the parameters \verb|xs| and \verb|ys| were negative values, but all that would change would be to add another case for the \verb|cm_x| and \verb|cm_y| methods to the testing file. Since the method was simply returning the value it was set to, I thought it would be sufficient with the cases I had. 
+
+~\newline\noindent For class \verb|TriangleT|:
+
+~\newline\noindent To test methods \verb|cm_x|, \verb|cm_y|, \verb|mass| and \verb|m_inert|, I tested using the same ideas as the \verb|CircleT| class, as these specifications were almost identical in terms of the methods being used and the implementation of these methods. The only difference was the use of side instead of radius, and the inertia was divided by 12 instead of 2.
+~\newline\noindent The testing of the exceptions was the same as well, as both the side length and mass must be greater than zero in this specification. 
+Again, I could have added cases for testing negative values of \verb|cm_x| and \verb|cm_y|, but since these were basic getter methods I thought that two cases would suffice. 
+
+~\newline\noindent For class \verb|BodyT|:
+
+~\newline\noindent To test methods \verb|cm_x|, \verb|cm_y|, \verb|mass| and \verb|m_inert|, I tested using the same ideas as the \verb|CircleT| class, as these specifications were almost identical in terms of the methods being used and the implementation of these methods. The difference was with how they were setting these values, as they were reliant on local methods calculating the correct information to set the values. However, since for this assignment we were not testing local methods specifically, the only way to tell if the implementation was correct was to test the getter methods, which is what I did. These were tested the same was as \verb|CircleT| as they were similar getter methods. 
+~\newline\noindent To test the two different exceptions raised in this specification, I first tested to make sure that the length of the sequences was the same by using an if statement to check if the lengths of input lists \verb|xs|, \verb|ys| and \verb|ms| were the same. This was because in the specification the lengths must be the same so that the center of mass coordinates, mass and inertia of the body are successfully and correctly returned. If the length of these three sequences were not equal, it would throw a ValueErorr. 
+To test if all mass values were greater than zero, I used a loop with an if statement that checked all values in the \verb|ms| list. If the value in this mass list was less than or equal to zero, it would throw a ValueError. 
+
+~\newline\noindent For class \verb|Scene|:
+
+~\newline\noindent To test the getters \verb|get_shape|, and \verb|get_init_velo|, I used the same ideas as \verb|CircleT|, as these were basic tests for basic getter methods. The only differences were the names of the getters and \verb|get_init_velo| returned tuples of both the x and y values of the velocity instead of just one single value. So, for these tests, I simply checked if the values I was testing were equal to the ones I input into the tests. 
+~\newline\noindent To test the setters \verb|set_shape|, and \verb|set_init_velo|, I used a combination of the setters and their respective getters to set the value to the new one and return that value to show that it had indeed been mutated. Then after it had been set to one value, I checked if it could be set back to the original value, then checked again with the getter. This test was not only checking the capability of the implementation to set a new shape of velocity, but also testing the ability of the getters once more. Since this test relies on the getters to work correctly, there is some margin or error for this test to fail if the getters also fail, but I am not sure if there is any other way to check if the value of the object has changed from outside of the class as the variables in the \verb|init| constructor are private outside of the class. 
+~\newline\noindent To test \verb|sim|...
+
 
 
 \section{Results of Testing Partner's Code}
@@ -43,7 +77,55 @@ are then critiqued and the requested discussion questions are answered.
 
 \begin{enumerate}[a)]
 
-\item
+\item a) Should getters and setters be unit tested?
+
+
+
+
+\item b) The assignment says that you do not have to test the setters or getters that are functions (Fx and Fy) in Scene.py. If you were required to test the getters and setters for these state variables, how might you do that? (put it inside main function like i was gonna do)
+
+
+
+
+\item c) The assignment does not require automated tests for Plot.py. If automated tests were required how might you do them? Hint: matplotlib can generate a file for any plots that you might build.
+
+
+
+
+\item d) Write a mathematical specification for a function called close enough that takes two arguments xcalc and ytrue and returns true if the sequences represented by the arguments are close to being equal, as expressed by Equation 2.3
+
+
+
+
+\item e) The given specification has exceptions for non-positive values of shape dimensions and mass but not for the x and y coordinates of the center of mass. Should there be exceptions for negative coordinated? Why or why not?
+
+
+
+
+\item f) TriangeT has a state invariant that $s > 0 \land m > 0$. Informally prove that this invariant is always satisfied by the given specification. 
+
+
+
+
+\item g) Write a python list comprehension statement that generates a list of the square roots of all odd ints between 5 and 19.
+
+
+
+
+\item h) Define a python function that takes a string and returns the string, but with all upper case letters removed.
+
+
+
+
+\item i) How are principles of abstraction and generality related?
+
+
+
+
+\item j) If we have high coupling between modules we can have a case where a module uses many other modules or a module is used by many other modules. Which of these two scenarios would in general be better? Why?
+
+
+
 
 \end{enumerate}
 
@@ -91,9 +173,9 @@ are then critiqued and the requested discussion questions are answered.
 
 \newpage
 
-\section{Code for test\_All.py}
+\section{Code for test\_driver.py}
 
-\noindent \lstinputlisting{../src/test_All.py}
+\noindent \lstinputlisting{../src/test_driver.py}
 
 \newpage
 
