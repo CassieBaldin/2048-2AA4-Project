@@ -69,8 +69,19 @@ To test if all mass values were greater than zero, I used a loop with an if stat
 
 \section{Results of Testing Partner's Code}
 
+After testing my partners code using my testing file, they passed all 56 cases! This might have been a result of the A2 specification being less ambiguous than A1, allowing the designs of both my partner and I to be relatively similar.
+
+~\newline\noindent For instance, in the \verb|CircleT| class, they were nearly identical in terms of implementation, besides the variable names being different from one another. The only other difference was that they raised a value error before assigning the self parameters, while in my implementation, this exception was checked after they were assigned. My partner's implementation could save a bit of time and memory, as it will throw this exception immediately while my design does not. This was similar to the \verb|TriangleT| class implementation. 
+~\newline\noindent In the \verb|BodyT| class, the \verb|__init__| method was done in a similar way with both of us checking that the length of the sequences were equal and checking if all masses in the sequence were greater than zero. A difference between the implementation in this class was the \verb|__sum__| method, as in my partner's code they included it but I just used the built in functionality of python to sum all the values in a sequence using the \verb|sum| method. Since they were local functions, I assumed that this would be allowed for the implementation, as it was not a direct method that was needed in the specification and was just a helper method for the calculation of the total mass of the body. The other two local methods \verb|__cm__| and \verb|__mmom| were implemented in a similar manner. 
+~\newline\noindent In the \verb|Scene| class, all the methods were implemented in the same basic way, apart from the \verb|ode| local function. In my implementation, it was a part of the \verb|sim| method, while in my partner's code it was a private method separate from the \verb|sim| method. This does not change the results of the output of this function, but it does mean that if hypothetically you wanted another method that could use this \verb|ode| method, in my case I would need to create another method inside of the new one, while my partner could just use the one that they already have as it is separate from an already existing function. I also realized while looking at my code again that I forgot to add doxygen comments for the parameters for the input variables \verb|w, t| in the \verb|ode| method to explain to the user what each parameter was specifying. Another difference in our implementation is that my partner imported \verb|Shape| and used instantiated it in the \verb|Scene| class while I did not. This is because I did not think that it was needed in the \verb|Scene| class, as it was not directly using the interface. The input to the class had a relationship to \verb|Shape| like the first parameter representing the shape that was to be in the scene, but the class itself did not need it from my understanding. Also, in the specification, it was stated that modules like \verb|CircleT| inherit \verb|Shape| and this was not the case for \verb|Scene|. 
+
+~\newline\noindent Having seen the similarities between our designs, it can be easy to see why my partner had passed all my test cases. If I had been able to fully test the \verb|sim| method, I am sure they would have passed the tests, as their implementation was very similar to mine overall. I also ran their code using the \verb|test_expt.py| file and it produced the correct graph using my plot method, further confirming my statement. 
 
 \section{Critique of Given Design Specification}
+
+
+
+
 
 
 \section{Answers}
@@ -82,50 +93,140 @@ To test if all mass values were greater than zero, I used a loop with an if stat
 
 
 
-\item b) The assignment says that you do not have to test the setters or getters that are functions (Fx and Fy) in Scene.py. If you were required to test the getters and setters for these state variables, how might you do that? (put it inside main function like i was gonna do)
+\item Since the functions that are taken into the constructor in the class \verb|Scene| must be defined outside of the class, to test the getters and setters for these state variables, you could run tests that include function definitions in them, as well as all other necessary components of building the \verb|Scene| object. For example, to test \verb|get_unbal_forces|, you could define two functions for the forces in each direction, then create a shape object to input into a new \verb|Scene| object that can be created in this test. Then you can successfully test the getter method for the functions. This example can be seen below in \verb|Ftest|. A way to test the setters would be to copy the last test but define a new function inside the test case, then set the forces to this new function using the setter method. Then you would use a getter to make sure the test ran correctly. This example can be seen below in \verb|Ftest2|. If you try to test these functions when they are not inside of the test, it will throw a \verb|NameError|, as the function is not in the scope of the test and is therefore not recognized. This type of test would clutter the testing file as new forces and objects need to be defined with each test, causing an excess amount of objects to be made. 
 
+\begin{verbatim}
+    def test_Ftest(self):
+        def Fx(t):
+            return 0
+        def Fy(t):
+            return -9.81
+        self.c = CircleT(1.0, 10.0, 0.5, 5.0)
+        self.s1 = Scene(self.c, Fx, Fy, 0, 0)
+        assert self.s1.get_unbal_forces() == (Fx, Fy)
 
-
+    def test_Ftest2(self):
+        def Fx(t):
+            return 0
+        def Fy(t):
+            return -9.81
+        def Fz(t):
+            return 1
+        self.c = CircleT(1.0, 10.0, 0.5, 5.0)
+        self.s1 = Scene(self.c, Fx, Fy, 0, 0)
+        self.s1.set_unbal_forces(Fx, Fz)
+        assert self.s1.get_unbal_forces() == (Fx, Fz)
+\end{verbatim}
 
 \item c) The assignment does not require automated tests for Plot.py. If automated tests were required how might you do them? Hint: matplotlib can generate a file for any plots that you might build.
 
 
 
 
-\item d) Write a mathematical specification for a function called close enough that takes two arguments xcalc and ytrue and returns true if the sequences represented by the arguments are close to being equal, as expressed by Equation 2.3
+\item 
 
+\section* {Close\_Enough Module}
 
+Close\_Enough
 
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+  \hline
+  \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+  \hline
+  close\_enough & $x_\test{calc}: \text{seq of }\mathbb{R}$, $y_\text{true}: \text{seq of } \mathbb{R}$ & $\mathbb{B}$ & ValueError\\
+  \hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+It assumes that both $x_\text{calc}$ and $y_\text{true}$ sequences are of the same length. 
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent close\_enough($x_\text{calc}, y_\text{true}$):
+\begin{itemize}
+\item transition: Implements the formula below to determine if two sequences are close to being equal, based on \text1e-03, as this is a reasonably close margin of error. 
+
+\begin{equation}
+\frac{|| x_\text{calc} - y_\text{true} ||} {||y_\text{true}||} < \text{1e-03} \label{Eq_calcError}
+\end{equation} 
+
+\item output: $out := \frac{\text{abs}(\text{sub}(x_\text{calc}, y_\text{true}))} {\text{abs}(y_\text{true})} < \text{1e-03}$
+\item exception: ($\neg (\text{abs}(y_\text{true}) \neq 0) \Rightarrow \text{ValueError}$)
+\end{itemize}
+
+\subsection*{Local Functions}
+
+%subtracts two sequences by creating a new sequence of values subbed at each index
+\noindent $\text{sub}: \text{seq of } \mathbb{R}, \text{seq of } \mathbb{R} \rightarrow \mathbb{R}$\\
+\noindent $\text{sub}(x, y) \equiv [(+ i: \mathbb{N} | i \in [0..|x|-1] :
+x_i - y_i)]$\\
+
+%finds the max value in the sequence
+\noindent $\text{abs}: \text{seq of } \mathbb{R} \rightarrow \mathbb{R}$\\
+\noindent $\text{abs}(z) \equiv (+ i: \mathbb{N} | i \in [0..|z|-1] :
+z_i > max \Rightarrow max = z_i)$,
+
+where $max$ = current maximum of sequence
+
+\newpage
 
 \item e) The given specification has exceptions for non-positive values of shape dimensions and mass but not for the x and y coordinates of the center of mass. Should there be exceptions for negative coordinated? Why or why not?
 
+The given specification has exceptions for non-positive values of shape dimensions and mass but not for the x and y coordinates of the center of mass because of what they represent in terms of physical space. If a coordinate is positive, it means that it is 
 
 
+\item In the class \verb|TriangleT|, the state invariant is that $s > 0 \land m > 0$. In order for this to be satisfied by the given specification, this would mean that every access program/method in the class will hold both before and after each method is run. In this class, the only place for this state invariant to be violated is in the \verb|__init__| method, as this is where the values of s and m could be less than 0. All of the other methods in this class are getters, meaning that they simply return the value of the parameter in the constructor. There is no way for the value of the side or mass parameters to change in these methods. In the given specification, in the \verb|__init__| method it says to throw a \verb|ValueError| if the state invariant is true. This will cause the program to not finish making the object if either the side or mass is less than or equal to zero. Since this exception exists in the constructor and the value of the self parameters cannot be changed by any mutators in the class, this proves that the state invariant is always satisfied by the given specification. 
 
-\item f) TriangeT has a state invariant that $s > 0 \land m > 0$. Informally prove that this invariant is always satisfied by the given specification. 
+\item List comprehension statement:
 
+\begin{verbatim}
+sq_list = [i**(1/2) for i in range(5, 20, 2)]
+\end{verbatim}
 
+where \verb|sq_list| is a list of the square roots of all odd ints between 5 and 19 (inclusive).
 
+\item A python function that takes a string and returns the string, but with all upper case letters removed is:
 
-\item g) Write a python list comprehension statement that generates a list of the square roots of all odd ints between 5 and 19.
-
-
-
-
-\item h) Define a python function that takes a string and returns the string, but with all upper case letters removed.
-
-
-
+\begin{verbatim}
+def no_cap(string):
+    new = string
+    for i in string:
+        if (ord(i) >= 65) and (ord(i) <= 90):
+            new = string.replace(i, '')
+        string = new
+    return string
+\end{verbatim}
 
 \item i) How are principles of abstraction and generality related?
 
 
 
 
-\item j) If we have high coupling between modules we can have a case where a module uses many other modules or a module is used by many other modules. Which of these two scenarios would in general be better? Why?
-
-
-
+\item If we have high coupling between modules, the better scenario would be to have a module that is used by many other modules. If you have a module that uses many other modules, this means that you would need all of the other modules to work properly and be implemented before you are able to use the top level module. This could allow for many issues as if one of those modules has a bug or does not run properly, then the top module will not work properly either as a result. If you have a module that is used by many other modules, this would mean that as long as the low level is functioning properly, then the other modules that use it will be able to operate effectively as well. But if there is a problem with the low level module, it will affect the other modules as well. This method relies on program correctness and robustness of only one module as opposed to the correctness of many modules as seen in the first example. 
+The second scenario would be better in general, as it would be easier to fix just the one low level module than to try to figure out which of the lower level modules in the first scenario needed to be fixed to make the top level module run. Since many modules feed into the top level module in the first scenario, if it does not work, you will not necessarily always know which of the lower modules is not working correctly in order to fix it. This is why the second scenario would be better in general. 
 
 \end{enumerate}
 
