@@ -26,18 +26,19 @@
 
 \maketitle
 
-This report discusses the testing phase for the \verb|CircleT|, \verb|TriangleT|, \verb|BodyT|, and 
-\verb|Scene| classes written for Assignment 2. It does not discuss testing for the \verb|Shape| interface or 
-the \verb|Plot| function, as these were to be tested manually in this specification. It also discusses 
-the results of running the same tests on the partner files. The assignment specifications
-are then critiqued and the requested discussion questions are answered.
+This report discusses the testing phase for the \verb|CircleT|, \verb|TriangleT|, \verb|BodyT|, 
+and \verb|Scene| classes written for Assignment 2. It does not discuss testing for the 
+\verb|Shape| interface or the \verb|Plot| function, as these were to be tested manually in 
+this specification. It also discusses the results of running the same tests on the partner files. 
+The assignment specifications are then critiqued and the requested discussion questions are 
+answered.
 
 \section{Testing of the Original Program}
 
 Tests were written such that each method that was implemented into the design
 had an appropriate amount of test cases that I felt covered the edge/boundary 
-cases for each method respectively. These tests were written using pytest as a way to check and tally the 
-results of the testing. The breakdown of all test cases and rationale are below:
+cases for each method respectively. These tests were written using pytest as a way to check and 
+tally the results of the testing. The breakdown of all test cases and rationale are below:
 
 ~\newline\noindent For class \verb|CircleT|:
 
@@ -177,10 +178,58 @@ graph using my plot method, further confirming my statement.
 
 \section{Critique of Given Design Specification}
 
+In terms of this design specification, I thought that the design specification was better than in 
+A1, as it was much more clear on what was being implemented. In the first assignment, most of the 
+methods were very ambiguous, causing many different interpretations of the specification to be 
+implemented, while in this assignment, it was made much more clear what the design was asking as 
+it was written in the MIS format. That was definitely a strength of this specification, as the 
+more formal language allowed for clear understanding of what each class and method was meant to 
+do, and what exceptions were needed if any just from reading each module. In the last assignment, 
+it was up to us to decide if we should assume correct inputs, or if we should throw exception. In 
+this specification, we were told where and what to use as an exception which I found made the 
+design less varied between my partner and I. I also liked the addition of specified local 
+methods, as it was helpful to be able to implement each of the main functions. This design was 
+consistent, as you did not need to know much information about the meaning of each function to 
+properly implement it based on the MIS, and essential which means it included no redundant 
+methods that returned the same results as another method. This allowed thee design to be easier 
+to create as well as concise as there was no need to implement other methods that would not be of 
+much use for the specification. The use of local methods that were private and attributes that 
+were not able to be accessed outside of the class like the object state variables made the design 
+opaque and support information hiding which makes it harder for the code to break or be tampered 
+with, which is another strength of this design. 
 
+However, there are some disadvantages of using such a rigid specification. For example, the 
+explicit instruction on how to create each module does not allow for much generality, as each 
+specific module was written to implement just that specific module. There is no real way to make 
+each method more general when it is written to be implemented in a specific way like in this 
+assignment. This specification has high cohesion, as most modules were related to other modules, 
+like how \verb|CircleT|, \verb|TriangleT| and \verb|BodyT| all inherited the \verb|Shape| 
+interface, and were all used in the \verb|Scene| class to make a plot using the \verb|plot| 
+method in the \verb|Plot.py| file. Since they were all related, it allows the user to use all of 
+these together easily, but if something were to go wrong in one of the earlier modules, for 
+example the body center of mass calculations, it would cause the incorrect simulation to be 
+output in the \verb|Scene| module, resulting in the incorrect plot in the next module. This could 
+be a disadvantage as they all lead into one another, but since there are few modules it is not 
+that complicated to find out what went wrong and fix the problem. This is because this 
+specification has low coupling, as a few modules are strongly dependent on a few other modules. 
+If this specification had high coupling, many different modules would be needed for the each 
+subsequent module to work, which is not ideal. 
 
+You could change this design by making it more general for example making a class like 
+\verb|BodyT| for 2D objects so there would not need to be a \verb|CircleT| and \verb|TriangleT| 
+class, as they were almost identical modules besides the moment of inertia calculation. This 
+might make the specification more general as it can be used for more 2D shapes than just a circle
+and a triangle. You could also make it more minimal, as the getters and setters in the 
+\verb|Scene| class returned two state variables as opposed to having two separate methods for 
+example to return the value of the initial velocity in each direction separately. This might 
+allow you to use these values for more applications as they are separated and not tied together 
+as they are in this specification.
 
-
+This interface does provide the programmer with checks that will allow them to avoid generating 
+an exception, as it includes exceptions to catch any errors with the input to each class that 
+required it and it is also stated in the interface which values would not be accepted by the 
+program, allowing the programmer to avoid the exceptions by inputting the values they know will 
+be accepted, as well as catching them if they are not careful. 
 
 \section{Answers}
 
@@ -245,7 +294,8 @@ function to compare the expected plot to the calculated plot. This function comp
 plots pixel by pixel to check if they are the same. If they are the same within a certain small 
 amount, it would pass the test, otherwise it would fail. To throughly test this I would create 
 multiple plots and compare them to the expected plots to check if different input values into the 
-function worked. This is a way I would use automated tests for the \verb|Plot.py| file. An example of using the \verb|compare_images| method would be:
+function worked. This is a way I would use automated tests for the \verb|Plot.py| file. An 
+example of using the \verb|compare_images| method would be:
 
 \begin{verbatim} 
 compare_images(img1, img2, 0.001)
@@ -303,14 +353,14 @@ not empty.
 \noindent close\_enough($x_\text{calc}, y_\text{true}$):
 \begin{itemize}
 \item transition: Implements the formula below to determine if two sequences are close to 
-being equal, based on \text1e-03, as this is a reasonably close margin of error. 
+being equal, based on some small number $\epsilon$.
 
 \begin{equation}
-\frac{|| x_\text{calc} - y_\text{true} ||} {||y_\text{true}||} < \text{1e-03} \label{Eq_calcError}
+\frac{|| x_\text{calc} - y_\text{true} ||} {||y_\text{true}||} < \epsilon \label{Eq_calcError}
 \end{equation} 
 
 \item output: $out := \frac{\text{abs}(\text{sub}(x_\text{calc}, y_\text{true}))} 
-{\text{abs}(y_\text{true})} < \text{1e-03}$
+{\text{abs}(y_\text{true})} < \epsilon $
 \item exception: ($\neg (\text{abs}(y_\text{true}) \neq 0) \Rightarrow \text{ValueError}$)
 \end{itemize}
 
