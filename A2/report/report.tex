@@ -110,15 +110,32 @@ getters to work correctly, there is some margin or error for this test to fail i
 also fail, but I am not sure if there is any other way to check if the value of the object has 
 changed from outside of the class as the variables in the \verb|init| constructor are private 
 outside of the class. 
-~\newline\noindent When testing \verb|sim|, I tried to implement a test like the one that was shown in the \verb|test_expy.py| file, where a \verb|Scene| object was created then simulated using the \verb|sim| method. 
-
-
+~\newline\noindent When testing \verb|sim|, I tried to implement a test like the one that was 
+shown in the \verb|test_expy.py| file, where a \verb|Scene| object was created then simulated 
+using the \verb|sim| method. In the assignment specification, there was a function to compute the 
+values of the output using the formula from Equation 1, where you first needed to calculate the 
+calculated sequence subtracted by the true solution, then find the norm of that subtracted 
+sequence, then divide that by the norm of the true solution. If that number was less than a small 
+number represented by $\epsilon$ then it would pass the automated test. I tried to follow the 
+setup used i n \verb|test_expt.py| and made a test first for testing the values of \verb|t|. This 
+would return a list that I could calculate the return values of as it was a matter of simply 
+dividing the time into \verb|n_steps| parts and returning a list. Then I calculated the 
+difference between sequences using a loop, and used that to find the norm in the sequence. I did 
+this by looping through the list of differences ad finding the maximum value. I did the same for 
+the expected value list and found the maximum value. I then divided the two values and set them 
+equal to 1 with a margin of error of \text{1e-03} as I thought this was reasonable. I tried to do
+the same for the solution to the ode but I found it very complicated to figure out the values 
+this list would output by hand. I did not adequately test this method as a result, as I could not 
+determine the best way to do so. I was attempting to test it the same was as above, but it did 
+not seem to work in the same way. This is how I tested the \verb|sim| method. 
 
 \section{Results of Testing Partner's Code}
 
 After testing my partners code using my testing file, they passed all 56 cases! This might have 
 been a result of the A2 specification being less ambiguous than A1, allowing the designs of both 
-my partner and I to be relatively similar.
+my partner and I to be relatively similar. In the last assignment, there were many differences 
+between my partner's code and my own that cause many of the test cases to fail, but in this 
+assignment this was not the case. 
 
 ~\newline\noindent For instance, in the \verb|CircleT| class, they were nearly identical in terms
 of implementation, besides the variable names being different from one another. The only other 
@@ -221,10 +238,23 @@ causing an excess amount of objects to be made.
         assert self.s1.get_unbal_forces() == (Fx, Fz)
 \end{verbatim}
 
-\item c) The assignment does not require automated tests for Plot.py. If automated tests were required how might you do them? Hint: matplotlib can generate a file for any plots that you might build.
+\item If automated tests were required to test \verb|Plot.py|, I would test it by using 
+matplotlib to put all of the plots that were generated into a file,  and use the \verb|savefig| 
+function in matplotlib. Then once the plots are saved, I would use the \verb|compare_images| 
+function to compare the expected plot to the calculated plot. This function compares the two 
+plots pixel by pixel to check if they are the same. If they are the same within a certain small 
+amount, it would pass the test, otherwise it would fail. To throughly test this I would create 
+multiple plots and compare them to the expected plots to check if different input values into the 
+function worked. This is a way I would use automated tests for the \verb|Plot.py| file. An example of using the \verb|compare_images| method would be:
 
+\begin{verbatim} 
+compare_images(img1, img2, 0.001)
+\end{verbatim} 
 
+where \verb|img1| is the calculated plot, \verb|img2| is the expected plot, and 0.001 is the 
+margin of error. 
 
+\newpage
 
 \item 
 
@@ -292,7 +322,7 @@ being equal, based on \text1e-03, as this is a reasonably close margin of error.
 \noindent $\text{sub}(x, y) \equiv [(+ i: \mathbb{N} | i \in [0..|x|-1] :
 x_i - y_i)]$\\
 
-%finds the max value in the sequence
+%finds the max value in the sequence using an if statement repacing the current max with z_i
 \noindent $\text{abs}: \text{seq of } \mathbb{R} \rightarrow \mathbb{R}$\\
 \noindent $\text{abs}(z) \equiv (+ i: \mathbb{N} | i \in [0..|z|-1] :
 z_i > max \Rightarrow max = z_i)$,
@@ -354,12 +384,28 @@ def no_cap(string):
     return string
 \end{verbatim}
 
-\item i) How are principles of abstraction and generality related?
-
-The principles of abstraction and generality are related as they both deal with looking at a problem in a broader sense. Abstraction can be defined as a separation of concerns meaning that we look at the more important details of a problem from the less important details. This allows the designer of a program to focus more on the broader idea of what they are trying to make and what functionality it will have before getting into the specifics of how it would be done. It can be looked at as a simpler way to solve a problem that can allow the designer to think about the most efficient way to solve a problem instead of going right into it and getting lost in the details. An example of this is when programmers use languages like Python, where they can write a program to accomplish a task without having to worry about the exact way a computer would read and interpret what they want it to do in terms of bits for example. Generality can be defined as a way to generalize a solution to a given specific problem, so that it can be used not just for that one specific problem, but can be used to solve others as well. This allows a program to be reused for other purposes once the main problem has been solved. An example of this could be if you had a problem where you had to return the value of 1 from a list. To make this more general, you could make it so that it would return any number you input from a list. 
-
-Some information for this question was taken from the textbook (Ghezzi et al). 
-
+\item The principles of abstraction and generality are related as they both deal with looking at 
+a problem in a broader sense. Abstraction can be defined as a separation of concerns meaning that 
+we look at the more important details of a problem while pushing aside the less important 
+details. This allows the designer of a program to focus more on the broader idea of what they are 
+trying to make and what functionality it will have before getting into the specifics of how it 
+would be done. It can be looked at as a simpler way to solve a problem that can allow the 
+designer to think about the most efficient way to implement it instead of going right into it and 
+getting lost in the details and specifics. An example of this is when programmers use languages 
+like Python, where they can write a program to accomplish a task without having to worry about 
+the exact way a computer would read and interpret what they want it to do in terms of bits for 
+example. Generality can be defined as a way to generalize a solution to a given specific problem, 
+so that it can be used not just for that one specific problem, but can be used to solve others as 
+well. This allows a program to be reused for other purposes once the main problem has been 
+solved. An example of this could be if you had a problem where you had to return the value of 1 
+from a list. To make this more general, you could make it so that it would return any number you 
+input from a list. These principles are related as they both aim to make a program less specific 
+to a certain problem and allow it to be used more than once. By using the principle of 
+abstraction and generality together, you can solve the problem by looking at it in terms of the 
+most important details, while making it so that it can be used for a variety of different 
+problems. By using abstraction, you can see more easily a way to generalize the problem at hand. 
+This is how the principles of abstraction and generality are related. Some information for this 
+question was taken from the textbook (Ghezzi et al). 
 
 \item If we have high coupling between modules, the better scenario would be to have a module 
 that is used by many other modules. If you have a module that uses many other modules, this means 
