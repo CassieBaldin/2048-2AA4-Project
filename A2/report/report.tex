@@ -36,46 +36,127 @@ are then critiqued and the requested discussion questions are answered.
 
 Tests were written such that each method that was implemented into the design
 had an appropriate amount of test cases that I felt covered the edge/boundary 
-cases for each method respectively. These tests were written using pytest as a way to check and tally the results of the testing. 
-The breakdown of all test cases and rationale are below:
+cases for each method respectively. These tests were written using pytest as a way to check and tally the 
+results of the testing. The breakdown of all test cases and rationale are below:
 
 ~\newline\noindent For class \verb|CircleT|:
 
-~\newline\noindent To test methods \verb|cm_x| and \verb|cm_y|, I tested two cases for each as I thought it would either get the required self.variable or it would not. The first case was when the value of cm was a positive number, and the other was when it was 0. Since these were basic methods, I did not think that there 
+~\newline\noindent To test methods \verb|cm_x| and \verb|cm_y|, I tested two cases for each as I
+thought it would either get the required self.variable or it would not. The first case was when
+the value of cm was a positive number, and the other was when it was 0. Since these were basic 
+methods, I did not think that there 
 would be much variance in the results of it. 
-~\newline\noindent To test methods \verb|mass| and \verb|m_inert|, I also did two cases that were pretty basic, just to see if it would return the correct values as it should as \verb|mass| was a simple variable return and \verb|m_inert| is a relatively simple calculation. I also used the approximation function to test if the \verb|m_inert| method was correct as it returns float values and there could be precision errors. I decided to check if the value was off by 1e-3, as I thought that was a reasonable margin of error.
-~\newline\noindent To test for the exceptions that might be raised in this class, I created cases where the mass, radius and both simultaneously were negative or zero values to make sure the exception held as both radius and mass should be greater than zero according to the specification. If the mass was found to be less than or equal to zero, a ValueError was thrown and caught and raised in pytest. 
-I also could have used testing cases where the parameters \verb|xs| and \verb|ys| were negative values, but all that would change would be to add another case for the \verb|cm_x| and \verb|cm_y| methods to the testing file. Since the method was simply returning the value it was set to, I thought it would be sufficient with the cases I had. 
+~\newline\noindent To test methods \verb|mass| and \verb|m_inert|, I also did two cases that were
+pretty basic, just to see if it would return the correct values as it should as \verb|mass| was a
+simple variable return and \verb|m_inert| is a relatively simple calculation. I also used the
+approximation function to test if the \verb|m_inert| method was correct as it returns float
+values and there could be precision errors. I decided to check if the value was off by 1e-3, as
+I thought that was a reasonable margin of error.
+~\newline\noindent To test for the exceptions that might be raised in this class, I created cases
+where the mass, radius and both simultaneously were negative or zero values to make sure the 
+exception held as both radius and mass should be greater than zero according to the 
+specification. If the mass was found to be less than or equal to zero, a ValueError was thrown 
+and caught and raised in pytest. 
+I also could have used testing cases where the parameters \verb|xs| and \verb|ys| were negative 
+values, but all that would change would be to add another case for the \verb|cm_x| and \verb|cm_y|
+methods to the testing file. Since the method was simply returning the value it was set to, I 
+thought it would be sufficient with the cases I had. 
 
 ~\newline\noindent For class \verb|TriangleT|:
 
-~\newline\noindent To test methods \verb|cm_x|, \verb|cm_y|, \verb|mass| and \verb|m_inert|, I tested using the same ideas as the \verb|CircleT| class, as these specifications were almost identical in terms of the methods being used and the implementation of these methods. The only difference was the use of side instead of radius, and the inertia was divided by 12 instead of 2.
-~\newline\noindent The testing of the exceptions was the same as well, as both the side length and mass must be greater than zero in this specification. 
-Again, I could have added cases for testing negative values of \verb|cm_x| and \verb|cm_y|, but since these were basic getter methods I thought that two cases would suffice. 
+~\newline\noindent To test methods \verb|cm_x|, \verb|cm_y|, \verb|mass| and \verb|m_inert|, I 
+tested using the same ideas as the \verb|CircleT| class, as these specifications were almost 
+identical in terms of the methods being used and the implementation of these methods. The only 
+difference was the use of side instead of radius, and the inertia was divided by 12 instead of 2.
+~\newline\noindent The testing of the exceptions was the same as well, as both the side length 
+and mass must be greater than zero in this specification. 
+Again, I could have added cases for testing negative values of \verb|cm_x| and \verb|cm_y|, but 
+since these were basic getter methods I thought that two cases would suffice. 
 
 ~\newline\noindent For class \verb|BodyT|:
 
-~\newline\noindent To test methods \verb|cm_x|, \verb|cm_y|, \verb|mass| and \verb|m_inert|, I tested using the same ideas as the \verb|CircleT| class, as these specifications were almost identical in terms of the methods being used and the implementation of these methods. The difference was with how they were setting these values, as they were reliant on local methods calculating the correct information to set the values. However, since for this assignment we were not testing local methods specifically, the only way to tell if the implementation was correct was to test the getter methods, which is what I did. These were tested the same was as \verb|CircleT| as they were similar getter methods. 
-~\newline\noindent To test the two different exceptions raised in this specification, I first tested to make sure that the length of the sequences was the same by using an if statement to check if the lengths of input lists \verb|xs|, \verb|ys| and \verb|ms| were the same. This was because in the specification the lengths must be the same so that the center of mass coordinates, mass and inertia of the body are successfully and correctly returned. If the length of these three sequences were not equal, it would throw a ValueErorr. 
-To test if all mass values were greater than zero, I used a loop with an if statement that checked all values in the \verb|ms| list. If the value in this mass list was less than or equal to zero, it would throw a ValueError. 
+~\newline\noindent To test methods \verb|cm_x|, \verb|cm_y|, \verb|mass| and \verb|m_inert|, 
+I tested using the same ideas as the \verb|CircleT| class, as these specifications were almost 
+identical in terms of the methods being used and the implementation of these methods. The 
+difference was with how they were setting these values, as they were reliant on local methods 
+calculating the correct information to set the values. However, since for this assignment we were
+not testing local methods specifically, the only way to tell if the implementation was correct 
+was to test the getter methods, which is what I did. These were tested the same was as 
+\verb|CircleT| as they were similar getter methods. 
+~\newline\noindent To test the two different exceptions raised in this specification, I first 
+tested to make sure that the length of the sequences was the same by using an if statement to 
+check if the lengths of input lists \verb|xs|, \verb|ys| and \verb|ms| were the same. This was 
+because in the specification the lengths must be the same so that the center of mass coordinates,
+mass and inertia of the body are successfully and correctly returned. If the length of these 
+three sequences were not equal, it would throw a ValueErorr. 
+To test if all mass values were greater than zero, I used a loop with an if statement that 
+checked all values in the \verb|ms| list. If the value in this mass list was less than or equal
+to zero, it would throw a ValueError. 
 
 ~\newline\noindent For class \verb|Scene|:
 
-~\newline\noindent To test the getters \verb|get_shape|, and \verb|get_init_velo|, I used the same ideas as \verb|CircleT|, as these were basic tests for basic getter methods. The only differences were the names of the getters and \verb|get_init_velo| returned tuples of both the x and y values of the velocity instead of just one single value. So, for these tests, I simply checked if the values I was testing were equal to the ones I input into the tests. 
-~\newline\noindent To test the setters \verb|set_shape|, and \verb|set_init_velo|, I used a combination of the setters and their respective getters to set the value to the new one and return that value to show that it had indeed been mutated. Then after it had been set to one value, I checked if it could be set back to the original value, then checked again with the getter. This test was not only checking the capability of the implementation to set a new shape of velocity, but also testing the ability of the getters once more. Since this test relies on the getters to work correctly, there is some margin or error for this test to fail if the getters also fail, but I am not sure if there is any other way to check if the value of the object has changed from outside of the class as the variables in the \verb|init| constructor are private outside of the class. 
-~\newline\noindent To test \verb|sim|...
+~\newline\noindent To test the getters \verb|get_shape|, and \verb|get_init_velo|, I used the 
+same ideas as \verb|CircleT|, as these were basic tests for basic getter methods. The only 
+differences were the names of the getters and \verb|get_init_velo| returned tuples of both the x
+and y values of the velocity instead of just one single value. So, for these tests, I simply 
+checked if the values I was testing were equal to the ones I input into the tests. 
+~\newline\noindent To test the setters \verb|set_shape|, and \verb|set_init_velo|, I used a 
+combination of the setters and their respective getters to set the value to the new one and 
+return that value to show that it had indeed been mutated. Then after it had been set to one 
+value, I checked if it could be set back to the original value, then checked again with the 
+getter. This test was not only checking the capability of the implementation to set a new shape 
+of velocity, but also testing the ability of the getters once more. Since this test relies on the
+getters to work correctly, there is some margin or error for this test to fail if the getters 
+also fail, but I am not sure if there is any other way to check if the value of the object has 
+changed from outside of the class as the variables in the \verb|init| constructor are private 
+outside of the class. 
+~\newline\noindent When testing \verb|sim|, I tried to implement a test like the one that was shown in the \verb|test_expy.py| file, where a \verb|Scene| object was created then simulated using the \verb|sim| method. 
 
 
 
 \section{Results of Testing Partner's Code}
 
-After testing my partners code using my testing file, they passed all 56 cases! This might have been a result of the A2 specification being less ambiguous than A1, allowing the designs of both my partner and I to be relatively similar.
+After testing my partners code using my testing file, they passed all 56 cases! This might have 
+been a result of the A2 specification being less ambiguous than A1, allowing the designs of both 
+my partner and I to be relatively similar.
 
-~\newline\noindent For instance, in the \verb|CircleT| class, they were nearly identical in terms of implementation, besides the variable names being different from one another. The only other difference was that they raised a value error before assigning the self parameters, while in my implementation, this exception was checked after they were assigned. My partner's implementation could save a bit of time and memory, as it will throw this exception immediately while my design does not. This was similar to the \verb|TriangleT| class implementation. 
-~\newline\noindent In the \verb|BodyT| class, the \verb|__init__| method was done in a similar way with both of us checking that the length of the sequences were equal and checking if all masses in the sequence were greater than zero. A difference between the implementation in this class was the \verb|__sum__| method, as in my partner's code they included it but I just used the built in functionality of python to sum all the values in a sequence using the \verb|sum| method. Since they were local functions, I assumed that this would be allowed for the implementation, as it was not a direct method that was needed in the specification and was just a helper method for the calculation of the total mass of the body. The other two local methods \verb|__cm__| and \verb|__mmom| were implemented in a similar manner. 
-~\newline\noindent In the \verb|Scene| class, all the methods were implemented in the same basic way, apart from the \verb|ode| local function. In my implementation, it was a part of the \verb|sim| method, while in my partner's code it was a private method separate from the \verb|sim| method. This does not change the results of the output of this function, but it does mean that if hypothetically you wanted another method that could use this \verb|ode| method, in my case I would need to create another method inside of the new one, while my partner could just use the one that they already have as it is separate from an already existing function. I also realized while looking at my code again that I forgot to add doxygen comments for the parameters for the input variables \verb|w, t| in the \verb|ode| method to explain to the user what each parameter was specifying. Another difference in our implementation is that my partner imported \verb|Shape| and used instantiated it in the \verb|Scene| class while I did not. This is because I did not think that it was needed in the \verb|Scene| class, as it was not directly using the interface. The input to the class had a relationship to \verb|Shape| like the first parameter representing the shape that was to be in the scene, but the class itself did not need it from my understanding. Also, in the specification, it was stated that modules like \verb|CircleT| inherit \verb|Shape| and this was not the case for \verb|Scene|. 
+~\newline\noindent For instance, in the \verb|CircleT| class, they were nearly identical in terms
+of implementation, besides the variable names being different from one another. The only other 
+difference was that they raised a value error before assigning the self parameters, while in my 
+implementation, this exception was checked after they were assigned. My partner's implementation 
+could save a bit of time and memory, as it will throw this exception immediately while my design 
+does not. This was similar to the \verb|TriangleT| class implementation. 
+~\newline\noindent In the \verb|BodyT| class, the \verb|__init__| method was done in a similar 
+way with both of us checking that the length of the sequences were equal and checking if all 
+masses in the sequence were greater than zero. A difference between the implementation in this 
+class was the \verb|__sum__| method, as in my partner's code they included it but I just used the
+built in functionality of python to sum all the values in a sequence using the \verb|sum| method.
+Since they were local functions, I assumed that this would be allowed for the implementation, as 
+it was not a direct method that was needed in the specification and was just a helper method for 
+the calculation of the total mass of the body. The other two local methods \verb|__cm__| and 
+\verb|__mmom| were implemented in a similar manner. 
+~\newline\noindent In the \verb|Scene| class, all the methods were implemented in the same basic
+way, apart from the \verb|ode| local function. In my implementation, it was a part of the 
+\verb|sim| method, while in my partner's code it was a private method separate from the 
+\verb|sim| method. This does not change the results of the output of this function, but it does
+mean that if hypothetically you wanted another method that could use this \verb|ode| method, in 
+my case I would need to create another method inside of the new one, while my partner could just
+use the one that they already have as it is separate from an already existing function. I also 
+realized while looking at my code again that I forgot to add doxygen comments for the parameters 
+for the input variables \verb|w, t| in the \verb|ode| method to explain to the user what each 
+parameter was specifying. Another difference in our implementation is that my partner imported 
+\verb|Shape| and used instantiated it in the \verb|Scene| class while I did not. This is because 
+I did not think that it was needed in the \verb|Scene| class, as it was not directly using the 
+interface. The input to the class had a relationship to \verb|Shape| like the first parameter 
+representing the shape that was to be in the scene, but the class itself did not need it from my 
+understanding. Also, in the specification, it was stated that modules like \verb|CircleT| inherit 
+\verb|Shape| and this was not the case for \verb|Scene|. 
 
-~\newline\noindent Having seen the similarities between our designs, it can be easy to see why my partner had passed all my test cases. If I had been able to fully test the \verb|sim| method, I am sure they would have passed the tests, as their implementation was very similar to mine overall. I also ran their code using the \verb|test_expt.py| file and it produced the correct graph using my plot method, further confirming my statement. 
+~\newline\noindent Having seen the similarities between our designs, it can be easy to see why my 
+partner had passed all my test cases. If I had been able to fully test the \verb|sim| method, I 
+am sure they would have passed the tests, as their implementation was very similar to mine 
+overall. I also ran their code using the \verb|test_expt.py| file and it produced the correct 
+graph using my plot method, further confirming my statement. 
 
 \section{Critique of Given Design Specification}
 
@@ -88,12 +169,34 @@ After testing my partners code using my testing file, they passed all 56 cases! 
 
 \begin{enumerate}[a)]
 
-\item a) Should getters and setters be unit tested?
+\item I think that getter and setters methods should not be tested as much, as if they are simply
+returning a state variable in its normal form without exception to the values like in this 
+specification, then all the test will show is that same value returned. Since getter methods are 
+usually relatively simple, meaning that all they do is return a value of the class, it does not 
+need to be tested greatly, as not much can really go wrong or break the program. If you have a 
+certain exception that must be thrown in the constructor or setter method where the getting of 
+that value using the getter must not occur, then you could test this case, but that would not be 
+testing the getter method so much as it would be testing the exception case within the class. In 
+the case where the getter or setter method is used as part of a wider test for example if you 
+needed to get the value of a variable of the class to be used in another method, then this could 
+be a way to indirectly test your getter method, but imply testing if a value can be returned is 
+not much of a test. That is why I think that getters and setters should not be unit tested if 
+they are very simple like they were in this specification. 
 
-
-
-
-\item Since the functions that are taken into the constructor in the class \verb|Scene| must be defined outside of the class, to test the getters and setters for these state variables, you could run tests that include function definitions in them, as well as all other necessary components of building the \verb|Scene| object. For example, to test \verb|get_unbal_forces|, you could define two functions for the forces in each direction, then create a shape object to input into a new \verb|Scene| object that can be created in this test. Then you can successfully test the getter method for the functions. This example can be seen below in \verb|Ftest|. A way to test the setters would be to copy the last test but define a new function inside the test case, then set the forces to this new function using the setter method. Then you would use a getter to make sure the test ran correctly. This example can be seen below in \verb|Ftest2|. If you try to test these functions when they are not inside of the test, it will throw a \verb|NameError|, as the function is not in the scope of the test and is therefore not recognized. This type of test would clutter the testing file as new forces and objects need to be defined with each test, causing an excess amount of objects to be made. 
+\item Since the functions that are taken into the constructor in the class \verb|Scene| must be 
+defined outside of the class, to test the getters and setters for these state variables, you 
+could run tests that include function definitions in them, as well as all other necessary 
+components of building the \verb|Scene| object. For example, to test \verb|get_unbal_forces|, you 
+could define two functions for the forces in each direction, then create a shape object to input 
+into a new \verb|Scene| object that can be created in this test. Then you can successfully test 
+the getter method for the functions. This example can be seen below in \verb|Ftest|. A way to 
+test the setters would be to copy the last test but define a new function inside the test case, 
+then set the forces to this new function using the setter method. Then you would use a getter to 
+make sure the test ran correctly. This example can be seen below in \verb|Ftest2|. If you try to 
+test these functions when they are not inside of the test, it will throw a \verb|NameError|, as 
+the function is not in the scope of the test and is therefore not recognized. This type of test 
+would clutter the testing file as new forces and objects need to be defined with each test, 
+causing an excess amount of objects to be made. 
 
 \begin{verbatim}
     def test_Ftest(self):
@@ -145,7 +248,8 @@ None
   \hline
   \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
   \hline
-  close\_enough & $x_\test{calc}: \text{seq of }\mathbb{R}$, $y_\text{true}: \text{seq of } \mathbb{R}$ & $\mathbb{B}$ & ValueError\\
+  close\_enough & $x_\test{calc}: \text{seq of }\mathbb{R}$, $y_\text{true}: \text{seq of } 
+  \mathbb{R}$ & $\mathbb{B}$ & ValueError\\
   \hline
 \end{tabular}
 
@@ -161,26 +265,30 @@ None
 
 \subsubsection* {Assumptions}
 
-It assumes that both $x_\text{calc}$ and $y_\text{true}$ sequences are of the same length. 
+It assumes that both $x_\text{calc}$ and $y_\text{true}$ sequences are of the same length and 
+not empty.
 
 \subsubsection* {Access Routine Semantics}
 
 \noindent close\_enough($x_\text{calc}, y_\text{true}$):
 \begin{itemize}
-\item transition: Implements the formula below to determine if two sequences are close to being equal, based on \text1e-03, as this is a reasonably close margin of error. 
+\item transition: Implements the formula below to determine if two sequences are close to 
+being equal, based on \text1e-03, as this is a reasonably close margin of error. 
 
 \begin{equation}
 \frac{|| x_\text{calc} - y_\text{true} ||} {||y_\text{true}||} < \text{1e-03} \label{Eq_calcError}
 \end{equation} 
 
-\item output: $out := \frac{\text{abs}(\text{sub}(x_\text{calc}, y_\text{true}))} {\text{abs}(y_\text{true})} < \text{1e-03}$
+\item output: $out := \frac{\text{abs}(\text{sub}(x_\text{calc}, y_\text{true}))} 
+{\text{abs}(y_\text{true})} < \text{1e-03}$
 \item exception: ($\neg (\text{abs}(y_\text{true}) \neq 0) \Rightarrow \text{ValueError}$)
 \end{itemize}
 
 \subsection*{Local Functions}
 
 %subtracts two sequences by creating a new sequence of values subbed at each index
-\noindent $\text{sub}: \text{seq of } \mathbb{R}, \text{seq of } \mathbb{R} \rightarrow \mathbb{R}$\\
+\noindent $\text{sub}: \text{seq of } \mathbb{R}, \text{seq of } \mathbb{R} \rightarrow 
+\mathbb{R}$\\
 \noindent $\text{sub}(x, y) \equiv [(+ i: \mathbb{N} | i \in [0..|x|-1] :
 x_i - y_i)]$\\
 
@@ -193,12 +301,37 @@ where $max$ = current maximum of sequence
 
 \newpage
 
-\item e) The given specification has exceptions for non-positive values of shape dimensions and mass but not for the x and y coordinates of the center of mass. Should there be exceptions for negative coordinated? Why or why not?
+\item The given specification has exceptions for non-positive values of shape dimensions and mass 
+but not for the x and y coordinates of the center of mass because of what they represent in terms 
+of physical space. In the case of shape dimension like radius and side length they must be 
+non-negative as in the physical world you cannot have a negative side length as you cannot 
+physically measure that or have a negative amount of space. If it has zero length, then it is a 
+point or it would not exist, but it is definitely not considered a shape. In the case of mass, an 
+object having zero or negative mass is not possible, unless you count anti-matter as part your 
+design. However, all matter has mass, so to have a non-positive value of mass would not be 
+possible. There does not need to be exceptions for coordinates though, as they do not represent 
+physical properties, but rather positions in relation to objects in space. The center of mass can 
+be calculated using vector addition of position vectors which point to the center of mass of each 
+body which was seen in the \verb|BodyT| class. The center of mass is calculated as the sum of all 
+x coordinates multiplied by corresponding y coordinates, divided by the total mass of the system. 
+If a coordinate is positive, it means that it is to the right relative to the center of the 
+system. If it is negative, it is left relative to the center of the system. This is similar to 
+how vectors work, as positive is usually up and right, while negative is usually down and left. 
+This is the same logic applied to the coordinates of mass. Therefore, there does not need to be 
+exceptions for negative coordinates of the center of mass. 
 
-The given specification has exceptions for non-positive values of shape dimensions and mass but not for the x and y coordinates of the center of mass because of what they represent in terms of physical space. If a coordinate is positive, it means that it is 
-
-
-\item In the class \verb|TriangleT|, the state invariant is that $s > 0 \land m > 0$. In order for this to be satisfied by the given specification, this would mean that every access program/method in the class will hold both before and after each method is run. In this class, the only place for this state invariant to be violated is in the \verb|__init__| method, as this is where the values of s and m could be less than 0. All of the other methods in this class are getters, meaning that they simply return the value of the parameter in the constructor. There is no way for the value of the side or mass parameters to change in these methods. In the given specification, in the \verb|__init__| method it says to throw a \verb|ValueError| if the state invariant is true. This will cause the program to not finish making the object if either the side or mass is less than or equal to zero. Since this exception exists in the constructor and the value of the self parameters cannot be changed by any mutators in the class, this proves that the state invariant is always satisfied by the given specification. 
+\item In the class \verb|TriangleT|, the state invariant is that $s > 0 \land m > 0$. In order 
+for this to be satisfied by the given specification, this would mean that every access 
+program/method in the class will hold both before and after each method is run. In this class, 
+the only place for this state invariant to be violated is in the \verb|__init__| method, as this
+is where the values of s and m could be less than 0. All of the other methods in this class are 
+getters, meaning that they simply return the value of the parameter in the constructor. There is 
+no way for the value of the side or mass parameters to change in these methods. In the given 
+specification, in the \verb|__init__| method it says to throw a \verb|ValueError| if the state 
+invariant is true. This will cause the program to not finish making the object if either the side 
+or mass is less than or equal to zero. Since this exception exists in the constructor and the 
+value of the self parameters cannot be changed by any mutators in the class, this proves that the 
+state invariant is always satisfied by the given specification. 
 
 \item List comprehension statement:
 
@@ -208,7 +341,8 @@ sq_list = [i**(1/2) for i in range(5, 20, 2)]
 
 where \verb|sq_list| is a list of the square roots of all odd ints between 5 and 19 (inclusive).
 
-\item A python function that takes a string and returns the string, but with all upper case letters removed is:
+\item A python function that takes a string and returns the string, but with all upper case 
+letters removed is:
 
 \begin{verbatim}
 def no_cap(string):
@@ -222,11 +356,27 @@ def no_cap(string):
 
 \item i) How are principles of abstraction and generality related?
 
+The principles of abstraction and generality are related as they both deal with looking at a problem in a broader sense. Abstraction can be defined as a separation of concerns meaning that we look at the more important details of a problem from the less important details. This allows the designer of a program to focus more on the broader idea of what they are trying to make and what functionality it will have before getting into the specifics of how it would be done. It can be looked at as a simpler way to solve a problem that can allow the designer to think about the most efficient way to solve a problem instead of going right into it and getting lost in the details. An example of this is when programmers use languages like Python, where they can write a program to accomplish a task without having to worry about the exact way a computer would read and interpret what they want it to do in terms of bits for example. Generality can be defined as a way to generalize a solution to a given specific problem, so that it can be used not just for that one specific problem, but can be used to solve others as well. This allows a program to be reused for other purposes once the main problem has been solved. An example of this could be if you had a problem where you had to return the value of 1 from a list. To make this more general, you could make it so that it would return any number you input from a list. 
+
+Some information for this question was taken from the textbook (Ghezzi et al). 
 
 
-
-\item If we have high coupling between modules, the better scenario would be to have a module that is used by many other modules. If you have a module that uses many other modules, this means that you would need all of the other modules to work properly and be implemented before you are able to use the top level module. This could allow for many issues as if one of those modules has a bug or does not run properly, then the top module will not work properly either as a result. If you have a module that is used by many other modules, this would mean that as long as the low level is functioning properly, then the other modules that use it will be able to operate effectively as well. But if there is a problem with the low level module, it will affect the other modules as well. This method relies on program correctness and robustness of only one module as opposed to the correctness of many modules as seen in the first example. 
-The second scenario would be better in general, as it would be easier to fix just the one low level module than to try to figure out which of the lower level modules in the first scenario needed to be fixed to make the top level module run. Since many modules feed into the top level module in the first scenario, if it does not work, you will not necessarily always know which of the lower modules is not working correctly in order to fix it. This is why the second scenario would be better in general. 
+\item If we have high coupling between modules, the better scenario would be to have a module 
+that is used by many other modules. If you have a module that uses many other modules, this means 
+that you would need all of the other modules to work properly and be implemented before you are 
+able to use the top level module. This could allow for many issues as if one of those modules has 
+a bug or does not run properly, then the top module will not work properly either as a result. If 
+you have a module that is used by many other modules, this would mean that as long as the low 
+level is functioning properly, then the other modules that use it will be able to operate 
+effectively as well. But if there is a problem with the low level module, it will affect the 
+other modules as well. This method relies on program correctness and robustness of only one 
+module as opposed to the correctness of many modules as seen in the first example. 
+The second scenario would be better in general, as it would be easier to fix just the one low 
+level module than to try to figure out which of the lower level modules in the first scenario 
+needed to be fixed to make the top level module run. Since many modules feed into the top level 
+module in the first scenario, if it does not work, you will not necessarily always know which of 
+the lower modules is not working correctly in order to fix it. This is why the second scenario 
+would be better in general. 
 
 \end{enumerate}
 
