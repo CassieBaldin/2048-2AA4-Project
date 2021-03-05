@@ -10,8 +10,8 @@ def max_val(s):
 
     m = 0
     for x in s:
-        if abs(s[x]) >= abs(m):
-            m = s[x]
+        if abs(x) >= abs(m):
+            m = x
     return m
 
 def count(t, s):
@@ -20,7 +20,7 @@ def count(t, s):
 
     count = 0
     for x in s:
-        if s[x] == t:
+        if x == t:
             count += 1
     return count
 
@@ -30,11 +30,19 @@ def spices(s):
 
     list_of_spices = []
     for x in s:
-        if s[x] <= 0:
+        if x <= 0:
             list_of_spices.append("nutmeg")
         else:
             list_of_spices.append("ginger")
     return list_of_spices
 
-def new_max_vals(s, f):
-    return 0
+def new_max_val(s, f):
+    if len(s) == 0:
+        raise ValueError("Sequence must have a length")
+
+    list_f = []
+    for x in s:
+        list_f.append(f(x))
+    print("F: ", list_f)
+
+    return max_val(list_f)
