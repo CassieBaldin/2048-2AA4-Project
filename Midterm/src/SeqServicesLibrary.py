@@ -43,6 +43,5 @@ def new_max_val(s, f):
     list_f = []
     for x in s:
         list_f.append(f(x))
-    print("F: ", list_f)
 
     return max_val(list_f)
