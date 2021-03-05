@@ -28,16 +28,22 @@ class SetOfInt:
         return SetOfInt(new)
 
     def size(self):
-        return len(s)
+        return len(self.s)
 
     def empty(self):
         return self.s == []
 
     def equals(self, t):
-        return False
+        return self.to_seq() == t.to_seq()
 
     def __set_to_seq__(self, s):
         return list(s)
 
     def __complement__(self, a):
+        #takes out all members of set that are not ints
+
         new = {}
+        # for i in self.s:
+        #     if type(i) == int:
+        #         new.add(i)
+        return new
