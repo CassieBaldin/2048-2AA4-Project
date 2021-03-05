@@ -513,10 +513,23 @@ characterize the changes; you don't actually have to make them.)
 \wss{Put your answer below.}
 
 \begin{enumerate}[a.]
+\item 
+
+The changes I would make to make this specification more generic would be to change the types of values that the methods take into the class (and change the name too). For example the specification only takes in integer values in the set in the constructor. In order to make this more generic, instead of only making it take in integer values in the set, it could take in floats, strings etc, so that it could be used to perform operations of sets for all data types. This would make it more generic as it would allow this specification to be used for many other applications, rather than strictly for applications involving integers in a set. 
+
 \item
+
+The changes I would need to make to the Python implementation to make it generic for inputs of type T would be to change the \verb|equals| method to account for 
+
+
 \item
-\item
+
+The relational operator that needs to be defined for type T to be a valid choice is the equal to operator, as the \verb|equals| method is the only method that might be affected by this change from type integer to type T (as it is the only access routine that uses a relational operator). This needs to be defined as if this specification was to be used for sets of multiple types (ex. floats and strings), this would be a problem in the current implementation, as when it tries to compare the two sets, it may throw an error as the two sets are not of the same type. This could be handled 
+
 \item (BONUS)
+
+In the MIS you could specify the relational operator constraint by adding an exception in the \verb|equals| method to check for whether the two sets being compared are of the same type. This would not allow sets that are not of the same type to be compared. This could also be changed by a conditional statement in the MIS in the \verb|equals| method where if the input set is of a different type from the other set, it will return False, as there is no way for the two sets to be equal if the both involve different data types. This could be done by checking the type first before doing the comparison. 
+
 \end{enumerate}
 
 \end{minipage}
