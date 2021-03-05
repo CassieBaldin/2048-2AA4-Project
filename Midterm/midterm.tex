@@ -75,7 +75,7 @@ of your instructor.\\
 \noindent
 \emph{By submitting this work, I certify that the work represents solely my own
 independent efforts. I confirm that I am expected to exhibit honesty and use
-ethical behaviour in all aspects of the learning process.  I confirm that it is
+ethical behavior in all aspects of the learning process.  I confirm that it is
 my responsibility to understand what constitutes academic dishonesty under the
 \href{https://secretariat.mcmaster.ca/app/uploads/Academic-Integrity-Policy-1-1.pdf}
 {Academic Integrity Policy}}.\\
@@ -139,17 +139,15 @@ documentation, and/or Parnas's principles.
 
 \begin{enumerate}[a)]
 \item Abstraction
-  \begin{itemize}
-  \item
-  \item
-  \item
-  \end{itemize}
+  
+The principle of abstraction is defined as the process of focusing on what is important while ignoring what is irrelevant in the project. This is also known as a special case of the principle of separation of concerns as will be explained later. This principle can be applied in a rational design process as you can use it to plan out what you are going to design/create before you actually start designing it, and allows you to take a look at the problem in a more abstract way. For example, when you are in the first stage of the faked rational design process which is “Requirements”, you can use this principle to look at these requirements in terms of what is most important so that you can start designing with those important details first, before worrying about the smaller things. This can allow designers to be able to make better decisions for the design, as they are more focused on what is crucial to the project, rather than getting lost in the small details that may not matter as much in the grand scheme of things. This principle can also be helpful in the design stage, as using an abstract mindset, you can make your design able to be used in many different ways or have many differing ideas brought about because you have taken the problem and instead of looking at it in a specific sense only, you can make it more broad and cause wilder ideas to come into play that may not have been thought of if not for this principle as it might have constrained the design process. 
+
 \item Separation of Concerns
-  \begin{itemize}
-  \item
-  \item
-  \item
-  \end{itemize}
+
+The principle of separation of concerns is defined as the principle that different concerns should be isolated and considered separately from one another. This principle can be applied to the faked rational design process as you can allow designers to reduce the problem from a complex and hard to grasp problem, to many simpler and easy to work with tasks. Since different concerns are considered at different times, in  the implementation step of this process, this can allow programmers to be able to split the problem into more parts that are easier to work on and that can allow for easier work between people to occur, allowing for efficient work flow in solving the tasks at hand. This principle can also be helpful when documenting requirements of a design, as this can allow you to approach the problem in a more systematic way, separating some parts from others to focus on what it is that you need to accomplish and in what order. This can make planning and scheduling easier as well, as if the project is broken up into different parts, and each part can be estimated on how long it will take and what needs to be done to complete each task, this can help the people working on the project to get things done more efficiently. 
+
+This is how the principles of abstraction and separation of concerns can be applied in a rational design process. 
+
 \end{enumerate}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -470,9 +468,21 @@ and minimality.  Please be specific in your answer.
 
 \begin{itemize}
 \item \textbf{consistency}:
+
+The design for SetOfInt in terms of its consistency was indeed consistent in regards to implementation and use of its methods. Consistency is defined as the requirement that use of the same project carried out by different people using the same method should produce a similar result, meaning that if one person was to create and use a method from this specification, someone else should also get a similar result when doing it as well. This specification was consistent, as it used a more formal way of defining what each method was supposed to do in terms of math and its notation. Each method also showed the naming conventions, ordering of parameters, and exceptions that it needed to have, so that anyone who would implement this specification would be able to reproduce the same design, and therefore get the same results as someone else. There is slight room for error as some implementations of this specification might be different, but if they follow the specification, then they should expect to get the same results as another implementation. Therefore, this specification is consistent. 
+
 \item \textbf{essentiality}:
+
+The design for SetOfInt in terms of its essentiality was not essential, as it had methods that were redundant. A specification that is essential is defined as one that omits unnecessary features from a design so that it is the most useful it can be, without adding extra bulk to the design. In this specification, there are methods called \verb|size| and \verb|empty| where they return the size of the set and a boolean to tell if the set is empty respectively. The \verb|empty| method is not essential, as the \verb|size| method is already in place and can tell the user if the set is empty of not (if the size is zero it is empty). Therefore this interface as a whole is not essential, however the rest of the methods are unique making them essential methods. 
+
 \item \textbf{generality}:
+
+The design of SetOfInt in terms of its generality is not very general, as it is only dealing with sets of integers, as opposed to a more general solution to this problem that could deal with a set of any data type. Generality is defined as a way to generalize a solution to a given specific problem, so that it can be used not just for that one specific problem, but can be used to solve others as well. This allows a program to be reused for other purposes once the main problem has been solved. In the case of this specification, since it is only dealing with sets of integers, it cannot be generalized for sets of other data types like floats or strings, it that is not in the specification (or in the name which is very specific). This means that it would not be able to be used for many other purposes as this principle suggests, meaning it is not a very general specification. 
+
 \item \textbf{minimality}:
+
+The design of SetOfInt in terms of its minimality is indeed a minimal design as it contains unique access routines. A specification that is minimal avoids access routines with two or more potentially independent services (such as a getter that returns two state variables of the class). In the case of this specification, it is minimal as each method serves one purpose and only returns one value or object, meaning that this design is minimal. 
+
 \end{itemize}
 
 \end{minipage}
