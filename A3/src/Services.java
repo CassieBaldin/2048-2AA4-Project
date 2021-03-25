@@ -1,24 +1,24 @@
 package src;
 
-public static Services
+public class Services
 {
-	public double[] normal(double[] v)
-	{
-		double[] n = [v.length]
-		for (double i : v) 
-		{
-			n[i] = i/sum(v);
-		}
-		return n;
-	}
-}
+    public static double[] normal(double[] v)
+    {
+        double[] n = new double[v.length];
+        for (int i = 0; i < v.length; i++) 
+        {
+            n[i] = i/sum(v);
+        }
+        return n;
+    }
 
-public double sum(double[] x)
-{
-	total = 0;
-	for (double i : x)
-	{
-		total = total + i;
-	}
-	return total;
+    private static double sum(double[] x)
+    {
+        double total = 0;
+        for (double i : x)
+        {
+            total = total + i;
+        }
+        return total;
+    }
 }
