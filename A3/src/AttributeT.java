@@ -2,30 +2,25 @@ package src;
 
 import java.util.*;
 
-public class AttributeT 
+public class AttributeT<IndicatorT> 
 {
     private String name;
-    private T[] s;
+    private IndicatorT[] s;
 
-    public AttributeT(String attribName, T[] indicators)
+    public AttributeT(String attribName, IndicatorT[] indicators)
     {
         name = attribName;
         s = indicators;
     }
 
-
     public String getName() 
     {
-        return name;
+        return this.name;
     }
 
-    public T[] getIndicators() 
+    public IndicatorT[] getIndicators() 
     {
         //returns list of all indicators 
-        return indicators;
+        return this.s;
     }
-
 }
-
-
-
