@@ -2,7 +2,7 @@ package src;
 
 public class LOsT<IndicatorT, AttributeT, Measures, Services, Norm>
 {
-	private String name;
+    private String name;
     private int n_blw;
     private int n_mrg;
     private int n_mts;
@@ -10,7 +10,10 @@ public class LOsT<IndicatorT, AttributeT, Measures, Services, Norm>
 
     public LOsT(String topic, int nblw, int nmrg, int nmts, int nexc)
     {
-    	//NEED TO ADD EXCEPTION HERE
+        if (nblw <= 0 || nmrg <= 0 || nmts <= 0 || nexc <= 0) 
+        {
+            throw new IllegalArgumentException("All arguments must be greater than 0");
+        }
 
         name = topic;
         n_blw = nblw;
@@ -19,13 +22,39 @@ public class LOsT<IndicatorT, AttributeT, Measures, Services, Norm>
         n_exc = nexc;
     }
 
-    public static String getName()
+    public String getName()
     {
-    	return this.name;
+        return name;
     }
 
-    public static boolean equals(LOsT o)
+    public boolean equals(LOsT o)
     {
-    	return this.name == o.getName();
+         return name == o.getName();
     }
+
+    // public double[] measures()
+    // {
+    //     /////FIX/////
+    //     double[] measure = {n_blw, n_mrg, n_mts, n_exc};
+    //     if (!Norm.getNLOs())
+    //     {
+    //         return measure;
+    //     }
+    //     else
+    //     {
+    //         return (Services.normal(measure))
+    //     }
+    // }
+
+    // /////FIX/////
+    // public void measures(IndicatorT ind) 
+    // {
+    //     throw new UnsupportedOperationException();
+    // }
+
+    // /////FIX/////
+    // public void measures(AttributeT att) 
+    // {
+    //     throw new UnsupportedOperationException();
+    // }
 }
