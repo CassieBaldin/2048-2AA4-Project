@@ -26,7 +26,8 @@ class Shape(ABC):
     def mass(self):
         pass
 
+    @abstractmethod
     ## @brief m_inert returns the inertia of the object
     #  @return value representing the inertia of the object
-    def m_inter(self):
+    def m_inert(self):
         pass
