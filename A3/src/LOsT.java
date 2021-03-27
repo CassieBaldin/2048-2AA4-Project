@@ -10,10 +10,14 @@ public class LOsT<IndicatorT, AttributeT, Measures, Services, Norm>
 
     public LOsT(String topic, int nblw, int nmrg, int nmts, int nexc)
     {
-        if (nblw <= 0 || nmrg <= 0 || nmts <= 0 || nexc <= 0) 
+        if (nblw < 0 || nmrg < 0 || nmts < 0 || nexc < 0) 
         {
-            throw new IllegalArgumentException("All arguments must be greater than 0");
+            throw new IllegalArgumentException("Arguments cannot be negative");
         }
+        if (nblw == 0 && nmrg == 0 && nmts == 0 && nexc == 0) 
+        {
+            throw new IllegalArgumentException("All arguments cannot be zero");
+        }   
 
         name = topic;
         n_blw = nblw;
@@ -32,28 +36,31 @@ public class LOsT<IndicatorT, AttributeT, Measures, Services, Norm>
          return name == o.getName();
     }
 
-    // public double[] measures()
-    // {
-    //     /////FIX/////
-    //     double[] measure = {n_blw, n_mrg, n_mts, n_exc};
-    //     if (!Norm.getNLOs())
-    //     {
-    //         return measure;
-    //     }
-    //     else
-    //     {
-    //         return (Services.normal(measure))
-    //     }
-    // }
+    public double[] measures()
+    {
+        /////FIX TO MATCH OUT IN SPEC/////
+        double[] measure = {n_blw, n_mrg, n_mts, n_exc};
+        return measure;
 
-    // /////FIX/////
-    // public void measures(IndicatorT ind) 
-    // {
-    //     throw new UnsupportedOperationException();
-    // }
+        // Norm n = new Norm()
+        // if (!n.getNLOs())
+        // {
+        //     return measure;
+        // }
+        // else
+        // {
+        //     return (Services.normal(measure))
+        // }
+    }
 
-    // /////FIX/////
-    // public void measures(AttributeT att) 
+    /////FIX/////
+    public double[] measures(IndicatorT ind) 
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    /////FIX/////
+    // public double[] measures(AttributeT att) 
     // {
     //     throw new UnsupportedOperationException();
     // }
