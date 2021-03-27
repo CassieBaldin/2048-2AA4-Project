@@ -15,12 +15,25 @@ public class AttributeT<IndicatorT>
 
     public String getName() 
     {
-        return this.name;
+        return name;
     }
 
     public IndicatorT[] getIndicators() 
     {
-        //returns list of all indicators 
-        return this.s;
+        /////FIX/////
+        //returns array of all indicators (NO REPEATS)
+        Set<IndicatorT> set = new HashSet<IndicatorT>();
+        for (int i = 0; i < s.length; i++)
+        {
+            set.add(s[i]);
+        }
+        IndicatorT inds[] = new IndicatorT[set.size()];
+        int index = 0;
+        for (IndicatorT j : set)
+        {
+            inds[i++] = j;
+        }
+        return inds;
     }
+
 }
