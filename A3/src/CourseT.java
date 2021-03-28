@@ -51,6 +51,41 @@ public class CourseT
         return lost;
     }
 
+    public void addLO(IndicatorT indicator, LOsT outcome)
+    {
+        for (IndicatorT i : m.keySet())
+        {
+            if (i == indicator)
+            {
+                m.get(i).add(outcome);
+            }
+        }
+    }
+
+    public void delLO(IndicatorT indicator, LOsT outcome)
+    {
+        for (IndicatorT i : m.keySet())
+        {
+            if (i == indicator)
+            {
+                m.get(i).remove(outcome);
+            }
+        }
+    }
+
+    public boolean member(IndicatorT indicator, LOsT outcomes)
+    {
+        for (IndicatorT i : m.keySet())
+        {
+            if (i == indicator)
+            {
+                for (LOsT j : m.get(i))
+                { if (j == outcomes) {return true;} }
+            }
+        }
+        return false;
+    }
+
     private LOsT[] set_to_seq(Set<LOsT> s)
     {
         LOsT lost[] = new LOsT[s.size()];
