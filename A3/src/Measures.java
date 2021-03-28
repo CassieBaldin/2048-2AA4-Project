@@ -2,7 +2,7 @@ package src;
 
 //returns [below expectations, marginal, meets expectations, exceeds expectations]
 
-public interface Measures<IndicatorT, AttributeT> 
+public interface Measures
 {
     public double[] measures() throws UnsupportedOperationException();
 
