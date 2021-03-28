@@ -42,7 +42,6 @@ public class LOsT<Measures>
     {
         double[] measure = {n_blw, n_mrg, n_mts, n_exc};
 
-        Norm.setNorms(false, false, false);  //will always be true, might need to change?
         if (!Norm.getNLOs())
         {
             return measure;
