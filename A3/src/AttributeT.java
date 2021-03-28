@@ -2,7 +2,7 @@ package src;
 
 import java.util.*;
 
-public class AttributeT<IndicatorT> 
+public class AttributeT
 {
     private String name;
     private IndicatorT[] s;
@@ -20,7 +20,6 @@ public class AttributeT<IndicatorT>
 
     public IndicatorT[] getIndicators() 
     {
-        /////FIX/////
         //returns array of all indicators (NO REPEATS)
         Set<IndicatorT> set = new HashSet<IndicatorT>();
         for (int i = 0; i < s.length; i++)
@@ -31,9 +30,8 @@ public class AttributeT<IndicatorT>
         int index = 0;
         for (IndicatorT j : set)
         {
-            inds[i++] = j;
+            inds[index++] = j;
         }
         return inds;
     }
-
 }
