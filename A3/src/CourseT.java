@@ -5,7 +5,7 @@ import java.util.*;
 public class CourseT
 {
     private String name;
-    private Map<IndicatorT, Set<LOsT>> m = new HashMap<IndicatorT, Set<LOsT>>();  ///FIX???///
+    private Map<IndicatorT, Set<LOsT>> m = new HashMap<IndicatorT, Set<LOsT>>();
 
     public CourseT(String courseName, IndicatorT[] indicators)
     {
@@ -38,16 +38,13 @@ public class CourseT
     {
         LOsT[] lost = new LOsT[m.size()];
         int index = 0;
-        boolean match = false;
         for (IndicatorT i : m.keySet())
         {
             if (i == indicator)
             {
-                match = true;
                 lost = set_to_seq(m.get(i));
             } 
         }
-        if (!match) {return lost;}
         return lost;
     }
 
@@ -73,17 +70,57 @@ public class CourseT
         }
     }
 
-    public boolean member(IndicatorT indicator, LOsT outcomes)
+    public boolean member(IndicatorT indicator, LOsT[] outcomes)
     {
+        int in_set = 0;
         for (IndicatorT i : m.keySet())
         {
             if (i == indicator)
             {
-                for (LOsT j : m.get(i))
-                { if (j == outcomes) {return true;} }
+                for (LOsT j : outcomes)
+                { 
+                    //if set of LOsT contains the LOsT in outcomes, return true
+                    if (m.get(i).contains(j)) {in_set++;} 
+                }
             }
         }
+        if (in_set == outcomes.length) {return true;}
         return false;
+    }
+
+    public double[] measures()
+    {
+        throw new UnsupportedOperationException();
+    }
+
+    public double[] measures(IndicatorT ind) 
+    {
+        double measureInd[] = {0, 0, 0, 0};
+        //add meas and lost(measures) together each loop until a final sum is reached
+        for (IndicatorT i : m.keySet())
+            {
+                if (i == ind)
+                {
+                    if (getLOs(ind) == null) {return measureInd;} ///DOESNT WORK !!!
+                    for (LOsT j : m.get(i))
+                    {
+                        measureInd = sumMeas(measureInd, j.measures());
+                    }
+                }
+            }
+        if (Norm.getNInd()) {return Services.normal(measureInd);}
+        return measureInd;
+    }
+
+    public double[] measures(AttributeT att) 
+    {
+        double measureInd[] = {0, 0, 0, 0};
+        if (att.getIndicators() == null) {return measureInd;}
+
+        for (IndicatorT i : att.getIndicators()) {measureInd = measures(i);}
+
+        if (Norm.getNAtt()) {return Services.normal(measureInd);}
+        return measureInd;
     }
 
     private LOsT[] set_to_seq(Set<LOsT> s)
@@ -95,5 +132,16 @@ public class CourseT
             lost[index++] = i;
         }
         return lost;
+    }
+
+    private double[] sumMeas(double[] seq1, double[] seq2)
+    {
+        //assume the sequences are the same length (4)
+        double sum[] = new double[seq1.length];
+        for(int i = 0; i < seq1.length; i++)
+        {
+            sum[i] = seq1[i] + seq2[i];
+        }
+        return sum;
     }
 }
