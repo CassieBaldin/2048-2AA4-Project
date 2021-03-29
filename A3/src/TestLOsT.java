@@ -2,13 +2,14 @@
  * Author: Cassidy Baldin
  * Revised: March 29, 2021
  * 
- * Description: Testing module for AttributeT class and methods
+ * Description: Testing module for LOsT class methods
  */
 
 package src;
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import java.util.*;
 
 public class TestLOsT
 {
@@ -69,6 +70,7 @@ public class TestLOsT
     @Test
     public void test_oneZero()
     {
+        //this should work according to spec
         LOsT OneZero = new LOsT("OneZero", 100, 200, 300, 0);
     }
 
@@ -99,12 +101,63 @@ public class TestLOsT
     @Test
     public void test1_equals()
     {
-        assertTrue(Test1.equals(Test1));
+        LOsT Test = new LOsT("Test1", 1, 2, 3, 4);
+        assertTrue(Test1.equals(Test));
     }
 
     @Test
     public void test2_equals()
     {
-        assertTrue(!(Test1.equals(Test2)));
+        LOsT Test = new LOsT("Test", 1, 2, 3, 4);
+        assertTrue(!(Test1.equals(Test)));
+    }
+
+    @Test
+    public void test1_measures()
+    {
+        Norm.setNorms(false, false, false);
+        assertTrue(Arrays.equals(Test1.measures(), new double[] {1, 2, 3, 4}));
+    }
+
+    @Test
+    public void test2_measures()
+    {
+        Norm.setNorms(false, false, false);
+        assertTrue(Arrays.equals(Test2.measures(), new double[] {12, 4 ,64, 753}));
+    }
+
+    @Test
+    public void test1_measures_norm()
+    {
+        Norm.setNorms(true, false, false);
+        assertTrue(Arrays.equals(Test1.measures(), new double[] {0.0, 0.1, 0.2, 0.3}));
+    }
+
+    @Test
+    public void test2_measures_norm()
+    {
+        Norm.setNorms(true, false, false);
+        assertTrue(Arrays.equals(EmptyName.measures(), new double[] {0.0, 0.002, 0.004, 0.006}));
+    }
+
+    @Test
+    public void test3_measures_change_norm()
+    {
+        Norm.setNorms(true, false, false);
+        Norm.setNLOs(false);
+        assertTrue(Arrays.equals(EmptyName.measures(), new double[] {10, 20, 30, 440}));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void test_meas_ind()
+    {
+        Test1.measures(IndicatorT.math);
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void test_meas_att()
+    {
+        AttributeT Test = new AttributeT("Test2", new IndicatorT[] {IndicatorT.math, IndicatorT.assumpt});
+        Test1.measures(Test);
     }
 }
