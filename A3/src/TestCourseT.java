@@ -116,4 +116,182 @@ public class TestCourseT
         IndicatorT inds[] = new IndicatorT[] {IndicatorT.assumpt, IndicatorT.math};
         assertTrue(!Arrays.equals(Test2.getIndicators(), inds));
     }
+
+    @Test
+    public void test1_add_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        Test1.addLO(IndicatorT.math, L1);
+        LOsT lost[] = new LOsT[] {L1};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test2_addmore_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        LOsT lost[] = new LOsT[] {L1, L2, L3};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test3_add_not_in_ind_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        Test1.addLO(IndicatorT.specEngKnow, L1);
+        Test1.addLO(IndicatorT.assumpt, L2);
+        LOsT lost[] = new LOsT[] {};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test4_add_same_ind_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L1);
+        LOsT lost[] = new LOsT[] {L1, L2};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test5_del_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        Test1.delLO(IndicatorT.math, L2);
+        LOsT lost[] = new LOsT[] {L1, L3};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test6_del_all_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        Test1.delLO(IndicatorT.math, L1);
+        Test1.delLO(IndicatorT.math, L2);
+        Test1.delLO(IndicatorT.math, L3);
+        LOsT lost[] = new LOsT[] {};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test7_del_same_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        Test1.delLO(IndicatorT.math, L1);
+        Test1.delLO(IndicatorT.math, L1);        
+        LOsT lost[] = new LOsT[] {L2, L3};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test8_del_not_in_set_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        Test1.delLO(IndicatorT.assumpt, L1);
+        Test1.delLO(IndicatorT.desProcess, L2);
+        Test1.delLO(IndicatorT.specEngKnow, L3);
+        LOsT lost[] = new LOsT[] {L1, L2, L3};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test9_add_del_add_again_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.delLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L1);
+        LOsT lost[] = new LOsT[] {L1};
+        HashSet<LOsT> set1 = new HashSet<LOsT>(Arrays.asList(lost));
+        HashSet<LOsT> set2 = new HashSet<LOsT>(Arrays.asList(Test1.getLOs(IndicatorT.math)));
+        assertTrue(set1.equals(set2));
+    }
+
+    @Test
+    public void test10_member_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        assertTrue(Test1.member(IndicatorT.math, new LOsT[] {L1, L2}));
+    }
+
+    @Test
+    public void test11_not_member_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.specEngKnow, L2);
+        assertTrue(!Test1.member(IndicatorT.specEngKnow, new LOsT[] {L1}) && Test1.member(IndicatorT.specEngKnow, new LOsT[] {L2}));
+    }
+
+    @Test
+    public void test12_ind_not_in_course_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        Test1.addLO(IndicatorT.assumpt, L1);
+        Test1.addLO(IndicatorT.assumpt, L2);
+        assertTrue(!Test1.member(IndicatorT.assumpt, new LOsT[] {L1, L2}));
+    }
+
+    @Test
+    public void test13_member_add_del_add_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.delLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L1);
+        assertTrue(Test1.member(IndicatorT.math, new LOsT[] {L1}));
+    }
+
 }
