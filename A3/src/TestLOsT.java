@@ -16,7 +16,7 @@ public class TestLOsT
     private LOsT Test1;
     private LOsT Test2;
     private LOsT Space;
-    private LOsT Empty;
+    private LOsT EmptyName;
 
     @Before
     public void setUp()
@@ -24,10 +24,7 @@ public class TestLOsT
         Test1 = new LOsT("Test1", 1, 2, 3, 4);
         Test2 = new LOsT("Test2", 12, 4 ,64, 753);
         Space = new LOsT(" ", 4, 3, 2, 1);
-        Empty = new LOsT("", 10, 20, 30, 440);
-        //need to raise error for these (can't be constructed like this)
-        // Zero = new LOsT("Zero", 100, 200, 300, 0);
-        // Neg = new LOsT("Neg", 100, -200, 300, 4);
+        EmptyName = new LOsT("", 10, 20, 30, 440);
     }
 
     @After
@@ -36,7 +33,7 @@ public class TestLOsT
         LOsT Test1 = null;
         LOsT Test2 = null;
         LOsT Space = null;
-        LOsT Empty = null;
+        LOsT EmptyName = null;
     }
 
     @Test
@@ -66,7 +63,48 @@ public class TestLOsT
     @Test
     public void test_emptyName_name()
     {
-        assertTrue(Empty.getName() == "");
+        assertTrue(EmptyName.getName() == "");
     }
 
+    @Test
+    public void test_oneZero()
+    {
+        LOsT OneZero = new LOsT("OneZero", 100, 200, 300, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_allZero()
+    {
+        LOsT AllZero = new LOsT("AllZero", 0, 0, 0, 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_oneNeg()
+    {
+        LOsT OneNeg = new LOsT("OneNeg", 100, -200, 300, 4);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_allNeg()
+    {
+        LOsT AllNeg = new LOsT("AllNeg", -100, -200, -300, -4);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_expMix()
+    {
+        LOsT AllNeg = new LOsT("AllNeg", -100, 0, 1, -4);
+    }
+
+    @Test
+    public void test1_equals()
+    {
+        assertTrue(Test1.equals(Test1));
+    }
+
+    @Test
+    public void test2_equals()
+    {
+        assertTrue(!(Test1.equals(Test2)));
+    }
 }
