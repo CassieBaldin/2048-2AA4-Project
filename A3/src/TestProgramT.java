@@ -18,16 +18,12 @@ public class TestProgramT
     private IndicatorT[] Multi = new IndicatorT[] {IndicatorT.desProcess, IndicatorT.desPrinciples,
                                                    IndicatorT.openEnded, IndicatorT.ideaGeneration,
                                                    IndicatorT.openEnded, IndicatorT.desProcess};
-    private IndicatorT[] NoInd = new IndicatorT[] {};
 
     private CourseT Test1 = new CourseT("Test1", Ind1);
     private CourseT Test2 = new CourseT("Test2", Ind2);
     private CourseT Space = new CourseT(" ", Multi);
-    private CourseT EmptyName = new CourseT("", NoInd);
 
     private ProgramT T1 = new ProgramT();
-    private ProgramT T2 = new ProgramT();
-    private ProgramT T3 = new ProgramT();
 
     @Before
     public void setUp()
@@ -35,17 +31,12 @@ public class TestProgramT
         T1.add(Test1);
         T1.add(Test2);
         T1.add(Space);
-        T2.add(Test1);
-        T3.add(Test2);
-        T3.add(EmptyName);
     }
 
     @After
     public void tearDown()
     {
         ProgramT T1 = null;
-        ProgramT T2 = null;
-        ProgramT T3 = null;
     }
 	
 	@Test(expected = UnsupportedOperationException.class)
@@ -71,7 +62,6 @@ public class TestProgramT
         Test1.addLO(IndicatorT.math, L2);
         AttributeT att = new AttributeT("Att", Ind1);
         double meas[] = new double[] {0, 0.05, 0.1, 0.15};
-        System.out.println(Arrays.toString(T1.measures(att)));
         assertTrue(Arrays.equals(T1.measures(att), meas));
     }
 
@@ -86,8 +76,6 @@ public class TestProgramT
         Test1.addLO(IndicatorT.math, L2);
         AttributeT att = new AttributeT("Att", Ind1);
         double meas[] = new double[] {0, 0.005, 0.01, 0.015};
-        System.out.println(Arrays.toString(T1.measures(att)));
         assertTrue(Arrays.equals(T1.measures(att), meas));
     }
-
 }
