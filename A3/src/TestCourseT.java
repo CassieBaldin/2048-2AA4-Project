@@ -261,11 +261,24 @@ public class TestCourseT
         Test1.addLO(IndicatorT.math, L1);
         Test1.addLO(IndicatorT.math, L2);
         Test1.addLO(IndicatorT.math, L3);
-        assertTrue(Test1.member(IndicatorT.math, new LOsT[] {L1, L2}));
+        //This should be FALSE, TRUE == {L1, L2, L3}
+        assertTrue(!Test1.member(IndicatorT.math, new LOsT[] {L1, L2}));
     }
 
     @Test
-    public void test11_not_member_getLOs()
+    public void test11_member_getLOs()
+    {
+        LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
+        LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
+        LOsT L3 = new LOsT("topic 2", 15, 6, 78, 4);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        assertTrue(Test1.member(IndicatorT.math, new LOsT[] {L1, L2, L3}));
+    }
+
+    @Test
+    public void test12_not_member_getLOs()
     {
         LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
         LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
@@ -275,7 +288,7 @@ public class TestCourseT
     }
 
     @Test
-    public void test12_ind_not_in_course_getLOs()
+    public void test13_ind_not_in_course_getLOs()
     {
         LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
         LOsT L2 = new LOsT("topic 1", 23, 45, 56, 89);
@@ -285,13 +298,79 @@ public class TestCourseT
     }
 
     @Test
-    public void test13_member_add_del_add_getLOs()
+    public void test14_member_add_del_add_getLOs()
     {
         LOsT L1 = new LOsT("Recog and follow eng des process", 5, 16, 90, 60);
         Test1.addLO(IndicatorT.math, L1);
         Test1.delLO(IndicatorT.math, L1);
         Test1.addLO(IndicatorT.math, L1);
         assertTrue(Test1.member(IndicatorT.math, new LOsT[] {L1}));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void test_meas()
+    {
+        Test1.measures();
+    }
+
+    @Test
+    public void test_meas_ind()
+    {
+        Norm.setNLOs(false);
+        LOsT L1 = new LOsT("Recog and follow eng des process", 1, 2, 3, 4);
+        LOsT L2 = new LOsT("topic 1", 4, 3, 2, 1);
+        LOsT L3 = new LOsT("topic 2", 10, 1, 14, 100);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        double meas[] = new double[] {15, 6, 19, 105};
+        assertTrue(Arrays.equals(Test1.measures(IndicatorT.math), meas));
+    }
+
+    @Test
+    public void test_meas_norm_ind()
+    {
+        Norm.setNLOs(true);
+        LOsT L1 = new LOsT("Recog and follow eng des process", 1, 2, 3, 4);
+        LOsT L2 = new LOsT("topic 1", 4, 3, 2, 1);
+        LOsT L3 = new LOsT("topic 2", 10, 10, 10, 10);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        //used simple numbers to reduce floating point errors in testing
+        double meas[] = new double[] {0, 0.225, 0.45, 0.675};
+        assertTrue(Arrays.equals(Test1.measures(IndicatorT.math), meas));
+    }
+
+    @Test
+    public void test_meas_att()
+    {
+        Norm.setNLOs(false);
+        Norm.setNAtt(false);
+        LOsT L1 = new LOsT("Recog and follow eng des process", 1, 2, 3, 4);
+        LOsT L2 = new LOsT("topic 1", 4, 3, 2, 1);
+        LOsT L3 = new LOsT("topic 2", 10, 10, 10, 10);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        Test1.addLO(IndicatorT.math, L3);
+        AttributeT att = new AttributeT("Att", Ind1);
+        double meas[] = new double[] {15, 15, 15, 15};
+        System.out.println(Arrays.toString(Test1.measures(att)));
+        assertTrue(Arrays.equals(Test1.measures(att), meas));
+    }
+
+    @Test
+    public void test_meas_norm_att()
+    {
+        Norm.setNLOs(true);
+        Norm.setNAtt(true);
+        LOsT L1 = new LOsT("Recog and follow eng des process", 30, 30, 30, 30);
+        LOsT L2 = new LOsT("topic 1", 30, 30, 30, 30);
+        Test1.addLO(IndicatorT.math, L1);
+        Test1.addLO(IndicatorT.math, L2);
+        AttributeT att = new AttributeT("Att", Ind1);
+        double meas[] = new double[] {0, 1, 2, 3};
+        assertTrue(!Arrays.equals(Test1.measures(IndicatorT.math), meas));
     }
 
 }
