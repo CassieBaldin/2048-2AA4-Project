@@ -13,7 +13,6 @@ import java.util.*;
 
 public class TestLOsT
 {
-    // Norm.setNorms(false, false, false);
     private LOsT Test1;
     private LOsT Test2;
     private LOsT Space;
@@ -130,6 +129,7 @@ public class TestLOsT
     public void test1_measures_norm()
     {
         Norm.setNorms(true, false, false);
+        //used simple numbers to reduce floating point errors in testing
         assertTrue(Arrays.equals(Test1.measures(), new double[] {0.0, 0.1, 0.2, 0.3}));
     }
 
@@ -137,6 +137,7 @@ public class TestLOsT
     public void test2_measures_norm()
     {
         Norm.setNorms(true, false, false);
+        //used simple numbers to reduce floating point errors in testing
         assertTrue(Arrays.equals(EmptyName.measures(), new double[] {0.0, 0.002, 0.004, 0.006}));
     }
 
