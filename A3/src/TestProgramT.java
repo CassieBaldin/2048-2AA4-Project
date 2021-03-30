@@ -1,8 +1,8 @@
 /**
  * Author: Cassidy Baldin
- * Revised:
+ * Revised: March 29, 2021
  * 
- * Description:
+ * Description: Testing module for ProgramT class methods
  */
 
 package src;
