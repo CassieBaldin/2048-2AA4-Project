@@ -2,7 +2,7 @@ package src;
 
 import java.util.*;
 
-public class LOsT<Measures>
+public class LOsT
 {
     private String name;
     private int n_blw;
@@ -54,7 +54,7 @@ public class LOsT<Measures>
 
     public double[] measures(IndicatorT ind) 
     {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Incorrect input type");
     }
 
     public double[] measures(AttributeT att) 
