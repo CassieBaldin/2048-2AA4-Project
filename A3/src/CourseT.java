@@ -132,7 +132,7 @@ public class CourseT
                 }
             }
         }
-        if (in_set == outcomes.length) {return true;}
+        if (in_set ==  getLOs(indicator).length) {return true;}
         return false;
     }
 
