@@ -2,24 +2,22 @@ package src;
 
 import java.util.*;
 
-public class ProgramT extends HashSet<CourseT> //implements Measures??
+public class ProgramT extends HashSet<CourseT>
 {
-    private Set<CourseT> s = new HashSet<CourseT>();
-
     public double[] measures() 
     {
-        throw new UnsupportedOperationException(); 
+        throw new UnsupportedOperationException("Incorrect input type"); 
     }
 
     public double[] measures(IndicatorT ind) 
     {
-        throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException("Incorrect input type");
     }
 
-    public double[] measures(Attribute att) 
+    public double[] measures(AttributeT att) 
     {
         double n[] = {0, 0, 0, 0};
-        for (CourseT c : s)
+        for (CourseT c : this)
         {
             n = sumMeas(n, c.measures(att));
         }
