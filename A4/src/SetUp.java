@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * Author: Cassidy Baldin
  * Revised: April 12th, 2021
@@ -6,30 +5,21 @@
  * Description: SetUp Class to start the game
  */
 
-=======
->>>>>>> 2f6243c15a07fd7c8e0f5554792ac07374445d32
 package src;
 
 import java.util.*;
 
-<<<<<<< HEAD
 /**
 * @brief This class represents the start state of the game
 * @details Two random tiles will be added in random spots on the 4x4 board. 
 */
 
-=======
->>>>>>> 2f6243c15a07fd7c8e0f5554792ac07374445d32
 public class SetUp
 {
     private int[][] game_board = new int[4][4];
-
-<<<<<<< HEAD
    /**
     * @brief Initializes game start state
     */
-=======
->>>>>>> 2f6243c15a07fd7c8e0f5554792ac07374445d32
     public SetUp()
     {
         int[] random_spot1 = random_entry();
@@ -60,11 +50,8 @@ public class SetUp
         int[] index = new int[] {row, column};
         return index;
     }
-<<<<<<< HEAD
 
     public int[][] get_board() {
         return game_board;
     }
-=======
->>>>>>> 2f6243c15a07fd7c8e0f5554792ac07374445d32
 }
