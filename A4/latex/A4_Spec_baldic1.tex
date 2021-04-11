@@ -1,0 +1,242 @@
+\documentclass[12pt]{article}
+
+\usepackage{graphicx}
+\usepackage{paralist}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hhline}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{url}
+\usepackage{hyperref}
+
+\oddsidemargin -10mm
+\evensidemargin -10mm
+\textwidth 160mm
+\textheight 200mm
+\renewcommand\baselinestretch{1.0}
+
+\pagestyle {plain}
+\pagenumbering{arabic}
+
+\newcounter{stepnum}
+
+%% Comments
+
+\usepackage{color}
+
+\newif\ifcomments\commentstrue
+
+\ifcomments
+\newcommand{\authornote}[3]{\textcolor{#1}{[#3 ---#2]}}
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\else
+\newcommand{\authornote}[3]{}
+\newcommand{\todo}[1]{}
+\fi
+
+\newcommand{\wss}[1]{\authornote{blue}{SS}{#1}}
+
+\title{Assignment 4 Specification}
+\author{SFWR ENG 2AA4}
+
+\begin {document}
+
+\maketitle
+This Module Interface Specification (MIS) document contains modules, types and
+methods used to support the CEAB (Canadian Engineering Accreditation Board)
+graduate attributes process.  An accredited program needs to measure the
+learning outcomes in all of the courses and show that the measures adequately
+satisfy the graduate attributes specified by the CEAB.
+
+For every learning outcome in every course in a given program the number of
+students is counted in each of the following categories: below expectations,
+marginal, meets expectations and exceeds expectations.  This data for each
+learning outcome needs to be aggregated to express the results using the CEAB's
+graduate attributes.  We will use the same categories when summarizing the
+attributes, but rather than using student numbers, below, marginal, meets and
+exceeds will be expressed as percentages.
+
+Each attribute is divided into a set of indicators.  Each program consists of a
+set of courses and each course will cover a set of indicators.  For each
+indicator in a course there will be a set of learning outcomes.  The learning
+outcomes are course specific, but the indicators and the attributes are
+determined by the CEAB and the Faculty of Engineering, respectively.
+
+There are many choices on how to aggregate the data, depending on at what point
+the data is normalized.  These modules allow this choice to be modified at
+run-time so that the different possibilities can be dynamically explored.  This
+is enabled by the use of the Norm abstract object module.  At one extreme the
+data for a program is only normalized after summing all of the student counts
+for each learning outcome for each indicator for each attribute in each course.
+At the other extreme all of the data is normalized at each step, starting with
+the measures of the learning outcomes themselves.  A comparison of the different
+schemes can be found in the
+\href{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/-/blob/master/Assignments/A3/AggregationStrategies.xlsx}
+{sample spreadsheet} available in the assignment folder.
+
+% In applying the specification, there may be cases that involve undefinedness.
+% We will interpret undefinedness following~\cite{Farmer2004}:
+
+% If $p: \alpha_1 \times .... \times \alpha_n \rightarrow \mathbb{B}$ and any of
+% $a_1, ..., a_n$ is undefined, then $p(a_1, ..., a_n)$ is False.  For instance,
+% if $p(x) = 1/x < 1$, then $p(0) = \text{False}$.  In the language of our
+% specification, if evaluating an expression generates an exception, then the
+% value of the expression is undefined.
+
+% \wss{The parts that you need to fill in are marked by comments, like this one.
+%   In several of the modules local functions are specified.  You can use these
+%   local functions to complete the missing specifications.}
+
+% \wss{As you edit the tex source, please leave the \texttt{wss} comments in the
+%   file.  Put your answer \textbf{after} the comment.  This will make grading
+%   easier.}
+
+% \bibliographystyle{plain}
+% \bibliography{SmithCollectedRefs}
+
+\newpage
+
+\section* {SetUp Module}
+
+\subsection*{Template Module}
+
+SetUp
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+SetUp = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new SetUp & & & \\
+\hline
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{game\_board}: \text{4 x 4 grid (2D array)}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent new SetUp():
+\begin{itemize}
+\item transition: game\_board(random\_spot() = random\_num()), such that there are two unique cells filled once the transition is finished. 
+\item output: $out := none$
+\item exception: none
+\end{itemize}
+
+\noindent get\_board():
+\begin{itemize}
+\item output: $out := \mathit{gameboard}$
+\item exception: none
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent random\_num: \text{none} \rightarrow $\mathbb{N}$\\
+\noindent $\mbox{random\_num}() \equiv \text{num} $
+\textit{\# Where num is a random number such that a 2 is 90 percent likely, and 4 is 10 percent likely to occur} ~\\
+
+\noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
+\noindent $\mbox{random\_entry}() \equiv \text{cell} $
+\textit{\# Where cell is a random set of coordinates from a 4 x 4 grid where each space in the grid is equally likely}$\\
+
+\newpage
+
+\section* {Score (Abstract Object)}
+
+\subsection*{Module}
+
+Score
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+  \hline
+  \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+  \hline
+  set\_score & $\mathbb{N}$ & & & \\
+  \hline
+  get\_score & & $\mathbb{N}$ & \\
+  \hline
+  reset\_score & & & \\
+  \hline
+  
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{score}$: $\mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+The state variable will be set to zero (to start new score for game) before it is modified. 
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent set\_score($\mathit{s}$):
+\begin{itemize}
+\item transition: $\mathit{score} := \mathit{s}$
+\item exception: none
+\end{itemize}
+
+\noindent get\_score( ):
+\begin{itemize}
+\item output: $out := \mathit{score}$
+\item exception: none
+\end{itemize}
+
+\noindent reset\_score():
+\begin{itemize}
+\item transition: $\mathit{score} := 0$
+\item out: none
+\item exception: none
+\end{itemize}
+
+\end {document}
