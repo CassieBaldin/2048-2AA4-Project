@@ -132,7 +132,7 @@ new SetUp & & & \\
 
 \subsubsection* {State Variables}
 
-$\mathit{game\_board}: \text{4 x 4 grid (2D array)}$
+$\mathit{game\_board}: \text{grid}$
 
 \subsubsection* {State Invariant}
 
@@ -165,7 +165,7 @@ None
 
 \noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
 \noindent $\mbox{random\_entry}() \equiv \text{cell} $
-\textit{\# Where cell is a random set of coordinates from a 4 x 4 grid where each space in the grid is equally likely}$\\
+\textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}$\\
 
 \newpage
 
@@ -263,7 +263,7 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-View & $\text{4 x 4 grid of } \mathbb{N})$ & & \\
+View & $\text{grid of } \mathbb{N})$ & & \\
 \hline
 
 \end{tabular}
@@ -288,5 +288,79 @@ None
 
 \begin{itemize}
 \item transition: print to console the current score (using Score abstract object) and the current state of the board
+
+\newpage
+
+\section* {Board}
+
+\subsection*{Module}
+
+Board
+
+\subsection* {Uses}
+
+SetUp, View, Move
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+None
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+  \hline
+  \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+  \hline
+  start & & & & \\
+  \hline
+  view & & & \\
+  \hline
+  move & String & & \\
+  \hline
+  
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{game\_board}$: $\text{grid of } \mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+view() method in class will initiate a new instance of the View class to allow user to view the board state. 
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent start( ):
+\begin{itemize}
+\item transition: $\mathit{game\_board} := \mathit{SetUp.get\_board()}$
+\item out: none
+\item exception: none
+\end{itemize}
+
+\noindent view( ):
+\begin{itemize}
+\item out: none; \textit{\# New instance of View(game\_board)}$\\
+\item exception: none
+\end{itemize}
+
+\noindent move( ):
+\begin{itemize}
+\item out: none; \textit{\# New instance of Move(game\_board)}$\\
+\item exception: none
+\end{itemize}
+
+\newpage
 
 \end {document}
