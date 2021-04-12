@@ -36,11 +36,52 @@ public class Move
                     else if(game_board[i-1][j] == 0) {
                         game_board[i-1][j] = game_board[i][j];
                         game_board[i][j] = 0; 
+                        dir_check(i-1, j, "u");
                     }
                 }
             }
         }
         add_new_block();
+    }
+
+    private void dir_check(int i, int j, String direction) {
+        //checks cell after it moves to make sure it is as far in one direction as it can go
+        if (direction == "u") {
+            if (i == 0) { return; } //reached edge of board, return
+            else if (game_board[i-1][j] != 0) { return; }
+            else { //(game_board[i-1][j] == 0)
+                game_board[i-1][j] = game_board[i][j];
+                game_board[i][j] = 0; 
+                dir_check(i-1, j, "u");
+            }
+        }
+        else if (direction == "d") {
+            if (i == 3) { return; } //reached edge of board, return
+            else if (game_board[i+1][j] != 0) { return; }
+            else { 
+                game_board[i+1][j] = game_board[i][j];
+                game_board[i][j] = 0; 
+                dir_check(i+1, j, "d");
+            }
+        }
+        else if (direction == "l") {
+            if (j == 0) { return; } //reached edge of board, return
+            else if (game_board[i][j-1] != 0) { return; }
+            else { 
+                game_board[i][j-1] = game_board[i][j];
+                game_board[i][j] = 0; 
+                dir_check(i, j-1, "l");
+            }
+        }
+        else { //(direction == "l")
+            if (j == 3) { return; } //reached edge of board, return
+            else if (game_board[i][j+1] != 0) { return; }
+            else { 
+                game_board[i][j+1] = game_board[i][j];
+                game_board[i][j] = 0; 
+                dir_check(i, j+1, "r");
+            }
+        }
     }
 
     public void down() {
@@ -54,6 +95,7 @@ public class Move
                     else if(game_board[i+1][j] == 0) {
                         game_board[i+1][j] = game_board[i][j];
                         game_board[i][j] = 0; 
+                        dir_check(i+1, j, "d");
                     }
                 }
             }
@@ -72,6 +114,7 @@ public class Move
                     else if(game_board[i][j-1] == 0) {
                         game_board[i][j-1] = game_board[i][j];
                         game_board[i][j] = 0; 
+                        dir_check(i, j-1, "l");
                     }
                 }
             }
@@ -90,6 +133,7 @@ public class Move
                     else if(game_board[i][j+1] == 0) {
                         game_board[i][j+1] = game_board[i][j];
                         game_board[i][j] = 0; 
+                        dir_check(i, j+1, "r");
                     }
                 }
             }
