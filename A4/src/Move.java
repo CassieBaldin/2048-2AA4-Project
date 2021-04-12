@@ -96,4 +96,38 @@ public class Move
         }
         add_new_block();
     }
+
+    private void merge(int[] cell1, int[] cell2) {
+        int value = game_board[cell1[0]][cell1[1]];
+
+        game_board[cell1[0]][cell1[1]] = 0;
+        game_board[cell2[0]][cell2[1]] = value*2; 
+        Score.set_score(Score.get_score() + value*2); 
+    }
+
+    private void add_new_block() {
+        int[] random_spot = random_entry();
+        while (game_board[random_spot[0]][random_spot[1]] != 0) {
+            random_spot = random_entry();
+        }
+        game_board[random_spot[0]][random_spot[1]] = random_num();
+    }
+
+    private int random_num() {
+        Random r = new Random();
+        int x = r.nextInt(100);
+
+        if (x < 10) { return 4; }
+        else { return 2; }
+    }
+
+    private int[] random_entry() {
+        Random r = new Random();
+        int row = r.nextInt(4);
+        int column = r.nextInt(4);
+
+        int[] index = new int[] {row, column};
+
+        return index;
+    }
 }
