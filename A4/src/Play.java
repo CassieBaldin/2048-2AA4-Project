@@ -5,14 +5,15 @@ import java.util.*;
 public class Play
 {
     private static boolean play_again = true;
+    private static boolean game_over = false;
 
     public static void Play()
     {
         while (play_again) {
             play_again = false;
+            game_over = false;
 
             Score.set_score(0);
-            int[][] board = new int[4][4];
             Board b = new Board();
             b.start();
 
@@ -25,12 +26,23 @@ public class Play
             System.out.println("Which way would you like to move first? (w, a, s, d)");
 
             String move = user.nextLine();
-            while (!game_over()) {
+            while (!check_game_over()) {
                 b.move(valid_move_check(move));
                 b.view();
 
-                System.out.println("Next move? (w, a, s, d)");
-                move = user.nextLine();
+                if (check_win()) {
+                    System.out.println("You win!");
+                    System.out.println("Would you like to keep going (k) or try again (t)?");
+                    String ans = user.nextLine(); 
+                    if ((ans.equals("t")) || (ans.equals("T"))) {
+                        play_again = true;
+                    break;
+                    }
+                }
+                else {
+                    System.out.println("Next move? (w, a, s, d)");
+                    move = user.nextLine();
+                }
             }
 
             System.out.println("Game over :(");
@@ -42,16 +54,24 @@ public class Play
         }
     }
 
-    private static boolean game_over() {
+    private static boolean check_game_over() {
         //go through all the values, if all non-zero it is full, and if no possible merges, game over
-        return false;
+        game_over = false;
+        return game_over;
+    }
+
+    private static boolean check_win() {
+        if (Score.get_score() == 2048) {
+            return true;
+        }
+        else {return false; }
     }
 
     private static String valid_move_check(String move) {
-        Scanner user = new Scanner(System.in);
-        if (!move.equals("w") && !move.equals("a") && !move.equals("s") && !move.equals("d")) {
+        while (!move.equals("w") && !move.equals("a") && !move.equals("s") && !move.equals("d")) {
+            Scanner user = new Scanner(System.in);
             System.out.println("Sorry that is not a valid move, please try again: (wasd)");
-            valid_move_check(user.nextLine());
+            move = user.nextLine();
         }
         return move;
     }
