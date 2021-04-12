@@ -187,7 +187,7 @@ None
 
 \subsubsection* {Exported Types}
 
-None
+Score = ?
 
 \subsubsection* {Exported Access Programs}
 
@@ -253,9 +253,9 @@ None
 
 \subsection* {Syntax}
 
-\subsubsection* {Exported Constants}
+\subsubsection* {Exported Types}
 
-None
+View = ?
 
 \subsubsection* {Exported Access Programs}
 
@@ -263,7 +263,7 @@ None
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-View & $\text{grid of } \mathbb{N})$ & & \\
+new View & $\text{grid of } \mathbb{N})$ & & \\
 \hline
 
 \end{tabular}
@@ -309,7 +309,7 @@ None
 
 \subsubsection* {Exported Types}
 
-None
+Board = ?
 
 \subsubsection* {Exported Access Programs}
 
@@ -338,7 +338,7 @@ None
 
 \subsubsection* {Assumptions}
 
-view() method in class will initiate a new instance of the View class to allow user to view the board state. 
+Move input (direction) assumed to be only "wasd" characters. 
 
 \subsubsection* {Access Routine Semantics}
 
@@ -351,16 +351,127 @@ view() method in class will initiate a new instance of the View class to allow u
 
 \noindent view( ):
 \begin{itemize}
-\item out: none; \textit{\# New instance of View(game\_board)}$\\
+\item transition: \textit{\# New instance of View(game\_board) to show player the state of the board}$\\
 \item exception: none
 \end{itemize}
 
 \noindent move( ):
 \begin{itemize}
-\item out: none; \textit{\# New instance of Move(game\_board)}$\\
+\item transition: \textit{\# New instance of Move(game\_board)}$\\
+
+$(\langle direction = "w" \rightarrow Move.up() | direction = "s" \rightarrow Move.down() | direction = "a" \rightarrow Move.left() | True \rightarrow Move.right()) \rangle$
+
 \item exception: none
 \end{itemize}
 
 \newpage
+
+\section* {Move}
+
+\subsection*{Module}
+
+Move
+
+\subsection* {Uses}
+
+None
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+Move = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+  \hline
+  \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+  \hline
+  new Move & $\text{grid of } \mathbb{N})$ & & \\
+  \hline
+  up & & & \\
+  \hline
+  down & & & \\
+  \hline
+  left & & & \\
+  \hline
+  right & & & \\
+  \hline
+  
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{game\_board}$: $\text{grid of } \mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+Assumes the Board object that the Move class will be used in will be set up first before engaging in a move.  
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent Move(board):
+\begin{itemize}
+\item transition: $\mathit{game\_board} := \mathit{board}$
+\item out: none
+\item exception: none
+\end{itemize}
+
+\noindent up( ):
+\begin{itemize}
+% NEED TO CHANGE INTO MATH
+\item transition: \textit{\# Loop through board starting at second highest row and work towards last row. Check if cell above current cell has same value, if so merge(current, above cell). If cell above current cell is $0$, make above cell value the value of the current cell, current cell value now empty. Then after all cells have been shifted, add\_new\_block to game\_board} ~\\
+\item exception: none
+\end{itemize}
+
+\noindent down( ):
+\begin{itemize}
+% NEED TO CHANGE INTO MATH
+\item transition: \textit{\# Loop through board starting at second lowest row and work towards first row. Check if cell below current cell has same value, if so merge(current, below cell). If cell below current cell is $0$, make below cell value the value of the current cell, current cell value now empty. Then after all cells have been shifted, add\_new\_block to game\_board} ~\\
+\item exception: none
+\end{itemize}
+
+\noindent left( ):
+\begin{itemize}
+% NEED TO CHANGE INTO MATH
+\item transition: \textit{\# Loop through board starting at second leftmost row and work towards rightmost row. Check if cell to left of current cell has same value, if so merge(current, left cell). If cell left of current cell is $0$, make left cell value the value of the current cell, current cell value now empty. Then after all cells have been shifted, add\_new\_block to game\_board} ~\\
+\item exception: none
+\end{itemize}
+
+\noindent right( ):
+\begin{itemize}
+% NEED TO CHANGE INTO MATH
+\item transition: \textit{\# Loop through board starting at second rightmost row and work towards leftmost row. Check if cell to right of current cell has same value, if so merge(current, right cell). If cell right of current cell is $0$, make right cell value the value of the current cell, current cell value now empty. Then after all cells have been shifted, add\_new\_block to game\_board} ~\\
+\item exception: none
+\end{itemize}
+
+\subsection*{Local Functions}
+
+\noindent merge: \text{seq of } $\mathbb{N}, \text{seq of } $\mathbb{N} \rightarrow none \\
+\noindent $\mbox{merge}(cell1, cell2) \equiv \text{merge} $
+\textit{\# Where merge changes the cell1 to a value of $0$, and doubles the value of cell2, while adding the value in cell2 to the Score abstract object} ~\\
+
+\noindent add\_new\_block: none \rightarrow none \\
+\noindent $\mbox{add\_new\_block}() \equiv \text{add} $
+\textit{\# Where add adds another random number in a random empty spot on the game board} ~\\
+
+\noindent random\_num: \text{none} \rightarrow $\mathbb{N}$\\
+\noindent $\mbox{random\_num}() \equiv \text{num} $
+\textit{\# Where num is a random number such that a 2 is 90 percent likely, and 4 is 10 percent likely to occur} ~\\
+
+\noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
+\noindent $\mbox{random\_entry}() \equiv \text{cell} $
+\textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}$\\
 
 \end {document}
