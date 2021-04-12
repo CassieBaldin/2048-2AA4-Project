@@ -241,131 +241,6 @@ The state variable will be set to zero (to start new score for game) before it i
 
 \newpage
 
-\section* {View Module}
-
-\subsection* {Module}
-
-View
-
-\subsection* {Uses}
-
-None
-
-\subsection* {Syntax}
-
-\subsubsection* {Exported Types}
-
-View = ?
-
-\subsubsection* {Exported Access Programs}
-
-\begin{tabular}{| l | l | l | l |}
-\hline
-\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
-\hline
-new View & $\text{grid of } \mathbb{N})$ & & \\
-\hline
-
-\end{tabular}
-
-\subsection* {Semantics}
-
-\subsubsection* {State Variables}
-
-None
-
-\subsubsection* {State Invariant}
-
-None
-
-\subsubsection* {Assumptions}
-
-None
-
-\subsubsection* {Access Routine Semantics}
-
-\noindent View(game\_board)
-
-\begin{itemize}
-\item transition: print to console the current score (using Score abstract object) and the current state of the board
-
-\newpage
-
-\section* {Board}
-
-\subsection*{Module}
-
-Board
-
-\subsection* {Uses}
-
-SetUp, View, Move
-
-\subsection* {Syntax}
-
-\subsubsection* {Exported Constants}
-
-None
-
-\subsubsection* {Exported Types}
-
-Board = ?
-
-\subsubsection* {Exported Access Programs}
-
-\begin{tabular}{| l | l | l | p{5cm} |}
-  \hline
-  \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
-  \hline
-  start & & & & \\
-  \hline
-  view & & & \\
-  \hline
-  move & String & & \\
-  \hline
-  
-\end{tabular}
-
-\subsection* {Semantics}
-
-\subsubsection* {State Variables}
-
-$\mathit{game\_board}$: $\text{grid of } \mathbb{N}$
-
-\subsubsection* {State Invariant}
-
-None
-
-\subsubsection* {Assumptions}
-
-Move input (direction) assumed to be only "wasd" characters. 
-
-\subsubsection* {Access Routine Semantics}
-
-\noindent start( ):
-\begin{itemize}
-\item transition: $\mathit{game\_board} := \mathit{SetUp.get\_board()}$
-\item out: none
-\item exception: none
-\end{itemize}
-
-\noindent view( ):
-\begin{itemize}
-\item transition: \textit{\# New instance of View(game\_board) to show player the state of the board}$\\
-\item exception: none
-\end{itemize}
-
-\noindent move( ):
-\begin{itemize}
-\item transition: \textit{\# New instance of Move(game\_board)}$\\
-
-$(\langle direction = "w" \rightarrow Move.up() | direction = "s" \rightarrow Move.down() | direction = "a" \rightarrow Move.left() | True \rightarrow Move.right()) \rangle$
-
-\item exception: none
-\end{itemize}
-
-\newpage
-
 \section* {Move}
 
 \subsection*{Module}
@@ -473,5 +348,135 @@ Assumes the Board object that the Move class will be used in will be set up firs
 \noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
 \noindent $\mbox{random\_entry}() \equiv \text{cell} $
 \textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}$\\
+
+\newpage
+
+\section* {Board}
+
+\subsection*{Module}
+
+Board
+
+\subsection* {Uses}
+
+SetUp, View, Move
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Constants}
+
+None
+
+\subsubsection* {Exported Types}
+
+Board = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | p{5cm} |}
+  \hline
+  \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+  \hline
+  start & & & & \\
+  \hline
+  view & & & \\
+  \hline
+  move & String & & \\
+  \hline
+  
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {State Variables}
+
+$\mathit{game\_board}$: $\text{grid of } \mathbb{N}$
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+Move input (direction) assumed to be only "wasd" characters. 
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent start( ):
+\begin{itemize}
+\item transition: $\mathit{game\_board} := \mathit{SetUp.get\_board()}$
+\item out: none
+\item exception: none
+\end{itemize}
+
+\noindent view( ):
+\begin{itemize}
+\item transition: \textit{\# New instance of View(game\_board) to show player the state of the board}$\\
+\item exception: none
+\end{itemize}
+
+\noindent move( ):
+\begin{itemize}
+\item transition: \textit{\# New instance of Move(game\_board)}$\\
+
+$(\langle direction = "w" \rightarrow Move.up() | direction = "s" \rightarrow Move.down() | direction = "a" \rightarrow Move.left() | True \rightarrow Move.right()) \rangle$
+
+\item exception: none
+\end{itemize}
+
+\newpage
+
+\section* {View Module}
+
+\subsection* {Module}
+
+View
+
+\subsection* {Uses}
+
+Score
+
+\subsection* {Syntax}
+
+\subsubsection* {Exported Types}
+
+View = ?
+
+\subsubsection* {Exported Access Programs}
+
+\begin{tabular}{| l | l | l | l |}
+\hline
+\textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
+\hline
+new View & $\text{grid of } \mathbb{N})$ & & \\
+\hline
+
+\end{tabular}
+
+\subsection* {Semantics}
+
+\subsubsection* {Environmental Variables}
+
+Display a Score text with the Score in the current game using Score abstract object
+Display current state of game\_board in text
+
+\subsubsection* {State Variables}
+
+None
+
+\subsubsection* {State Invariant}
+
+None
+
+\subsubsection* {Assumptions}
+
+None
+
+\subsubsection* {Access Routine Semantics}
+
+\noindent View(game\_board)
+
+\begin{itemize}
+\item transition: Display the current score (using Score abstract object) and the current state of the board
 
 \end {document}
