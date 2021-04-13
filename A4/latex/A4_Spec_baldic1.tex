@@ -82,7 +82,7 @@ $View$ can display the state of the game board at a given time using text-based 
 The controller $Play$ is responsible for handling input actions from the player, as well as displaying the rules and other 
 messages for the user to see and interact with. 
 
-For $Play$, they can get the score of the game by using the abstract method $Score.get_score()$ to check if the user has 
+For $Play$, they can get the score of the game by using the abstract method $Score.get\_score()$ to check if the user has 
 gotten to the value of 2048. 
 
 
@@ -222,28 +222,28 @@ The state variable will be set to zero (to start new score for game) before it i
 
 \subsubsection* {Access Routine Semantics}
 
-\noindent set\_score($\mathit{s}$):
+\noindent set\_score(s):
 \begin{itemize}
-\item transition: $\mathit{score} := \mathit{s}$
+\item transition: $\text{score} := \text{s}$
 \item exception: none
 \end{itemize}
 
 \noindent get\_score( ):
 \begin{itemize}
-\item output: $out := \mathit{score}$
+\item output: $out := \text{score}$
 \item exception: none
 \end{itemize}
 
-\noindent add\_score(new_score):
+\noindent add\_score(new\_score):
 \begin{itemize}
-\item transition: $\mathit{score} := \mathit{score + new\_score}$
+\item transition: $\text{score} := \text{score + new\_score}$
 \item out: none
 \item exception: none
 \end{itemize}
 
 \noindent reset\_score():
 \begin{itemize}
-\item transition: $\mathit{score} := 0$
+\item transition: $\text{score} := 0$
 \item out: none
 \item exception: none
 \end{itemize}
@@ -276,7 +276,7 @@ Move = ?
   \hline
   \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
   \hline
-  new Move & $\text{grid of } \mathbb{N})$ & & \\
+  new Move & $seq[4] of seq[4] of \mathbb{N}$ & & \\
   \hline
   up & & & \\
   \hline
@@ -293,7 +293,7 @@ Move = ?
 
 \subsubsection* {State Variables}
 
-$\mathit{game\_board}$: $\text{grid of } \mathbb{N}$
+$\text{game\_board} := seq[4] of seq[4] of \mathbb{N}$
 
 \subsubsection* {State Invariant}
 
@@ -307,7 +307,7 @@ Assumes the Board object that the Move class will be used in will be set up firs
 
 \noindent Move(board):
 \begin{itemize}
-\item transition: $\mathit{game\_board} := \mathit{board}$
+\item transition: $\text{game\_board} := board$
 \item out: none
 \item exception: none
 \end{itemize}
@@ -345,7 +345,7 @@ Assumes the Board object that the Move class will be used in will be set up firs
 \noindent merge: \text{seq of } $\mathbb{N}, \text{seq of } $\mathbb{N} \rightarrow none \\
 \noindent $\mbox{merge}(cell1, cell2) \equiv \text{game\_board}[cell1[0]][cell[1]] = 0, \text{game\_board}[cell2[0]][cell2[1]] = \text{game\_board[cell2[0]][cell2[1]] x 2} $
 
-\text{Score} $:= Score +$$ \text{game\_board}[cell2[0]][cell2[1]]
+\text{Score} $:= Score +$ \text{game\_board}[cell2[0]][cell2[1]]
 
 \textit{\# Where merge changes the cell1 to a value of $0$, and doubles the value of cell2,then adds the value in cell2 to the Score abstract object} ~\\
 
@@ -406,11 +406,11 @@ Board = ?
 
 \subsubsection* {State Variables}
 
-$\mathit{game\_board}$: $\text{sequence of (seq of)} \mathbb{N}$
+$\text{game\_board}$: $\text{sequence of (seq of)} \mathbb{N}$
 
 \subsubsection* {State Invariant}
 
-\text{game\_board}[i][j] = [4][4]  \textit{\# Size of the board is 4x4}~\\\
+None
 
 \subsubsection* {Assumptions}
 
@@ -515,13 +515,13 @@ None
 \begin{itemize}
 
 \item The design was consistent in how the functions were able to be used in a consistent way in the Board class. Also the
-naming of game\_board variables was consistent, as well as ways to access this variable across all modules that invloved it.
+naming of game\_board variables was consistent, as well as ways to access this variable across all modules that involved it.
 
 \item Some methods like get\_score, get\_board and get\_board\_value are not essential in order for the game to work, but allowed ease of use when accessing this information from other classes to help get the status of the game more easily. 
 
-\item The methods up(), down(), left() and right() in the Move class are minimal as they allow movement in each specific direction as opposed to be able to move in all the different ways using one method. This allows for better usability as the programmer knows exactly which method moves which way and if they wanted to change the functionality of a certain direction only then this would allow them to do so. It also allows for better readibility as any future programmers that may read it know how each direction will function in that method. 
+\item The methods up(), down(), left() and right() in the Move class are minimal as they allow movement in each specific direction as opposed to be able to move in all the different ways using one method. This allows for better usability as the programmer knows exactly which method moves which way and if they wanted to change the functionality of a certain direction only then this would allow them to do so. It also allows for better readability as any future programmers that may read it know how each direction will function in that method. 
 
-\item The View method allows for some generality as it does not specify the size of the board that is being printed for the user, it just prints based on the length of the first row. This means that any square board would be able to be printed out using this method. This is also true in the Board class, however the SetUp and move methods are specified for a 4x4 grid. This could be changed to be more general design if there was an input in the SetUp constructor that allowed for the changing of the size of the grid to fit the input paramaters, and in the Move method in the loops instead of specifying the loop stop when i less than 4 which is the length of the grid, that could have been changed to simply the length of the rows for i and length of columns for j to be checked instead. 
+\item The View method allows for some generality as it does not specify the size of the board that is being printed for the user, it just prints based on the length of the first row. This means that any square board would be able to be printed out using this method. This is also true in the Board class, however the SetUp and move methods are specified for a 4x4 grid. This could be changed to be more general design if there was an input in the SetUp constructor that allowed for the changing of the size of the grid to fit the input parameters, and in the Move method in the loops instead of specifying the loop stop when i less than 4 which is the length of the grid, that could have been changed to simply the length of the rows for i and length of columns for j to be checked instead. 
 
 \item This design was not general in its implementation of the controls as the user can only use "wasd" to play instead of also being able to use the arrow keys or "ijkl" is they wanted to. A way to fix this to make it more general is to ask the user before the game starts to input four characters that they would like to use to control the game which would then be incorporated into the controls. 
 
@@ -534,7 +534,7 @@ needed, which allowed for ease of use in accessing the score of the current game
 
 \item The testing of these methods were made to try to prove the correctness of the modules and their methods. This was done by testing each method in a variety of ways to be able to catch any errors that may have arisen from that process. The testing allowed for the game to be played so that the user does not need to worry about the game crashing from an incorrect input. This was done in the Play method as if the user entered an incorrect input, the program would ask the user to try again until their input was correct. 
 
-\item This design supports information hiding as there is no way to modify the SetUp or View methods, as well as the state variables for Move and Board. This allows the main board that the user is playing on to be private and keep the user from cheating. However, the Score method can be set to a different score at any time using its setter methods but that does not guarntee the win condition, only that they have a higher score for the leader boards. The win condition is also hidden from the user and cannot be modified, but a way to make this even more hidden is if it as inside a Check\_Win class instead of the method in Play, as then the user would have a harder time finding the win condition. 
+\item This design supports information hiding as there is no way to modify the SetUp or View methods, as well as the state variables for Move and Board. This allows the main board that the user is playing on to be private and keep the user from cheating. However, the Score method can be set to a different score at any time using its setter methods but that does not guarantee the win condition, only that they have a higher score for the leader boards. The win condition is also hidden from the user and cannot be modified, but a way to make this even more hidden is if it as inside a Check\_Win class instead of the method in Play, as then the user would have a harder time finding the win condition. 
 
 \end{itemize}
 
