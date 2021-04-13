@@ -11,7 +11,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.*;
 
-public class A4Tests
+public class A4Demo
 {
    public static void main(String[] args) {
         Play game = new Play();
