@@ -130,7 +130,9 @@ new SetUp & & & \\
 
 \subsubsection* {State Variables}
 
-$\mathit{game\_board}: \text{grid}$
+$\text{game\_board} := seq[4] of seq[4] of \mathbb{N}$
+
+where \text{game\_board} $:= < <>, <>, <>, <> >$
 
 \subsubsection* {State Invariant}
 
@@ -151,19 +153,19 @@ None
 
 \noindent get\_board():
 \begin{itemize}
-\item output: $out := \mathit{gameboard}$
+\item output: $out := \text{game\_board}$
 \item exception: none
 \end{itemize}
 
 \subsection*{Local Functions}
 
 \noindent random\_num: \text{none} \rightarrow $\mathbb{N}$\\
-\noindent $\mbox{random\_num}() \equiv \text{num} $
-\textit{\# Where num is a random number such that a 2 is 90 percent likely, and 4 is 10 percent likely to occur} ~\\
+\noindent $\mbox{random\_num}() \equiv (0 <= r < 10 -> 2 | 11 <= r <= 99 -> 2) $
+\textit{\# Where num is a random number such that a 2 is 90 percent likely, and 4 is 10 percent likely to occur, where r is a random number between 0 and 100} ~\\
 
 \noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
 \noindent $\mbox{random\_entry}() \equiv \text{cell} $
-\textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}$\\
+\textit{\# Where cell is a random set of coordinates from the  grid where each space in the grid is equally likely}$\\
 
 \newpage
 
@@ -341,20 +343,23 @@ Assumes the Board object that the Move class will be used in will be set up firs
 \subsection*{Local Functions}
 
 \noindent merge: \text{seq of } $\mathbb{N}, \text{seq of } $\mathbb{N} \rightarrow none \\
-\noindent $\mbox{merge}(cell1, cell2) \equiv \text{merge} $
-\textit{\# Where merge changes the cell1 to a value of $0$, and doubles the value of cell2, while adding the value in cell2 to the Score abstract object} ~\\
+\noindent $\mbox{merge}(cell1, cell2) \equiv \text{game\_board}[cell1[0]][cell[1]] = 0, \text{game\_board}[cell2[0]][cell2[1]] = \text{game\_board[cell2[0]][cell2[1]] x 2} $
+
+\text{Score} $:= Score +$$ \text{game\_board}[cell2[0]][cell2[1]]
+
+\textit{\# Where merge changes the cell1 to a value of $0$, and doubles the value of cell2,then adds the value in cell2 to the Score abstract object} ~\\
 
 \noindent add\_new\_block: none \rightarrow none \\
-\noindent $\mbox{add\_new\_block}() \equiv \text{add} $
-\textit{\# Where add adds another random number in a random empty spot on the game board, if no spot is free, do not add block} ~\\
+\noindent $\mbox{add\_new\_block}() \equiv \text{game\_board}[random\_entry()[0]][random\_entry()[1]] = random\_num() $
+\textit{\# Where another random number is added in a random empty spot on the game board, if no spot is free, do not add block} ~\\
 
 \noindent random\_num: \text{none} \rightarrow $\mathbb{N}$\\
-\noindent $\mbox{random\_num}() \equiv \text{num} $
-\textit{\# Where num is a random number such that a 2 is 90 percent likely, and 4 is 10 percent likely to occur} ~\\
+\noindent $\mbox{random\_num}() \equiv (0 <= r < 10 -> 2 | 11 <= r <= 99 -> 2) $
+\textit{\# Where num is a random number such that a 2 is 90 percent likely, and 4 is 10 percent likely to occur, where r is a random number between 0 and 100} ~\\
 
 \noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
 \noindent $\mbox{random\_entry}() \equiv \text{cell} $
-\textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}~\\
+\textit{\# Where cell is a random set of coordinates from the  grid where each space in the grid is equally likely}$\\
 
 \newpage
 
@@ -401,11 +406,11 @@ Board = ?
 
 \subsubsection* {State Variables}
 
-$\mathit{game\_board}$: $\text{sequence [] } \mathbb{N}$
+$\mathit{game\_board}$: $\text{sequence of (seq of)} \mathbb{N}$
 
 \subsubsection* {State Invariant}
 
-game_board[i][j] = [4][4]  \textit{\# Size of the board is 4x4}~\\\
+\text{game\_board}[i][j] = [4][4]  \textit{\# Size of the board is 4x4}~\\\
 
 \subsubsection* {Assumptions}
 
@@ -415,7 +420,7 @@ Move input (direction) assumed to be only "wasd" characters.
 
 \noindent start( ):
 \begin{itemize}
-\item transition: $\mathit{game\_board} := \mathit{SetUp.get\_board()}$
+\item transition: $\text{game\_board} := \text{SetUp.get\_board()}$
 \item out: none
 \item exception: none
 \end{itemize}
@@ -426,24 +431,24 @@ Move input (direction) assumed to be only "wasd" characters.
 \item exception: none
 \end{itemize}
 
-\noindent move( ):
+\noindent move(direction):
 \begin{itemize}
 \item transition: \textit{\# New instance of Move(game\_board)}~\\
 
-$(\langle direction = "w" \rightarrow Move.up() | direction = "s" \rightarrow Move.down() | direction = "a" \rightarrow Move.left() | True \rightarrow Move.right()) \rangle$
+$(\langle \text{direction} = "w" \rightarrow Move.up() | \text{direction} = "s" \rightarrow Move.down() | \text{direction} = "a" \rightarrow Move.left() | True \rightarrow Move.right()) \rangle$
 
 \item exception: none
 \end{itemize}
 
 \noindent get\_board( ):
 \begin{itemize}
-\item out: $\mathit{game\_board}$
+\item out: game\_board
 \item exception: none
 \end{itemize}
 
 \noindent get\_board\_value(i, j):
 \begin{itemize}
-\item out: $\mathit{game\_board[i][j]}$
+\item out: game\_board[i][j]
 \item exception: none
 \end{itemize}
 
@@ -471,7 +476,7 @@ View = ?
 \hline
 \textbf{Routine name} & \textbf{In} & \textbf{Out} & \textbf{Exceptions}\\
 \hline
-new View & $\text{grid of } \mathbb{N})$ & & \\
+new View & $\text{grid of } \mathbb{N}$ & & \\
 \hline
 
 \end{tabular}
@@ -499,7 +504,7 @@ None
 \noindent View(game\_board)
 
 \begin{itemize}
-\item transition: $\mathit{window} := \mathit{Displays Score using Score abstract object, displays all cells in game\_board}$
+\item transition: $\mathit{window} :=$ Displays Score using Score abstract object, displays all cells in game\_board
 
 \end{itemize}
 
