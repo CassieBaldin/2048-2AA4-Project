@@ -105,7 +105,7 @@ public class Play
                 }
             }
         }
-        else {return false; }
+        return false;
     }
 
     /**
