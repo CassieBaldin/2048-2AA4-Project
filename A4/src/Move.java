@@ -2,7 +2,7 @@
  * Author: Cassidy Baldin
  * Revised: April 12th, 2021
  * 
- * Description: Move class that takes in user input to change the board state
+ * Description: Move class that takes in user input to change the board state.
  */
 
 package src;
@@ -10,23 +10,27 @@ package src;
 import java.util.*;
 
 /**
-* @brief This class represents the start state of the game
+* @brief This class represents the start state of the game.
 * @details Two random tiles will be added in random spots on the 4x4 board. 
 */
 
 public class Move
 {
     private int[][] game_board;
+
    /**
-    * @brief Visiualizer for the game, prints board state to the screen
+    * @brief Constructor for the Move class.
+    * @param board Represents the state of the current game board.
     */
     public Move(int[][] board)
     {
         game_board = board;
     }
 
+    /**
+    * @brief Moves all non-empty values in the game_board up, merges if possible.
+    */
     public void up() {
-        //loop through the grid starting at top
         for (int i = 1; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 if (game_board[i][j] != 0) {
@@ -44,19 +48,23 @@ public class Move
         add_new_block();
     }
 
+    /**
+    * @brief Check if the value in the grid can be moved any more in the specified direction
+    * @param i Represents the row in the game board grid.
+    * @param j Represents the column in the game board grid.
+    * @param direction Represents the direction that the cell could move. 
+    */
     private void dir_check(int i, int j, String direction) {
-        //checks cell after it moves to make sure it is as far in one direction as it can go
         if (direction == "u") {
-            if (i == 0) { return; } //reached edge of board, return
-            else if (game_board[i-1][j] != 0) { return; }
-            else { //(game_board[i-1][j] == 0)
+            if ((i == 0) || (game_board[i-1][j] != 0)) { return; } 
+            else { 
                 game_board[i-1][j] = game_board[i][j];
                 game_board[i][j] = 0; 
                 dir_check(i-1, j, "u");
             }
         }
         else if (direction == "d") {
-            if (i == 3) { return; } //reached edge of board, return
+            if (i == 3) { return; } 
             else if (game_board[i+1][j] != 0) { return; }
             else { 
                 game_board[i+1][j] = game_board[i][j];
@@ -64,17 +72,17 @@ public class Move
                 dir_check(i+1, j, "d");
             }
         }
-        else if (direction == "l") {
-            if (j == 0) { return; } //reached edge of board, return
+        else if (direction == "L") {
+            if (j == 0) { return; }
             else if (game_board[i][j-1] != 0) { return; }
             else { 
                 game_board[i][j-1] = game_board[i][j];
                 game_board[i][j] = 0; 
-                dir_check(i, j-1, "l");
+                dir_check(i, j-1, "L");
             }
         }
-        else { //(direction == "l")
-            if (j == 3) { return; } //reached edge of board, return
+        else {
+            if (j == 3) { return; } 
             else if (game_board[i][j+1] != 0) { return; }
             else { 
                 game_board[i][j+1] = game_board[i][j];
@@ -84,8 +92,10 @@ public class Move
         }
     }
 
+    /**
+    * @brief Moves all non-empty values in the game_board down, merges if possible.
+    */
     public void down() {
-        //loop through the grid starting at bottom
         for (int i = 2; i >= 0; i--) {
             for (int j = 0; j < 4; j++) {
                 if (game_board[i][j] != 0) {
@@ -103,8 +113,10 @@ public class Move
         add_new_block();
     }
 
+    /**
+    * @brief Moves all non-empty values in the game_board right, merges if possible.
+    */
     public void left() {
-        //loop through the grid starting at leftmost column
         for (int i = 0; i < 4; i++) {
             for (int j = 1; j < 4; j++) {
                 if (game_board[i][j] != 0) {
@@ -114,7 +126,7 @@ public class Move
                     else if(game_board[i][j-1] == 0) {
                         game_board[i][j-1] = game_board[i][j];
                         game_board[i][j] = 0; 
-                        dir_check(i, j-1, "l");
+                        dir_check(i, j-1, "L");
                     }
                 }
             }
@@ -122,8 +134,10 @@ public class Move
         add_new_block();
     }
 
+    /**
+    * @brief Moves all non-empty values in the game_board right, merges if possible.
+    */
     public void right() {
-        //loop through the grid starting at rightmost column
         for (int i = 0; i < 4; i++) {
             for (int j = 2; j >= 0; j--) {
                 if (game_board[i][j] != 0) {
@@ -141,15 +155,31 @@ public class Move
         add_new_block();
     }
 
+    /**
+    * @brief Moves all non-empty values in the game_board right, merges if possible.
+    * @param cell1 Represents the cell that is being merged away from.
+    * @param cell2 Represents the cell that is being merged into.
+    */
     private void merge(int[] cell1, int[] cell2) {
         int value = game_board[cell1[0]][cell1[1]];
 
         game_board[cell1[0]][cell1[1]] = 0;
         game_board[cell2[0]][cell2[1]] = value*2; 
-        Score.set_score(Score.get_score() + value*2); 
+        Score.add_score(value*2); 
     }
 
+    /**
+    * @brief Adds new block to game board.
+    * @details Assumes it will only be called after a move is finished all merges.
+    */
     private void add_new_block() {
+        int full_spots = 0;
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] != 0) {full_spots++; }
+            }
+        if (full_spots == 16) {return; }
+
         int[] random_spot = random_entry();
         while (game_board[random_spot[0]][random_spot[1]] != 0) {
             random_spot = random_entry();
@@ -157,6 +187,10 @@ public class Move
         game_board[random_spot[0]][random_spot[1]] = random_num();
     }
 
+    /**
+    * @brief A random number where 2 is 90% likely, and 4 is 10% likely.
+    * @return The number 2 or 4.
+    */
     private int random_num() {
         Random r = new Random();
         int x = r.nextInt(100);
@@ -165,6 +199,10 @@ public class Move
         else { return 2; }
     }
 
+    /**
+    * @brief A random entry (cell) on a 4x4 grid.
+    * @return A set of values representing coordinates on a 4x4 grid.
+    */
     private int[] random_entry() {
         Random r = new Random();
         int row = r.nextInt(4);
