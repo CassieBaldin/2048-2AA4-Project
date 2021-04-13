@@ -1,6 +1,6 @@
 /**
  * Author: Cassidy Baldin
- * Revised: MApril 12th, 2021
+ * Revised: April 12th, 2021
  * 
  * Description: Demo for play method to be able to play the game with the controller :)
  */
