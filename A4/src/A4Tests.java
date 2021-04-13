@@ -125,4 +125,408 @@ public class A4Tests
         Score.set_score(8);
         assertTrue(Score.get_score() == 8);
     }
+
+    @Test
+    public void add_block_test()
+    {
+        int[][] game_board = new int[4][4];
+        m = new Move(game_board);
+        m.up();
+
+        //check if a block was added after move
+        int filled = 0;
+        int empty = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+                else { filled++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((filled == 1) && (empty == 15));
+    }
+
+    @Test
+    public void move_up_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[1][0] = 2;
+        //{0,0,0,0
+        // 2,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.up();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[1][0] == 0) && (game_board[0][0] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_far_up_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[3][0] = 2;
+        //{0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0
+        // 2,0,0,0}
+        m = new Move(game_board);
+        m.up();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[3][0] == 0) && (game_board[0][0] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_down_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[2][0] = 2;
+        //{0,0,0,0
+        // 0,0,0,0
+        // 2,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.down();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[2][0] == 0) && (game_board[3][0] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_far_down_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][0] = 2;
+        //{2,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.down();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][0] == 0) && (game_board[3][0] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_left_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][1] = 2;
+        //{0,2,0,0
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.left();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][1] == 0) && (game_board[0][0] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_far_left_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][3] = 2;
+        //{0,0,0,2
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.left();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][3] == 0) && (game_board[0][0] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_right_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][2] = 2;
+        //{0,0,2,0
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.right();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][2] == 0) && (game_board[0][3] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void move_far_right_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][0] = 2;
+        //{2,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.right();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][0] == 0) && (game_board[0][3] == 2)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void merge_up_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][0] = 2;
+        game_board[1][0] = 2;
+        //{2,0,0,0
+        // 2,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.up();
+
+        //check if 4 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][0] == 4) && (game_board[1][0] == 0)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void merge_down_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[2][0] = 2;
+        game_board[3][0] = 2;
+        //{0,0,0,0
+        // 0,0,0,0
+        // 2,0,0,0
+        // 2,0,0,0}
+        m = new Move(game_board);
+        m.down();
+
+        //check if 4 is in (3, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[2][0] == 0) && (game_board[3][0] == 4)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void merge_left_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][1] = 2;
+        game_board[0][0] = 2;
+        //{2,2,0,0
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.left();
+
+        //check if 4 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][1] == 0) && (game_board[0][0] == 4)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void merge_right_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][2] = 2;
+        game_board[0][3] = 2;
+        //{0,0,2,2
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.right();
+
+        //check if 2 is in (0, 0), all else empty +1 for new block added after move
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][2] == 0) && (game_board[0][3] == 4)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 14));
+    }
+
+    @Test
+    public void no_merge_test()
+    {
+        int[][] game_board = new int[4][4];
+        game_board[0][2] = 2;
+        game_board[0][3] = 4;
+        //{0,0,2,4
+        // 0,0,0,0
+        // 0,0,0,0
+        // 0,0,0,0}
+        m = new Move(game_board);
+        m.right();
+
+        int correct = 0;
+        int empty = 0;
+        if ((game_board[0][2] == 2) && (game_board[0][3] == 4)) { correct++; }
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (game_board[i][j] == 0) { empty++; }
+            }
+        }
+        game_board = new int[4][4];
+        assertTrue((correct == 1) && (empty == 13));
+    }
+
+    @Test
+    public void board_start_test()
+    {
+        //check if there are only two values in the board after start was called, and the value ares 2 or 4
+        b.start();
+        int filled_cells = 0;
+        int two_or_four = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((b.get_board_value(i, j) != 0)) {filled_cells++; }
+                if (b.get_board_value(i, j) == 2) { two_or_four++; }
+                else if (b.get_board_value(i, j) == 4) { two_or_four++; }
+            }
+        }
+        assertTrue((filled_cells == 2) && (two_or_four == 2));
+    }
+
+    @Test
+    public void board_move_up_test()
+    {
+        //check if there are two or three values in the board after start was called, and the values are 2 or 4
+        b.start();
+        m = new Move(b.get_board());
+        m.up();
+
+        int filled_cells = 0;
+        int two_or_four = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if ((b.get_board_value(i, j) != 0)) {filled_cells++; }
+                if (b.get_board_value(i, j) == 2) { two_or_four++; }
+                else if (b.get_board_value(i, j) == 4) { two_or_four++; }
+            }
+        }
+        assertTrue(((filled_cells == 2) || (filled_cells == 3)) && ((two_or_four == 2) || (two_or_four == 3)));
+    }
+
+    // @Test
+    // public void board_state_not_equal_test()
+    // {
+    //     b.start();
+
+    //     Board b2 = new Board();
+    //     b2.start();
+
+    //     int same = 0;
+    //     for (int i = 0; i < 4; i++) {
+    //         for (int j = 0; j < 4; j++) {
+    //             if (b.get_board_value(i, j) == b2.get_board_value(i, j)) {same++; }
+    //         }
+    //     }
+
+    //     assertTrue(!(same == 16));
+    // }
 }
