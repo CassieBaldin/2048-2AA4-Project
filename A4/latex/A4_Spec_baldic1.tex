@@ -10,6 +10,8 @@
 \usepackage{multicol}
 \usepackage{url}
 \usepackage{hyperref}
+\usepackage{graphicx}
+\graphicspath{{}}
 
 \oddsidemargin -10mm
 \evensidemargin -10mm
@@ -45,56 +47,52 @@
 
 \maketitle
 This Module Interface Specification (MIS) document contains modules, types and
-methods used to support the CEAB (Canadian Engineering Accreditation Board)
-graduate attributes process.  An accredited program needs to measure the
-learning outcomes in all of the courses and show that the measures adequately
-satisfy the graduate attributes specified by the CEAB.
+methods used for implementing the game 2048. At the start of the game, a board is created with two tiles 
+in two random cells on the board containing a 2 or a 4 in each. The user must specify the direction that
+the board shifts in order to merge the tiles that appear. When two tiles merge, their value get added 
+together and leave behind a single tile instead. After a direction has been specified and the tiles
+have been merged or moved in that direction, a new tile is added in a non-occupied spot containing a 2 or a
+4. The possible directions are up ("w"), down ("s"), left ("a"), and right ("d"). This game play will continue
+until there are no more places to add tiles and there are no possible merges, or when the player merges the 
+tiles to create the value 2048. 
 
-For every learning outcome in every course in a given program the number of
-students is counted in each of the following categories: below expectations,
-marginal, meets expectations and exceeds expectations.  This data for each
-learning outcome needs to be aggregated to express the results using the CEAB's
-graduate attributes.  We will use the same categories when summarizing the
-attributes, but rather than using student numbers, below, marginal, meets and
-exceeds will be expressed as percentages.
+\begin{center}
+	\includegraphics[scale=0.3]{2048_pic}
+\end{center}
 
-Each attribute is divided into a set of indicators.  Each program consists of a
-set of courses and each course will cover a set of indicators.  For each
-indicator in a course there will be a set of learning outcomes.  The learning
-outcomes are course specific, but the indicators and the attributes are
-determined by the CEAB and the Faculty of Engineering, respectively.
+The above board visualization is from http://play2048.co/
 
-There are many choices on how to aggregate the data, depending on at what point
-the data is normalized.  These modules allow this choice to be modified at
-run-time so that the different possibilities can be dynamically explored.  This
-is enabled by the use of the Norm abstract object module.  At one extreme the
-data for a program is only normalized after summing all of the student counts
-for each learning outcome for each indicator for each attribute in each course.
-At the other extreme all of the data is normalized at each step, starting with
-the measures of the learning outcomes themselves.  A comparison of the different
-schemes can be found in the
-\href{https://gitlab.cas.mcmaster.ca/smiths/se2aa4_cs2me3/-/blob/master/Assignments/A3/AggregationStrategies.xlsx}
-{sample spreadsheet} available in the assignment folder.
+\newpage
 
-% In applying the specification, there may be cases that involve undefinedness.
-% We will interpret undefinedness following~\cite{Farmer2004}:
+\section* {Overview of the design}
 
-% If $p: \alpha_1 \times .... \times \alpha_n \rightarrow \mathbb{B}$ and any of
-% $a_1, ..., a_n$ is undefined, then $p(a_1, ..., a_n)$ is False.  For instance,
-% if $p(x) = 1/x < 1$, then $p(0) = \text{False}$.  In the language of our
-% specification, if evaluating an expression generates an exception, then the
-% value of the expression is undefined.
+This design applies Module View Specification (MVC) design pattern and Singleton design pattern. The MVC components are 
+$Play$ (controller module), $Board$ (model module) and $View$ (view module). The Singleton pattern is specified and 
+implemented by $Play$ and $View$. 
 
-% \wss{The parts that you need to fill in are marked by comments, like this one.
-%   In several of the modules local functions are specified.  You can use these
-%   local functions to complete the missing specifications.}
+A UML diagram is provided below for visualizing the structure of this software architecture:
 
-% \wss{As you edit the tex source, please leave the \texttt{wss} comments in the
-%   file.  Put your answer \textbf{after} the comment.  This will make grading
-%   easier.}
+\begin{center}
+	\includegraphics[scale=0.7]{image0}
+\end{center}
 
-% \bibliographystyle{plain}
-% \bibliography{SmithCollectedRefs}
+The MVC design pattern is specified and implemented in the following way: the module $Board$ stores the current game board
+state and the status of the game. It also allows for modifications to the current board state via its methods. A view module 
+$View$ can display the state of the game board at a given time using text-based graphics printed to the user's console/screen. 
+The controller $Play$ is responsible for handling input actions from the player, as well as displaying the rules and other 
+messages for the user to see and interact with. 
+
+For $Play$, they can get the score of the game by using the abstract method $Score.get_score()$ to check if the user has 
+gotten to the value of 2048. 
+
+
+\subsection* {Likely changes my design considers:}
+
+\noindent Data structure for storing the game board.
+
+\noindent Changes to the user input commands (play again ("y"), try again ("t") and keep going ("k")).
+
+\noindent Changes to the scoring (input does not have to be power of 2 so could increase/decrease amount of points for high scores)
 
 \newpage
 
@@ -199,6 +197,8 @@ Score = ?
   \hline
   get\_score & & $\mathbb{N}$ & \\
   \hline
+  add\_score & $\mathbb{N}$ & & \\
+  \hline
   reset\_score & & & \\
   \hline
   
@@ -216,7 +216,7 @@ None
 
 \subsubsection* {Assumptions}
 
-The state variable will be set to zero (to start new score for game) before it is modified. 
+The state variable will be set to zero (to start new score for game) before it is modified. It is also assumed that all inputs will be powers of $2$.
 
 \subsubsection* {Access Routine Semantics}
 
@@ -229,6 +229,13 @@ The state variable will be set to zero (to start new score for game) before it i
 \noindent get\_score( ):
 \begin{itemize}
 \item output: $out := \mathit{score}$
+\item exception: none
+\end{itemize}
+
+\noindent add\_score(new_score):
+\begin{itemize}
+\item transition: $\mathit{score} := \mathit{score + new\_score}$
+\item out: none
 \item exception: none
 \end{itemize}
 
@@ -249,7 +256,7 @@ Move
 
 \subsection* {Uses}
 
-None
+Score
 
 \subsection* {Syntax}
 
@@ -339,7 +346,7 @@ Assumes the Board object that the Move class will be used in will be set up firs
 
 \noindent add\_new\_block: none \rightarrow none \\
 \noindent $\mbox{add\_new\_block}() \equiv \text{add} $
-\textit{\# Where add adds another random number in a random empty spot on the game board} ~\\
+\textit{\# Where add adds another random number in a random empty spot on the game board, if no spot is free, do not add block} ~\\
 
 \noindent random\_num: \text{none} \rightarrow $\mathbb{N}$\\
 \noindent $\mbox{random\_num}() \equiv \text{num} $
@@ -347,11 +354,11 @@ Assumes the Board object that the Move class will be used in will be set up firs
 
 \noindent random\_entry: \text{none} \rightarrow \text{seq of } $\mathbb{N}$\\
 \noindent $\mbox{random\_entry}() \equiv \text{cell} $
-\textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}$\\
+\textit{\# Where cell is a random set of coordinates from a grid where each space in the grid is equally likely}~\\
 
 \newpage
 
-\section* {Board}
+\section* {Board (ADT)}
 
 \subsection*{Module}
 
@@ -383,6 +390,10 @@ Board = ?
   \hline
   move & String & & \\
   \hline
+  get\_board & & $\text{seq of (seq of) } \mathbb{N}$ & \\
+  \hline
+  get\_board\_value & $\mathbb{N}, \mathbb{N}$ & $\mathbb{N}$ & \\
+  \hline
   
 \end{tabular}
 
@@ -390,11 +401,11 @@ Board = ?
 
 \subsubsection* {State Variables}
 
-$\mathit{game\_board}$: $\text{grid of } \mathbb{N}$
+$\mathit{game\_board}$: $\text{sequence [] } \mathbb{N}$
 
 \subsubsection* {State Invariant}
 
-None
+game_board[i][j] = [4][4]  \textit{\# Size of the board is 4x4}~\\\
 
 \subsubsection* {Assumptions}
 
@@ -411,16 +422,28 @@ Move input (direction) assumed to be only "wasd" characters.
 
 \noindent view( ):
 \begin{itemize}
-\item transition: \textit{\# New instance of View(game\_board) to show player the state of the board}$\\
+\item transition: \textit{\# New instance of View(game\_board) to show player the state of the board}~\\\
 \item exception: none
 \end{itemize}
 
 \noindent move( ):
 \begin{itemize}
-\item transition: \textit{\# New instance of Move(game\_board)}$\\
+\item transition: \textit{\# New instance of Move(game\_board)}~\\
 
 $(\langle direction = "w" \rightarrow Move.up() | direction = "s" \rightarrow Move.down() | direction = "a" \rightarrow Move.left() | True \rightarrow Move.right()) \rangle$
 
+\item exception: none
+\end{itemize}
+
+\noindent get\_board( ):
+\begin{itemize}
+\item out: $\mathit{game\_board}$
+\item exception: none
+\end{itemize}
+
+\noindent get\_board\_value(i, j):
+\begin{itemize}
+\item out: $\mathit{game\_board[i][j]}$
 \item exception: none
 \end{itemize}
 
@@ -457,8 +480,7 @@ new View & $\text{grid of } \mathbb{N})$ & & \\
 
 \subsubsection* {Environmental Variables}
 
-Display a Score text with the Score in the current game using Score abstract object
-Display current state of game\_board in text
+window: A portion of the computer screen that displays the game and messages. 
 
 \subsubsection* {State Variables}
 
@@ -477,6 +499,40 @@ None
 \noindent View(game\_board)
 
 \begin{itemize}
-\item transition: Display the current score (using Score abstract object) and the current state of the board
+\item transition: $\mathit{window} := \mathit{Displays Score using Score abstract object, displays all cells in game\_board}$
+
+\end{itemize}
+
+\newpage
+
+\section* {Critique of Design}
+
+\begin{itemize}
+
+\item 
+
+\end{itemize}
+
+
+\newpage
+
+\section* {Answers to Questions}
+
+\item 1. UML diagram for modules in $A3$
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.45\linewidth}
+	\includegraphics[scale=0.3]{IMG_3018}
+\end{minipage}
+	\quad
+\begin{minipage}[b]{0.45\linewidth}
+	\includegraphics[scale=0.3]{IMG_3017}
+\end{minipage}
+\end{figure}
+
+\noindent where LOsT and CourseT use Measures (it was hard to try to line up)
+
+\item 2. 
 
 \end {document}
