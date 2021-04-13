@@ -509,10 +509,29 @@ None
 
 \begin{itemize}
 
-\item 
+\item The design was consistent in how the functions were able to be used in a consistent way in the Board class. Also the
+naming of game\_board variables was consistent, as well as ways to access this variable across all modules that invloved it.
+
+\item Some methods like get\_score, get\_board and get\_board\_value are not essential in order for the game to work, but allowed ease of use when accessing this information from other classes to help get the status of the game more easily. 
+
+\item The methods up(), down(), left() and right() in the Move class are minimal as they allow movement in each specific direction as opposed to be able to move in all the different ways using one method. This allows for better usability as the programmer knows exactly which method moves which way and if they wanted to change the functionality of a certain direction only then this would allow them to do so. It also allows for better readibility as any future programmers that may read it know how each direction will function in that method. 
+
+\item The View method allows for some generality as it does not specify the size of the board that is being printed for the user, it just prints based on the length of the first row. This means that any square board would be able to be printed out using this method. This is also true in the Board class, however the SetUp and move methods are specified for a 4x4 grid. This could be changed to be more general design if there was an input in the SetUp constructor that allowed for the changing of the size of the grid to fit the input paramaters, and in the Move method in the loops instead of specifying the loop stop when i less than 4 which is the length of the grid, that could have been changed to simply the length of the rows for i and length of columns for j to be checked instead. 
+
+\item This design was not general in its implementation of the controls as the user can only use "wasd" to play instead of also being able to use the arrow keys or "ijkl" is they wanted to. A way to fix this to make it more general is to ask the user before the game starts to input four characters that they would like to use to control the game which would then be incorporated into the controls. 
+
+\item This design has high cohesion as all the modules relate to each other as a result of MVC. For example, Score is used in Move, Board and View, and SetUp, Move and View being used in Board. All of these methods working together allow the game to function and it would not be able to function correctly if one of them was not working correctly, as they are all essential to making the Play function work and allowing the user to play the game. 
+
+\item I specified Board module as an ADT as it makes it easier to create a new Board object when restarting a game. 
+
+\item The score was implemented as an abstract object as it allowed the Score to be updated and used from any class when 
+needed, which allowed for ease of use in accessing the score of the current game. 
+
+\item The testing of these methods were made to try to prove the correctness of the modules and their methods. This was done by testing each method in a variety of ways to be able to catch any errors that may have arisen from that process. The testing allowed for the game to be played so that the user does not need to worry about the game crashing from an incorrect input. This was done in the Play method as if the user entered an incorrect input, the program would ask the user to try again until their input was correct. 
+
+\item This design supports information hiding as there is no way to modify the SetUp or View methods, as well as the state variables for Move and Board. This allows the main board that the user is playing on to be private and keep the user from cheating. However, the Score method can be set to a different score at any time using its setter methods but that does not guarntee the win condition, only that they have a higher score for the leader boards. The win condition is also hidden from the user and cannot be modified, but a way to make this even more hidden is if it as inside a Check\_Win class instead of the method in Play, as then the user would have a harder time finding the win condition. 
 
 \end{itemize}
-
 
 \newpage
 
@@ -533,6 +552,10 @@ None
 
 \noindent where LOsT and CourseT use Measures (it was hard to try to line up)
 
-\item 2. 
+\item 2. Convex Hull Control Flow Graph
+
+\begin{center}
+	\includegraphics[scale=0.1]{Flow}
+\end{center}
 
 \end {document}
