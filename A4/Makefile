@@ -21,9 +21,9 @@ doc:
 	doxygen doxConfig
 	cd latex && $(MAKE)
 
-expt:
-	$(JC) $(JCLASS) $(JFLAGS) src/A4Tests.java
-	$(JVM) src/A4Tests
+demo:
+	$(JC) $(JCLASS) $(JFLAGS) src/A4Demo.java
+	$(JVM) src/A4Demo
 
 clean:
 	rm -rf html
