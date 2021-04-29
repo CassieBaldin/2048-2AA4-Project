@@ -200,16 +200,16 @@ by secrets hierarchy.
 \item \textbf{Is this module Hardware Hiding, Software Decision Hiding or
     Behaviour Hiding?  Why?}
 
-  - answer here
+This module is Software Decision Hiding as the secret is the structure being use and the algorithm used which can be found in the software of the implementation. The data structure that is being used in the design is a decision made by the software team when they decided how they were going to implement the maze tracing robot. The algorithm they used is also software based. This is not hiding the hardware used nor the behavior of the robot, but is hiding the software design aspects of the robot. 
 
 \item \textbf{Is this a good secret?  Why?}
 
-  - answer here
+This is a good secret as they are hiding the algorithm that finds the shortest path which is the task that the robot is trying to accomplish. If this was not hidden, then someone could go and change this algorithm and make it a slower or less efficient algorithm instead as well as change the data structure, which would cause the robot to not function the way it is supposed to. THis would be a disaster, which is why it is a good secret to have and keep. 
 
 \item \textbf{Does the specification for maze tracing robot require environment
     variables?  If so, which environment variables are needed?}
 
-  - answer here
+No, it does not require environment variables as all the functionality of the robot is in the software and going to the hardware that makes it perform its required actions. Environment variables are used to allow a program have have external interaction outside of its class/module (for example the plot function from one of the assignments), but since the software is interacting with the hardware it does not need to have external functionality and use environmental variables. 
 
 \end{enumerate}
 
@@ -235,16 +235,16 @@ opponent.
   timeline for achieving these milestones do you propose?  You can indicate the
   time a milestone is reached by the number of months from the project's start date.}
 
-  - answer here
+Some major milestones for this project would be to first think of how the project will be implemented in terms of what data structure to use and the general sense of what methods that will be used and how the project will work which should be done in the first week or so. Then the next milestone would be to write a specification indicating in an abstract and general way how the project will complete the task of playing chess which should be done about two weeks after the project starts. The next milestone would be to write the code and get the game to "work" meaning that it has the functionality of playing the game of chess with one user (the programmer) which could take 1-2 months from the last milestone depending on the functionality. The next milestone would be to make sure the game can be played by testing it, then then testing it with two human players which should take about a week or two of testing and fixing the problems. The next milestone would be write the code for the AI to work properly which could take about 1 month after the last milestone. Then the next milestone would be to try to make the game work for the player and AI together which will be completed by a month before the project is due. Then bug fixes and other tests should be run in the remaining month before the project is finished. 
   
 \item \textbf{Everything in your process should be verified, including the
     verification.  How might you verify your verification?}
 
-  - answer here
+Verification is the ease with which the product's properties such as correctness and performance can be verified. You might be able to verify your verification by writing down requirements in which those requirements specify what the game should be able to do and what the program must be able to do by the end of the project. This checklist can be verified by other members of the group agreeing on these requirements, the supervisor agreeing that these are the requirements that need to be met, as well as other groups which may be working on similar problems to make sure that what you are trying to verify in your project is indeed what would be considered correct in terms of its performance and functionality.
   
-\item \textbf{How do you propose verifying the installability of your game?}
+\item \textbf{How do you propose verifying the installibility of your game?}
 
-  - answer here
+You might be able to verify the installibility of your game by having your group members test installing it, as well as having other people not just from your software class, but from other disciplines and programs try to install it too. Then they can give you a score out of whatever metric you decide to give you a more accurate assessment of how your program;s installibility is and can give you feedback on how to improve it. 
   
 \end{enumerate}
 
@@ -380,6 +380,8 @@ $\mathit{Xturn}$: $\mathbb{B}$
 
 \wss{Place your state invariant or invariants here}\\
 
+SIZE = 3 \textit{\# The size of the game board is always 3x3} ~\\
+
 \subsubsection* {Assumptions}
 
 The init method is called for the abstract object before any other access routine is called for that
@@ -418,7 +420,10 @@ $exc := (\mbox{InvalidPosition}(i, j) \Rightarrow \mbox{OutOfBoundsException})$
 
 \noindent get\_turn():
 \begin{itemize}
-\item output: \wss{Return the cellT that corresponds to the current turn}\\
+\item output: 
+
+
+\wss{Return the cellT that corresponds to the current turn}\\
 
 \item exception: none
 \end{itemize}
@@ -438,7 +443,10 @@ $exc := (\mbox{InvalidPosition}(i, j) \Rightarrow \mbox{OutOfBoundsException})$
 
 \noindent is\_game\_over():
 \begin{itemize}
-\item output: \wss{Returns true if X or O wins, or if there are no more moves remaining}\\
+\item output: $(if\_winner(c[0]) \Rightarrow True | if\_winner(c[1]) \Rightarrow True | $
+\textit{\# Where c[0] is X and c[1] is O}~\\\
+
+\wss{Returns true if X or O wins, or if there are no more moves remaining}\\
 
 \item exception: none
 \end{itemize}
@@ -459,6 +467,8 @@ InvalidPosition$(i, j) \equiv \neg ( ( 0 \leq i < \mbox{SIZE} ) \wedge ( 0 \leq 
 ~\newline
 \wss{For the current board return the number of occurrences of the cellT
   argument}
+
+
 ~\newline
 
 
@@ -480,6 +490,9 @@ vertical\_win$(c, b) \equiv \exists (j : \mathbb{N} | 0 \leq j < \mbox{SIZE} : b
 ~\newline
 \wss{Returns true if one of the diagonals for the board has all of the entries
   equal to cellT}
+
+diagonal\_win$(c, b) \equiv \exists (j : \mathbb{N} | 0 \leq j < \mbox{SIZE} : b[0, 0] = b[1, 1] = b[2, 2] = c)$
+
 ~\newline
 
 
