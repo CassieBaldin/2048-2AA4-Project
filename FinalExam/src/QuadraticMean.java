@@ -1,9 +1,9 @@
 package src;
 import java.util.*;
 
-public class QuadraticMean extends MeanCalculator
+public class QuadraticMean implements MeanCalculator
 {
-    public static Double meanCalc(ArrayList<Double> v) {
+    public Double meanCalc(ArrayList<Double> v) {
         double qmean = 0;
         double quad = 0;
 
