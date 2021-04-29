@@ -1,9 +1,9 @@
 package src;
 import java.util.*;
 
-public class HarmonicMean extends MeanCalculator
+public class HarmonicMean implements MeanCalculator
 {
-    public static Double meanCalc(ArrayList<Double> v) {
+    public Double meanCalc(ArrayList<Double> v) {
         double hmean = 0;
         double recip = 0;
 
