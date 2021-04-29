@@ -3,7 +3,7 @@ import java.util.*;
 
 public class QuadraticMean extends MeanCalculator
 {
-    public static double meanCalc(double[] v) {
+    public static Double meanCalc(ArrayList<Double> v) {
         double qmean = 0;
         double quad = 0;
 
@@ -11,7 +11,7 @@ public class QuadraticMean extends MeanCalculator
             quad = quad + x*x;
         }
 
-        qmean = Math.sqrt(quad/v.length);
+        qmean = Math.sqrt(quad/v.size());
         return qmean;
     }
 }
