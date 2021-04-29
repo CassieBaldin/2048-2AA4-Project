@@ -1,8 +1,9 @@
 package src;
+import java.util.*;
 
 public class HarmonicMean extends MeanCalculator
 {
-    public static double meanCalc(double[] v) {
+    public static Double meanCalc(ArrayList<Double> v) {
         double hmean = 0;
         double recip = 0;
 
@@ -10,7 +11,7 @@ public class HarmonicMean extends MeanCalculator
             recip = recip + 1/x;
         }
 
-        hmean = v.length/recip;
+        hmean = v.size()/recip;
         return hmean;
     }
 }
