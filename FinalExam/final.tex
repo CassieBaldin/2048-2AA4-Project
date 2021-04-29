@@ -269,8 +269,8 @@ human opponents, or locally between a human and an Artificial Intelligence
     hours do you estimate that your team has available for verification related
     activities?  Please justify your answer.}
 
-  - answer here
-  
+I would estimate that the collective hours that the team would spend on verification would be two or so hours per person a week, to get together and make sure that what everyone is working on is indeed what they should be and that everyone is sticking to the plan that was made in the last question to reach the milestones in time. 
+
 \item \textbf{Given the estimated hours available for verification, what verification
     techniques do you recommend for your team?  Please list the techniques,
     along with the number of hours your team will spend on each technique, and
@@ -281,7 +281,7 @@ human opponents, or locally between a human and an Artificial Intelligence
 \item \textbf{Is the oracle problem a concern for implementing your game?  Why
     or why not?  If it is a concern, how do you recommend testing your software?}
 
-  - answer here
+Yes the oracle problem might be a concern for this as we would not be exactly sure how to implement the AI to be appropriate for a human to play against. This could be tested by player playing against it in order to adjust the play of the AI. 
     
 \end{enumerate}
 
@@ -443,7 +443,7 @@ $exc := (\mbox{InvalidPosition}(i, j) \Rightarrow \mbox{OutOfBoundsException})$
 
 \noindent is\_game\_over():
 \begin{itemize}
-\item output: $(if\_winner(c[0]) \Rightarrow True | if\_winner(c[1]) \Rightarrow True | $
+\item output: $(if\_winner(c[0]) \Rightarrow True | if\_winner(c[1]) \Rightarrow True | count(c) = 9 \Rightarrow True $
 \textit{\# Where c[0] is X and c[1] is O}~\\\
 
 \wss{Returns true if X or O wins, or if there are no more moves remaining}\\
