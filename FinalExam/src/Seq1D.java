@@ -1,12 +1,13 @@
 package src;
+import java.util.*;
 
 public class Seq1D
 {
-    private double[]s;
+    private ArrayList<Double> s;
     private MeanCalculator meanCalculator;
 
-    public Seq1D(double[] x, MeanCalculator m) {
-        if (x.length == 0) {
+    public Seq1D(ArrayList<Double> x, MeanCalculator m) {
+        if (x.size() == 0) {
             throw new IllegalArgumentException("Sequence must be greater than zero");
         }
         s = x;
@@ -17,7 +18,7 @@ public class Seq1D
         meanCalculator = new_m;
     }
 
-    public double mean() {
+    public Double mean() {
         return meanCalculator.meanCalc(s);
     }
 }
